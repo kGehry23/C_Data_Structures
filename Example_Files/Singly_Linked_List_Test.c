@@ -24,6 +24,9 @@ int main()
     // add_node(2);
 
     display_linked_list();
+    int head_element = return_head_element();
+
+    printf("\nHead Element: %d", head_element);
 
     return 0;
 }
