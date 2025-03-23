@@ -11,13 +11,11 @@ int list_size;
 // Prints the linked list to the terminal
 void display_linked_list()
 {
-
     struct Singly_Linked_List_Node node = *head;
     printf("\n");
 
     while (node.next != NULL)
     {
-
         printf("%d->", node.value);
         node = *(node.next);
     }
