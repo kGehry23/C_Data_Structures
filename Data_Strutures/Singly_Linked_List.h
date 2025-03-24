@@ -32,7 +32,7 @@ void display_linked_list()
 // Returns the element at the head of the linked list
 int return_head_element()
 {
-    return (head).value;
+    return head.value;
 }
 
 // Returns the length of the linked list
@@ -77,4 +77,37 @@ void add_node(int value)
 // Removes a node from the linked list
 void remove_node(int value)
 {
+    struct Singly_Linked_List_Node search_node = head;
+    struct Singly_Linked_List_Node previous_node;
+
+    while (search_node.next != NULL)
+    {
+
+        if (search_node.value == value)
+        {
+            printf("\nValue: %d", search_node.value);
+            printf("\nHead Value: %d", head.value);
+
+            if (search_node.value == head.value)
+            {
+                search_node = *(search_node).next;
+                head.value = search_node.value;
+                head.next = search_node.next;
+            }
+            else
+            {
+            }
+
+            printf("\nNode with value %d removed.", value);
+            break;
+        }
+
+        previous_node = search_node;
+        search_node = *(search_node).next;
+
+        if (search_node.next == NULL)
+        {
+            printf("\nNode with value %d not found.", value);
+        }
+    }
 }

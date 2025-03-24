@@ -15,5 +15,18 @@ int main()
     int size = list_length();
     printf("\nSize of list: %d", size);
 
+    int head_elem = return_head_element();
+    printf("\nHead Elem: %d", head_elem);
+
+    remove_node(2);
+    display_linked_list();
+
+    head_elem = return_head_element();
+    printf("\nHead Elem: %d", head_elem);
+
+    struct Singly_Linked_List_Node node_test = *(head.next);
+
+    printf("\nNext elem: %d", node_test.value);
+
     return 0;
 }
