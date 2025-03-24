@@ -77,32 +77,42 @@ void add_node(int value)
 // Removes a node from the linked list
 void remove_node(int value)
 {
+    // Place holder node used to hold the nodes as the list is traversed
     struct Singly_Linked_List_Node search_node = head;
-    struct Singly_Linked_List_Node previous_node;
+    // Pointer used to keep a reference to the previous node in the traversal
+    struct Singly_Linked_List_Node *previous_node = &head;
 
     while (search_node.next != NULL)
     {
-
+        // Logic for if the node to remove is found
         if (search_node.value == value)
         {
-            printf("\nValue: %d", search_node.value);
-            printf("\nHead Value: %d", head.value);
-
+            // If the node is the head element, the head element is re-assigned
             if (search_node.value == head.value)
             {
+                // search node is assigned to the following node
                 search_node = *(search_node).next;
+                // The value and pointer of the head node are re-assigned
                 head.value = search_node.value;
                 head.next = search_node.next;
             }
+            // If the node to remove is any other element in the list
             else
             {
+                // Re-assigns the previous node's pointer to point to the node after the node to remove
+                (*previous_node).next = search_node.next;
             }
 
             printf("\nNode with value %d removed.", value);
             break;
         }
 
-        previous_node = search_node;
+        // If the current node is not the head node, the pointer to the previous element is re-assigned
+        if (search_node.value != head.value)
+        {
+            previous_node = (*previous_node).next;
+        }
+
         search_node = *(search_node).next;
 
         if (search_node.next == NULL)
