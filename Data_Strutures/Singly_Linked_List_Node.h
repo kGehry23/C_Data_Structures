@@ -1,6 +1,6 @@
 /**
  ********************************************************************************
- * @file    Singly_Linked_List_Node.
+ * @file    singly_linked_list_node.h
  * @author  Kai Gehry
  * @date    2025-03-25
  * @brief

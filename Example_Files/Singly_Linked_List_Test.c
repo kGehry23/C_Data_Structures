@@ -1,6 +1,6 @@
 /**
  ********************************************************************************
- * @file    Singly_Linked_List_Test.c
+ * @file    singly_linked_list_test.c
  * @author  Kai Gehry
  * @date    2025-03-25
  * @brief
