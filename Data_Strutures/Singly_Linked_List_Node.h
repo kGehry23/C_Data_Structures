@@ -12,10 +12,10 @@
 /*
     Struct which represents a node in a singly linked list.
 */
-typedef struct
+typedef struct Singly_Linked_List_Node
 {
     // Value held by the node
     int value;
     // pointer to the next node in the singly linked list
-    Singly_Linked_List_Node *next;
+    struct Singly_Linked_List_Node *next;
 } Singly_Linked_List_Node;
