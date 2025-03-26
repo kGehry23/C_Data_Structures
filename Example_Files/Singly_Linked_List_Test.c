@@ -13,7 +13,6 @@
 /*
     File used to test the functionality of the singly linked list header file.
 */
-
 int main()
 {
 

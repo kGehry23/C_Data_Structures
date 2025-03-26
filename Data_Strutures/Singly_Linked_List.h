@@ -16,8 +16,8 @@
 */
 typedef struct
 {
-    struct Singly_Linked_List_Node head;
-    struct Singly_Linked_List_Node *current;
+    Singly_Linked_List_Node head;
+    Singly_Linked_List_Node *current;
     int list_size;
 } Singly_Linked_List;
 
@@ -42,7 +42,7 @@ void display_linked_list(Singly_Linked_List *list)
     }
     else
     {
-        struct Singly_Linked_List_Node node = list->head;
+        Singly_Linked_List_Node node = list->head;
         printf("\n");
 
         while (node.next != NULL)
@@ -77,9 +77,9 @@ int list_length(Singly_Linked_List *list)
 void add_node(Singly_Linked_List *list, int value)
 {
     // Linked list node pointer which represents the new node to be added
-    struct Singly_Linked_List_Node *new_node = (struct Singly_Linked_List_Node *)malloc(sizeof(struct Singly_Linked_List_Node));
+    Singly_Linked_List_Node *new_node = (Singly_Linked_List_Node *)malloc(sizeof(Singly_Linked_List_Node));
     // Linked list node pointer which represents the next node the newly added node points to
-    struct Singly_Linked_List_Node *next_node = (struct Singly_Linked_List_Node *)malloc(sizeof(struct Singly_Linked_List_Node));
+    Singly_Linked_List_Node *next_node = (Singly_Linked_List_Node *)malloc(sizeof(Singly_Linked_List_Node));
 
     if (list->list_size != 0)
     {
@@ -112,9 +112,9 @@ void add_node(Singly_Linked_List *list, int value)
 void remove_node(Singly_Linked_List *list, int value)
 {
     // Place holder node used to hold the nodes as the list is traversed
-    struct Singly_Linked_List_Node search_node = list->head;
+    Singly_Linked_List_Node search_node = list->head;
     // Pointer used to keep a reference to the previous node in the traversal
-    struct Singly_Linked_List_Node *previous_node = &(list->head);
+    Singly_Linked_List_Node *previous_node = &(list->head);
 
     while (search_node.next != NULL)
     {
