@@ -1,6 +1,6 @@
 /**
  ********************************************************************************
- * @file    Singly_Linked_List_Node.h
+ * @file    Singly_Linked_List_Node.
  * @author  Kai Gehry
  * @date    2025-03-25
  * @brief
@@ -12,10 +12,10 @@
 /*
     Struct which represents a node in a singly linked list.
 */
-typedef struct Singly_Linked_List_Node
+typedef struct singly_linked_list_node
 {
     // Value held by the node
     int value;
     // pointer to the next node in the singly linked list
-    struct Singly_Linked_List_Node *next;
-} Singly_Linked_List_Node;
+    struct singly_linked_list_node *next;
+} singly_linked_list_node;

@@ -13,11 +13,11 @@
 /*
     File used to test the functionality of the singly linked list header file.
 */
-int main()
+int main(void)
 {
 
     // Creates a new linked list
-    Singly_Linked_List list1;
+    singly_linked_list list1;
 
     // Initializes the size of the linked list to 0
     initialize_list(&list1);
@@ -36,10 +36,10 @@ int main()
 
     // Displays the number of elements in the list
     int size = list_length(&list1);
-    printf("\nSize of list: %d", size);
+    printf("\nSize of list: %d\n\n", size);
 
     // Creates another linked list and adds and removes from it
-    Singly_Linked_List list2;
+    singly_linked_list list2;
     initialize_list(&list2);
 
     add_node(&list2, 3);

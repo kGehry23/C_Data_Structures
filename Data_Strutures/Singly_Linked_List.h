@@ -16,15 +16,15 @@
 */
 typedef struct
 {
-    Singly_Linked_List_Node head;
-    Singly_Linked_List_Node *current;
+    singly_linked_list_node head;
+    singly_linked_list_node *current;
     int list_size;
-} Singly_Linked_List;
+} singly_linked_list;
 
 /*
     Initializes a singly linked list type by setting its list_size variable to 0.
 */
-void initialize_list(Singly_Linked_List *list)
+void initialize_list(singly_linked_list *list)
 {
     list->list_size = 0;
 }
@@ -32,7 +32,7 @@ void initialize_list(Singly_Linked_List *list)
 /*
     Prints the contents of the singly linked list to the terminal.
 */
-void display_linked_list(Singly_Linked_List *list)
+void display_linked_list(singly_linked_list *list)
 {
 
     // If the list is empty, NULL is printed
@@ -42,7 +42,7 @@ void display_linked_list(Singly_Linked_List *list)
     }
     else
     {
-        Singly_Linked_List_Node node = list->head;
+        singly_linked_list_node node = list->head;
         printf("\n");
 
         while (node.next != NULL)
@@ -58,7 +58,7 @@ void display_linked_list(Singly_Linked_List *list)
 /*
     Returns the element at the head of the singly linked list.
 */
-int return_head_element(Singly_Linked_List *list)
+int return_head_element(singly_linked_list *list)
 {
     return (list->head).value;
 }
@@ -66,7 +66,7 @@ int return_head_element(Singly_Linked_List *list)
 /*
     Returns the length of the singly linked list.
 */
-int list_length(Singly_Linked_List *list)
+int list_length(singly_linked_list *list)
 {
     return list->list_size;
 }
@@ -74,12 +74,12 @@ int list_length(Singly_Linked_List *list)
 /*
     Adds a node to the singly linked list.
 */
-void add_node(Singly_Linked_List *list, int value)
+void add_node(singly_linked_list *list, int value)
 {
     // Linked list node pointer which represents the new node to be added
-    Singly_Linked_List_Node *new_node = (Singly_Linked_List_Node *)malloc(sizeof(Singly_Linked_List_Node));
+    singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
     // Linked list node pointer which represents the next node the newly added node points to
-    Singly_Linked_List_Node *next_node = (Singly_Linked_List_Node *)malloc(sizeof(Singly_Linked_List_Node));
+    singly_linked_list_node *next_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
 
     if (list->list_size != 0)
     {
@@ -109,12 +109,12 @@ void add_node(Singly_Linked_List *list, int value)
 /*
     Removes a node from the singly linked list.
 */
-void remove_node(Singly_Linked_List *list, int value)
+void remove_node(singly_linked_list *list, int value)
 {
     // Place holder node used to hold the nodes as the list is traversed
-    Singly_Linked_List_Node search_node = list->head;
+    singly_linked_list_node search_node = list->head;
     // Pointer used to keep a reference to the previous node in the traversal
-    Singly_Linked_List_Node *previous_node = &(list->head);
+    singly_linked_list_node *previous_node = &(list->head);
 
     while (search_node.next != NULL)
     {
