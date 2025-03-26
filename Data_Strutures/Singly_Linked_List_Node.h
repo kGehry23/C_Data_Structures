@@ -1,6 +1,17 @@
+/**
+ ********************************************************************************
+ * @file    Singly_Linked_List_Test.c
+ * @author  Kai Gehry
+ * @date    2025-03-25
+ * @brief
+ ********************************************************************************
+ */
+
 #include <stdio.h>
 
-// Struct used to define the attributes of a node in a singly linked list
+/*
+    Struct which represents a node in a singly linked list.
+*/
 struct Singly_Linked_List_Node
 {
     // Value held by the node

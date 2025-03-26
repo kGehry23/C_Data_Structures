@@ -7,44 +7,12 @@
  ********************************************************************************
  */
 
-/************************************
- * INCLUDES
- ************************************/
-
 #include <stdio.h>
 #include "C:\Users\Kai Gehry\Desktop\C\C_Data_Structures\Data_Strutures\Singly_Linked_List.h"
 
-/************************************
- * EXTERN VARIABLES
- ************************************/
-
-/************************************
- * PRIVATE MACROS AND DEFINES
- ************************************/
-
-/************************************
- * PRIVATE TYPEDEFS
- ************************************/
-
-/************************************
- * STATIC VARIABLES
- ************************************/
-
-/************************************
- * GLOBAL VARIABLES
- ************************************/
-
-/************************************
- * STATIC FUNCTION PROTOTYPES
- ************************************/
-
-/************************************
- * STATIC FUNCTIONS
- ************************************/
-
-/************************************
- * GLOBAL FUNCTIONS
- ************************************/
+/*
+    File used to test the functionality of the singly linked list header file.
+*/
 
 int main()
 {
@@ -63,7 +31,7 @@ int main()
 
     display_linked_list(&list1);
 
-    // Removes an items
+    // Removes an item
     remove_node(&list1, 2);
     display_linked_list(&list1);
 
@@ -72,16 +40,16 @@ int main()
     printf("\nSize of list: %d", size);
 
     // Creates another linked list and adds and removes from it
-    Singly_Linked_List list1;
-    initialize_list(&list1);
+    Singly_Linked_List list2;
+    initialize_list(&list2);
 
-    add_node(&list1, 3);
-    add_node(&list1, 4);
+    add_node(&list2, 3);
+    add_node(&list2, 4);
 
-    display_linked_list(&list1);
-    remove_node(&list1, 4);
-    remove_node(&list1, 3);
-    display_linked_list(&list1);
+    display_linked_list(&list2);
+    remove_node(&list2, 4);
+    remove_node(&list2, 3);
+    display_linked_list(&list2);
 
     return 0;
 }

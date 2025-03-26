@@ -1,8 +1,20 @@
+/**
+ ********************************************************************************
+ * @file    Singly_Linked_List_Test.c
+ * @author  Kai Gehry
+ * @date    2025-03-25
+ * @brief
+ ********************************************************************************
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include "Singly_Linked_List_Node.h"
 
+/*
+    Struct representing a singly linked list.
+*/
 typedef struct
 {
     struct Singly_Linked_List_Node head;
@@ -10,16 +22,26 @@ typedef struct
     int list_size;
 } Singly_Linked_List;
 
+/*
+    Initializes a singly linked list type by setting its list_size variable to 0.
+*/
 void initialize_list(Singly_Linked_List *list)
 {
     list->list_size = 0;
 }
 
-// Prints the linked list to the terminal
+/*
+    Prints the contents of the singly linked list to the terminal.
+*/
 void display_linked_list(Singly_Linked_List *list)
 {
 
-    if (list->list_size != 0)
+    // If the list is empty, NULL is printed
+    if ((list->list_size == 0))
+    {
+        printf("\nNULL");
+    }
+    else
     {
         struct Singly_Linked_List_Node node = list->head;
         printf("\n");
@@ -29,24 +51,30 @@ void display_linked_list(Singly_Linked_List *list)
             printf("%d->", (node).value);
             node = *(node.next);
         }
-    }
 
-    printf("NULL");
+        printf("NULL");
+    }
 }
 
-// Returns the element at the head of the linked list
+/*
+    Returns the element at the head of the singly linked list.
+*/
 int return_head_element(Singly_Linked_List *list)
 {
     return (list->head).value;
 }
 
-// Returns the length of the linked list
+/*
+    Returns the length of the singly linked list.
+*/
 int list_length(Singly_Linked_List *list)
 {
     return list->list_size;
 }
 
-// Adds a node to the linked list
+/*
+    Adds a node to the singly linked list.
+*/
 void add_node(Singly_Linked_List *list, int value)
 {
     // Linked list node pointer which represents the new node to be added
@@ -79,7 +107,9 @@ void add_node(Singly_Linked_List *list, int value)
     list->list_size++;
 }
 
-// Removes a node from the linked list
+/*
+    Removes a node from the singly linked list.
+*/
 void remove_node(Singly_Linked_List *list, int value)
 {
     // Place holder node used to hold the nodes as the list is traversed
