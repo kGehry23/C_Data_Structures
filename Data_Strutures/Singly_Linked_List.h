@@ -155,3 +155,11 @@ void remove_node(singly_linked_list *list, int value)
         }
     }
 }
+
+// Removes the node at the head of the singly linked list
+void remove_head_node(singly_linked_list *list)
+{
+    list->head = *((list->head).next);
+
+    list->list_size--;
+}
