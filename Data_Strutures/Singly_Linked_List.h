@@ -72,21 +72,53 @@ int list_length(singly_linked_list *list)
 }
 
 /*
-    Adds a node to the singly linked list.
+    Adds a node to the front of the singly linked list.
 */
-void add_node(singly_linked_list *list, int value)
+void add_node_to_head(singly_linked_list *list, int insert_value)
 {
-    // Linked list node pointer which represents the new node to be added
-    singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
+
+    // Defines the head of the linked list
+    if (list->list_size == 0)
+    {
+        // Linked list node pointer which represents the next node the newly added node points to
+        singly_linked_list_node *next_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
+
+        // Sets the node which previously pointed to the end of the list to the new node at the end of the list
+        list->current = next_node;
+        // Sets the end of the list's next pointer to NULL
+        (*(list->current)).next = NULL;
+
+        (list->head).value = insert_value;
+        (list->head).next = list->current;
+    }
+    else
+    {
+        // Linked list node pointer which represents the new node to be added
+        singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
+
+        // FIGURE THIS OUT. Issues with a head pointer not being able to be reassigned.
+    }
+
+    list->list_size++;
+}
+
+/*
+    Adds a node to the the end of the singly linked list.
+*/
+void add_node_to_tail(singly_linked_list *list, int insert_value)
+{
+
     // Linked list node pointer which represents the next node the newly added node points to
     singly_linked_list_node *next_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
 
     if (list->list_size != 0)
     {
+        // Linked list node pointer which represents the new node to be added
+        singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
         // Sets new node to point to the address of the node at the end of the list
         new_node = list->current;
         // Sets the value of the new node
-        (*new_node).value = value;
+        (*new_node).value = insert_value;
         // Points to the node which will now be at the end of the list
         (*new_node).next = next_node;
     }
@@ -99,7 +131,7 @@ void add_node(singly_linked_list *list, int value)
     // Defines the head of the linked list
     if (list->list_size == 0)
     {
-        (list->head).value = value;
+        (list->head).value = insert_value;
         (list->head).next = list->current;
     }
 
