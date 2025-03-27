@@ -30,28 +30,30 @@ int main(void)
 
     display_linked_list(&list1);
 
-    remove_head_node(&list1);
+    int removed_value = remove_node(&list1, 1);
+
+    printf("\nValue: %d", removed_value);
     display_linked_list(&list1);
 
-    // // Removes an item
-    // remove_node(&list1, 2);
-    // display_linked_list(&list1);
+    // Removes an item
+    remove_node(&list1, 2);
+    display_linked_list(&list1);
 
-    // // Displays the number of elements in the list
-    // int size = list_length(&list1);
-    // printf("\nSize of list: %d\n\n", size);
+    // Displays the number of elements in the list
+    int size = list_length(&list1);
+    printf("\nSize of list: %d\n\n", size);
 
-    // // Creates another linked list and adds and removes from it
-    // singly_linked_list list2;
-    // initialize_list(&list2);
+    // Creates another linked list and adds and removes from it
+    singly_linked_list list2;
+    initialize_list(&list2);
 
-    // add_node(&list2, 3);
-    // add_node(&list2, 4);
+    add_node(&list2, 3);
+    add_node(&list2, 4);
 
-    // display_linked_list(&list2);
-    // remove_node(&list2, 4);
-    // remove_node(&list2, 3);
-    // display_linked_list(&list2);
+    display_linked_list(&list2);
+    remove_node(&list2, 4);
+    remove_node(&list2, 3);
+    display_linked_list(&list2);
 
     return 0;
 }

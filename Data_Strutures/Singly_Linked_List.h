@@ -107,14 +107,16 @@ void add_node(singly_linked_list *list, int value)
 }
 
 /*
-    Removes a node from the singly linked list.
+    Removes a node from the singly linked list and returns its stored value.
 */
-void remove_node(singly_linked_list *list, int value)
+int remove_node(singly_linked_list *list, int value)
 {
     // Place holder node used to hold the nodes as the list is traversed
     singly_linked_list_node search_node = list->head;
     // Pointer used to keep a reference to the previous node in the traversal
     singly_linked_list_node *previous_node = &(list->head);
+    // Variable which will hold the node's stored value
+    int node_value;
 
     while (search_node.next != NULL)
     {
@@ -127,6 +129,7 @@ void remove_node(singly_linked_list *list, int value)
                 // search node is assigned to the following node
                 search_node = *(search_node).next;
                 // The value and pointer of the head node are re-assigned
+                node_value = (list->head).value;
                 (list->head).value = search_node.value;
                 (list->head).next = search_node.next;
             }
@@ -134,11 +137,12 @@ void remove_node(singly_linked_list *list, int value)
             else
             {
                 // Re-assigns the previous node's pointer to point to the node after the node to remove
+                node_value = search_node.value;
                 (*previous_node).next = search_node.next;
             }
 
             list->list_size--;
-            break;
+            return node_value;
         }
 
         // If the current node is not the head node, the pointer to the previous element is re-assigned
@@ -149,17 +153,24 @@ void remove_node(singly_linked_list *list, int value)
 
         search_node = *(search_node).next;
 
+        //-1 is returned if the element is not found
         if (search_node.next == NULL)
         {
             printf("\nNode with value %d not found.", value);
+            return -1;
         }
     }
 }
 
-// Removes the node at the head of the singly linked list
-void remove_head_node(singly_linked_list *list)
+/*
+    Removes the node at the head of the singly linked list and returns its stored value.
+*/
+int remove_head_node(singly_linked_list *list)
 {
+    int stored_value = (list->head).value;
     list->head = *((list->head).next);
 
     list->list_size--;
+
+    return stored_value;
 }
