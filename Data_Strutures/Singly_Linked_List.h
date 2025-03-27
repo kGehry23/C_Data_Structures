@@ -142,6 +142,13 @@ void add_node_to_tail(singly_linked_list *list, int insert_value)
 }
 
 /*
+    Adds a node to a position after a specified node.
+*/
+void insert_node(singly_linked_list *list, int insert_value, int insert_after_value)
+{
+}
+
+/*
     Removes a node from the singly linked list.
 */
 void remove_node(singly_linked_list *list, int value)
