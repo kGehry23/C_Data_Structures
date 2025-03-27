@@ -24,9 +24,9 @@ int main(void)
     // Displays the contents of the linked list
     display_linked_list(&list1);
 
-    // Adds items to the list
-    add_node_to_tail(&list1, 1);
-    add_node_to_tail(&list1, 2);
+    // Adds items to the head of the linked list
+    add_node_to_head(&list1, 1);
+    add_node_to_head(&list1, 2);
 
     display_linked_list(&list1);
 
@@ -42,6 +42,7 @@ int main(void)
     singly_linked_list list2;
     initialize_list(&list2);
 
+    // Adds items to the tail of the linked list
     add_node_to_tail(&list2, 3);
     add_node_to_tail(&list2, 4);
 

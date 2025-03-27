@@ -96,7 +96,10 @@ void add_node_to_head(singly_linked_list *list, int insert_value)
         // Linked list node pointer which represents the new node to be added
         singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
 
-        // FIGURE THIS OUT. Issues with a head pointer not being able to be reassigned.
+        new_node->value = (list->head).value;
+        new_node->next = (list->head).next;
+        (list->head).value = insert_value;
+        (list->head).next = new_node;
     }
 
     list->list_size++;
