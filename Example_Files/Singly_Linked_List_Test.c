@@ -10,7 +10,7 @@
  */
 
 #include <stdio.h>
-#include "C:\Users\Kai Gehry\Desktop\C\C_Data_Structures\Data_Strutures\Singly_Linked_List.h"
+#include "C:\Users\Kai Gehry\Desktop\C\C_Data_Structures\Data_Strutures\singly_linked_list.h"
 
 /*
     File used to test the functionality of the singly linked list header file.

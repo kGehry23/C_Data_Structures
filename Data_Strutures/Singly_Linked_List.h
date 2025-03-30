@@ -9,7 +9,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Singly_Linked_List_Node.h"
+#include "singly_linked_list_node.h"
 
 /*
     Struct representing a singly linked list.
