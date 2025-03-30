@@ -3,7 +3,9 @@
  * @file    singly_linked_list_test.c
  * @author  Kai Gehry
  * @date    2025-03-25
- * @brief
+ *
+ * @brief   Tests the functionality of the functions defined in
+ *          the singly_linked_list header file.
  ********************************************************************************
  */
 
@@ -28,15 +30,21 @@ int main(void)
     add_node_to_head(&list1, 1);
     add_node_to_head(&list1, 2);
 
+    int size = list_length(&list1);
+
     display_linked_list(&list1);
+    printf("\nHead Element: %d", return_head_element(&list1));
+    printf("\nSize of list: %d", size);
 
     // Removes an item
     remove_node(&list1, 2);
     display_linked_list(&list1);
 
     // Displays the number of elements in the list
-    int size = list_length(&list1);
-    printf("\nSize of list: %d\n\n", size);
+    int size2 = list_length(&list1);
+
+    printf("\nSize of list: %d", size2);
+    printf("\nHead Element: %d\n\n", return_head_element(&list1));
 
     // Creates another linked list and adds and removes from it
     singly_linked_list list2;
