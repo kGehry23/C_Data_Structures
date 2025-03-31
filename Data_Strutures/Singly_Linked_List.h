@@ -34,7 +34,7 @@ void initialize_list(singly_linked_list *list)
 
 /*!
  * @brief Prints the contents of the singly linked list to the terminal.
- * @param list Pointer to the linked list being initalized.
+ * @param list Pointer to a linked list struct.
  * @return None
  */
 void display_linked_list(singly_linked_list *list)
@@ -44,6 +44,7 @@ void display_linked_list(singly_linked_list *list)
     {
         printf("\nNULL");
     }
+    // If the list is not empty, the list is traversed and the elements are printed to the terminal
     else
     {
         singly_linked_list_node *node = list->head;
@@ -61,7 +62,7 @@ void display_linked_list(singly_linked_list *list)
 
 /*!
  * @brief Returns the element at the tail of the singly linked list.
- * @param list Pointer to the linked list being initalized.
+ * @param list Pointer to a linked list struct.
  * @return The value held at the tail of the linked list.
  */
 int return_tail_element(singly_linked_list *list)
@@ -71,7 +72,7 @@ int return_tail_element(singly_linked_list *list)
 
 /*!
  * @brief Returns the element at the head of the singly linked list.
- * @param list Pointer to the linked list being initalized.
+ * @param list Pointer to a linked list struct.
  * @return The value held at the head of the linked list.
  */
 int return_head_element(singly_linked_list *list)
@@ -81,7 +82,7 @@ int return_head_element(singly_linked_list *list)
 
 /*!
  * @brief Returns the length of the singly linked list.
- * @param list Pointer to the linked list being initalized.
+ * @param list Pointer to a linked list struct.
  * @return The value held at the head of the linked list.
  */
 int list_length(singly_linked_list *list)
@@ -91,7 +92,7 @@ int list_length(singly_linked_list *list)
 
 /*!
  * @brief Adds a node to the front of the singly linked list.
- * @param list Pointer to the linked list being initalized.
+ * @param list Pointer to a linked list struct.
  * @param insert_value Value to insert at the head of the list.
  * @return None
  */
@@ -123,7 +124,7 @@ void add_node_to_head(singly_linked_list *list, int insert_value)
 
 /*!
  * @brief Adds a node to the the end of the singly linked list.
- * @param list Pointer to the linked list being initalized.
+ * @param list Pointer to a linked list struct.
  * @param insert_value Value to insert at the tail of the list.
  * @return None
  */
@@ -158,7 +159,7 @@ void add_node_to_tail(singly_linked_list *list, int insert_value)
 
 /*!
  * @brief Adds a node to a position after a specified node.
- * @param list Pointer to the linked list being initalized.
+ * @param list Pointer to a linked list struct.
  * @param insert_value Value to insert into the list.
  * @param insert_after_value The value of the element to insert an element after.
  * @return None
@@ -199,7 +200,7 @@ void insert_node(singly_linked_list *list, int insert_value, int insert_after_va
 
 /*!
  * @brief Removes and returns the value of an element.
- * @param list Pointer to the linked list being initalized.
+ * @param list Pointer to a linked list struct.
  * @param removal_value Value to remove from the list.
  * @return The value of the element to be removed.
  */
