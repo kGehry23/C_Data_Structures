@@ -12,6 +12,7 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
+#include <stdbool.h>
 #include "Singly_Linked_List.h"
 
 /*!
@@ -71,6 +72,16 @@ int first(linked_list_queue *queue)
 int size(linked_list_queue *queue)
 {
     return list_length(&(queue->list));
+}
+
+/*!
+ * @brief Returns if the queue is empty or not.
+ * @param queue Pointer to a linked list queue.
+ * @return A boolean value representing if the queue is empty (1) or not empty (0)
+ */
+bool is_empty(linked_list_queue *queue)
+{
+    return list_length(&(queue->list)) == 0;
 }
 
 /*!
