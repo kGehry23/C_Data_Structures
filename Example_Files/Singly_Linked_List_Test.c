@@ -28,36 +28,48 @@ int main(void)
 
     // Adds items to the head of the linked list
     add_node_to_head(&list1, 1);
-    add_node_to_head(&list1, 2);
+    printf("\nCurrent end elem: %d", return_current(&list1));
+    add_node_to_tail(&list1, 2);
+    printf("\nCurrent end elem: %d", return_current(&list1));
 
-    int size = list_length(&list1);
+    // int size = list_length(&list1);
 
-    display_linked_list(&list1);
-    printf("\nHead Element: %d", return_head_element(&list1));
-    printf("\nSize of list: %d", size);
+    // display_linked_list(&list1);
+    // printf("\nHead Element: %d", return_head_element(&list1));
+    // printf("\nSize of list: %d", size);
 
-    // Removes an item
-    remove_node(&list1, 2);
-    display_linked_list(&list1);
+    // insert_node(&list1, 5, 1);
+    // insert_node(&list1, 6, 5);
+    // printf("\nCurrent end elem: %d", return_current(&list1));
 
-    // Displays the number of elements in the list
-    int size2 = list_length(&list1);
+    // int size2 = list_length(&list1);
 
-    printf("\nSize of list: %d", size2);
-    printf("\nHead Element: %d\n\n", return_head_element(&list1));
+    // printf("\nSize of list: %d", size2);
 
-    // Creates another linked list and adds and removes from it
-    singly_linked_list list2;
-    initialize_list(&list2);
+    // display_linked_list(&list1);
 
-    // Adds items to the tail of the linked list
-    add_node_to_tail(&list2, 3);
-    add_node_to_tail(&list2, 4);
+    // // Removes an item
+    // remove_node(&list1, 2);
+    // display_linked_list(&list1);
 
-    display_linked_list(&list2);
-    remove_node(&list2, 4);
-    remove_node(&list2, 3);
-    display_linked_list(&list2);
+    // // Displays the number of elements in the list
+    // int size2 = list_length(&list1);
+
+    // printf("\nSize of list: %d", size2);
+    // printf("\nHead Element: %d\n\n", return_head_element(&list1));
+
+    // // Creates another linked list and adds and removes from it
+    // singly_linked_list list2;
+    // initialize_list(&list2);
+
+    // // Adds items to the tail of the linked list
+    // add_node_to_tail(&list2, 3);
+    // add_node_to_tail(&list2, 4);
+
+    // display_linked_list(&list2);
+    // remove_node(&list2, 4);
+    // remove_node(&list2, 3);
+    // display_linked_list(&list2);
 
     return 0;
 }
