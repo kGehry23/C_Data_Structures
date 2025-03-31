@@ -3,16 +3,21 @@
  * @file    linked_list_queue_test.c
  * @author  Kai Gehry
  * @date    2025-03-26
- * @brief
+ *
+ * @brief   Tests the functionality of the operations defined in
+ *          the linked_list_queue header file.
  ********************************************************************************
  */
 
+/************************************
+ * INCLUDES
+ ************************************/
 #include <stdio.h>
 #include "C:\Users\Kai Gehry\Desktop\C\C_Data_Structures\Data_Strutures\Linked_List_Queue.h"
 
-/*
-    File used to test the functionality of the linked_list_queue header file.
-*/
+/*!
+ * @brief main function used to test the functionality of the linked_list_queue header file.
+ */
 int main(void)
 {
 
@@ -32,11 +37,16 @@ int main(void)
 
     // Displays the contents of the queue
     display_queue(&queue1);
+    printf("\nHead element: %d", first(&queue1));
+    printf("\nSize of queue: %d", size(&queue1));
 
     // Removes and returns the value stored by the removed node
-    int value1 = dequeue(&queue1);
+    int value1 = dequeue(&queue1); //->>> currently does not work.. need to fix
     printf("\nValue: %d", value1);
     display_queue(&queue1);
+
+    printf("\nHead element: %d", first(&queue1));
+    printf("\nSize of queue: %d", size(&queue1));
 
     printf("\n");
 
@@ -50,7 +60,7 @@ int main(void)
 
     display_queue(&queue2);
 
-    int value2 = dequeue(&queue2);
+    int value2 = dequeue(&queue2); //->>> currently does not work.. need to fix
     printf("\nValue: %d", value2);
     display_queue(&queue2);
 
