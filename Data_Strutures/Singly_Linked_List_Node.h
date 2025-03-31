@@ -9,9 +9,9 @@
 
 #include <stdio.h>
 
-/*
-    Struct which represents a node in a singly linked list.
-*/
+/*!
+ * @brief Struct representing a singly linked list node.
+ */
 typedef struct singly_linked_list_node
 {
     // Value held by the node

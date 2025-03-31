@@ -12,9 +12,9 @@
 #include <stdio.h>
 #include "C:\Users\Kai Gehry\Desktop\C\C_Data_Structures\Data_Strutures\singly_linked_list.h"
 
-/*
-    File used to test the functionality of the singly linked list header file.
-*/
+/*!
+ * @brief main function used to test the functionality of the singly linked list header file.
+ */
 int main(void)
 {
 
@@ -56,7 +56,7 @@ int main(void)
     printf("\nHead Element: %d", return_head_element(&list2));
 
     // Removes a node
-    remove_node(&list2, 4);
+    printf("\nRemoved value: %d", remove_node(&list2, 4));
     display_linked_list(&list2);
 
     printf("\nTail Element: %d", return_tail_element(&list2));

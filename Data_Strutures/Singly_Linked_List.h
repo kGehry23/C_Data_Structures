@@ -3,7 +3,8 @@
  * @file    singly_linked_list.h
  * @author  Kai Gehry
  * @date    2025-03-25
- * @brief
+ *
+ * @brief   Defines t
  ********************************************************************************
  */
 
@@ -11,9 +12,9 @@
 #include <stdlib.h>
 #include "singly_linked_list_node.h"
 
-/*
-    Struct representing a singly linked list.
-*/
+/*!
+ * @brief   Struct representing a singly linked list.
+ */
 typedef struct
 {
     singly_linked_list_node *head;
@@ -21,20 +22,23 @@ typedef struct
     int list_size;
 } singly_linked_list;
 
-/*
-    Initializes a singly linked list type by setting its list_size variable to 0.
-*/
+/*!
+ * @brief   Initializes a singly linked list type by setting its list_size variable to 0.
+ * @param list  Pointer to the linked list being initalized.
+ * @return  None
+ */
 void initialize_list(singly_linked_list *list)
 {
     list->list_size = 0;
 }
 
-/*
-    Prints the contents of the singly linked list to the terminal.
-*/
+/*!
+ * @brief Prints the contents of the singly linked list to the terminal.
+ * @param list Pointer to the linked list being initalized.
+ * @return None
+ */
 void display_linked_list(singly_linked_list *list)
 {
-
     // If the list is empty, NULL is printed
     if (list->list_size == 0)
     {
@@ -55,33 +59,42 @@ void display_linked_list(singly_linked_list *list)
     }
 }
 
-/**
- *  Returns the element at the tail of the linked list.
+/*!
+ * @brief Returns the element at the tail of the singly linked list.
+ * @param list Pointer to the linked list being initalized.
+ * @return The value held at the tail of the linked list.
  */
 int return_tail_element(singly_linked_list *list)
 {
     return (list->tail)->value;
 }
 
-/*
-    Returns the element at the head of the singly linked list.
-*/
+/*!
+ * @brief Returns the element at the head of the singly linked list.
+ * @param list Pointer to the linked list being initalized.
+ * @return The value held at the head of the linked list.
+ */
 int return_head_element(singly_linked_list *list)
 {
     return (list->head)->value;
 }
 
-/*
-    Returns the length of the singly linked list.
-*/
+/*!
+ * @brief Returns the length of the singly linked list.
+ * @param list Pointer to the linked list being initalized.
+ * @return The value held at the head of the linked list.
+ */
 int list_length(singly_linked_list *list)
 {
     return list->list_size;
 }
 
-/*
-    Adds a node to the front of the singly linked list.
-*/
+/*!
+ * @brief Adds a node to the front of the singly linked list.
+ * @param list Pointer to the linked list being initalized.
+ * @param insert_value Value to insert at the head of the list.
+ * @return None
+ */
 void add_node_to_head(singly_linked_list *list, int insert_value)
 {
     // Linked list node pointer which represents the new node to be added
@@ -108,9 +121,12 @@ void add_node_to_head(singly_linked_list *list, int insert_value)
     list->list_size++;
 }
 
-/*
-    Adds a node to the the end of the singly linked list.
-*/
+/*!
+ * @brief Adds a node to the the end of the singly linked list.
+ * @param list Pointer to the linked list being initalized.
+ * @param insert_value Value to insert at the tail of the list.
+ * @return None
+ */
 void add_node_to_tail(singly_linked_list *list, int insert_value)
 {
     // Linked list node pointer which represents the new node to be added
@@ -140,9 +156,13 @@ void add_node_to_tail(singly_linked_list *list, int insert_value)
     list->list_size++;
 }
 
-/*
-    Adds a node to a position after a specified node.
-*/
+/*!
+ * @brief Adds a node to a position after a specified node.
+ * @param list Pointer to the linked list being initalized.
+ * @param insert_value Value to insert into the list.
+ * @param insert_after_value The value of the element to insert an element after.
+ * @return None
+ */
 void insert_node(singly_linked_list *list, int insert_value, int insert_after_value)
 {
     // Pointer for the node to be inserted
@@ -177,10 +197,13 @@ void insert_node(singly_linked_list *list, int insert_value, int insert_after_va
     } while (search_node != NULL);
 }
 
-/*
-    Removes a node from the singly linked list.
-*/
-void remove_node(singly_linked_list *list, int value)
+/*!
+ * @brief Removes and returns the value of an element.
+ * @param list Pointer to the linked list being initalized.
+ * @param removal_value Value to remove from the list.
+ * @return The value of the element to be removed.
+ */
+int remove_node(singly_linked_list *list, int removal_value)
 {
     // Place holder node used to hold the nodes as the list is traversed
     singly_linked_list_node *search_node = list->head;
@@ -190,7 +213,7 @@ void remove_node(singly_linked_list *list, int value)
     do
     {
         // Logic for if the node to remove is found
-        if (search_node->value == value)
+        if (search_node->value == removal_value)
         {
             // If the node is the head element, the head element is re-assigned
             if (search_node->value == (list->head)->value)
@@ -211,7 +234,7 @@ void remove_node(singly_linked_list *list, int value)
             }
 
             list->list_size--;
-            break;
+            return search_node->value;
         }
 
         // If the current node is not the head node, the pointer to the previous element is re-assigned
@@ -220,7 +243,14 @@ void remove_node(singly_linked_list *list, int value)
             previous_node = previous_node->next;
         }
 
+        // The current node is updated to the next node in the list
         search_node = search_node->next;
+
+        // If the node is not found, -1 is returned
+        if (search_node == NULL)
+        {
+            return -1;
+        }
 
     } while (search_node != NULL);
 }
