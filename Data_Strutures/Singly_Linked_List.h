@@ -16,8 +16,8 @@
 */
 typedef struct
 {
-    singly_linked_list_node head;
-    singly_linked_list_node *current;
+    singly_linked_list_node *head;
+    singly_linked_list_node *tail;
     int list_size;
 } singly_linked_list;
 
@@ -42,14 +42,14 @@ void display_linked_list(singly_linked_list *list)
     }
     else
     {
-        singly_linked_list_node node = list->head;
+        singly_linked_list_node *node = list->head;
         printf("\n");
 
-        while (node.next != NULL)
+        do
         {
-            printf("%d->", (node).value);
-            node = *(node.next);
-        }
+            printf("%d->", node->value);
+            node = node->next;
+        } while (node != NULL);
 
         printf("NULL");
     }
@@ -60,7 +60,7 @@ void display_linked_list(singly_linked_list *list)
  */
 int return_tail_element(singly_linked_list *list)
 {
-    return (list->current)->value;
+    return (list->tail)->value;
 }
 
 /*
@@ -68,7 +68,7 @@ int return_tail_element(singly_linked_list *list)
 */
 int return_head_element(singly_linked_list *list)
 {
-    return (list->head).value;
+    return (list->head)->value;
 }
 
 /*
@@ -84,31 +84,25 @@ int list_length(singly_linked_list *list)
 */
 void add_node_to_head(singly_linked_list *list, int insert_value)
 {
+    // Linked list node pointer which represents the new node to be added
+    singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
 
     // Defines the head of the linked list
     if (list->list_size == 0)
     {
-        // Linked list node pointer which represents the next node the newly added node points to
-        singly_linked_list_node *next_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
-
-        // Sets the node which previously pointed to the end of the list to the new node at the end of the list
-        list->current = next_node;
-        // Sets the end of the list's next pointer to NULL
-        (list->current)->value = insert_value;
-        (list->current)->next = NULL;
-
-        (list->head).value = insert_value;
-        (list->head).next = list->current;
+        // Sets the value and next pointer of the head node
+        list->head = new_node;
+        (list->head)->value = insert_value;
+        (list->head)->next = NULL;
+        // Assigns the tail node to the head of the list
+        list->tail = list->head;
     }
     else
     {
-        // Linked list node pointer which represents the new node to be added
-        singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
-
-        new_node->value = (list->head).value;
-        new_node->next = (list->head).next;
-        (list->head).value = insert_value;
-        (list->head).next = new_node;
+        new_node->value = (list->head)->value;
+        new_node->next = (list->head)->next;
+        (list->head)->value = insert_value;
+        (list->head)->next = new_node;
     }
 
     list->list_size++;
@@ -119,34 +113,28 @@ void add_node_to_head(singly_linked_list *list, int insert_value)
 */
 void add_node_to_tail(singly_linked_list *list, int insert_value)
 {
-
-    // Linked list node pointer which represents the next node the newly added node points to
-    singly_linked_list_node *next_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
+    // Linked list node pointer which represents the new node to be added
+    singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
 
     if (list->list_size != 0)
     {
-        // Linked list node pointer which represents the new node to be added
-        singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
-        // Sets new node to point to the address of the node at the end of the list
-        new_node = list->current;
+
         // Sets the value of the new node
         new_node->value = insert_value;
         // Points to the node which will now be at the end of the list
-        new_node->next = next_node;
+        new_node->next = NULL;
+        (list->tail)->next = new_node;
+
+        list->tail = new_node;
     }
-
-    // Sets the node which previously pointed to the end of the list to the new node at the end of the list
-    list->current = next_node;
-    // Sets the end of the list's next pointer to NULL
-    (list->current)->value = insert_value;
-    // Sets the value of the
-    (list->current)->next = NULL;
-
     // Defines the head of the linked list
     if (list->list_size == 0)
     {
-        (list->head).value = insert_value;
-        (list->head).next = list->current;
+        list->head = new_node;
+        (list->head)->value = insert_value;
+        (list->head)->next = NULL;
+
+        list->tail = new_node;
     }
 
     list->list_size++;
@@ -159,19 +147,25 @@ void insert_node(singly_linked_list *list, int insert_value, int insert_after_va
 {
     // Pointer for the node to be inserted
     singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
-    // Pointer used to hold a reference to the current node in the list traversal
-    singly_linked_list_node *search_node = &(list->head);
+    // Pointer used to hold a reference to the tail node in the list traversal
+    singly_linked_list_node *search_node = list->head;
 
-    while (search_node->next != NULL)
+    do
     {
-        // Checks if the current node has the value equal to the element to insert after
+        // Checks if the tail node has the value equal to the element to insert after
         if (search_node->value == insert_after_value)
         {
+            // Update the pointer to the current element if the element inserted after was the tail
+            if (insert_after_value == (list->tail)->value)
+            {
+                list->tail = new_node;
+            }
             // Inserts the new node
             new_node->value = insert_value;
             new_node->next = search_node->next;
             // Updates the next reference of the node which was inserted after
             search_node->next = new_node;
+
             list->list_size++;
             break;
         }
@@ -180,7 +174,7 @@ void insert_node(singly_linked_list *list, int insert_value, int insert_after_va
             // Updates the pointer to the next node in the list
             search_node = search_node->next;
         }
-    }
+    } while (search_node != NULL);
 }
 
 /*
@@ -189,29 +183,31 @@ void insert_node(singly_linked_list *list, int insert_value, int insert_after_va
 void remove_node(singly_linked_list *list, int value)
 {
     // Place holder node used to hold the nodes as the list is traversed
-    singly_linked_list_node search_node = list->head;
+    singly_linked_list_node *search_node = list->head;
     // Pointer used to keep a reference to the previous node in the traversal
-    singly_linked_list_node *previous_node = &(list->head);
+    singly_linked_list_node *previous_node = list->head;
 
-    while (search_node.next != NULL)
+    do
     {
         // Logic for if the node to remove is found
-        if (search_node.value == value)
+        if (search_node->value == value)
         {
             // If the node is the head element, the head element is re-assigned
-            if (search_node.value == (list->head).value)
+            if (search_node->value == (list->head)->value)
             {
                 // search node is assigned to the following node
-                search_node = *(search_node).next;
+                search_node = search_node->next;
                 // The value and pointer of the head node are re-assigned
-                (list->head).value = search_node.value;
-                (list->head).next = search_node.next;
+                (list->head)->value = search_node->value;
+                (list->head)->next = search_node->next;
             }
             // If the node to remove is any other element in the list
             else
             {
                 // Re-assigns the previous node's pointer to point to the node after the node to remove
-                (*previous_node).next = search_node.next;
+                previous_node->next = search_node->next;
+                // Re-assign the pointer to the tail element
+                list->tail = previous_node;
             }
 
             list->list_size--;
@@ -219,16 +215,12 @@ void remove_node(singly_linked_list *list, int value)
         }
 
         // If the current node is not the head node, the pointer to the previous element is re-assigned
-        if (search_node.value != (list->head).value)
+        if (search_node->value != (list->head)->value)
         {
-            previous_node = (*previous_node).next;
+            previous_node = previous_node->next;
         }
 
-        search_node = *(search_node).next;
+        search_node = search_node->next;
 
-        if (search_node.next == NULL)
-        {
-            printf("\nNode with value %d not found.", value);
-        }
-    }
+    } while (search_node != NULL);
 }
