@@ -3,15 +3,15 @@
  * @file    singly_linked_list_node.h
  * @author  Kai Gehry
  * @date    2025-03-25
- * @brief
+ * @brief   Defines a singly linked list node.
  ********************************************************************************
  */
 
 #include <stdio.h>
 
-/*
-    Struct which represents a node in a singly linked list.
-*/
+/*!
+ * @brief Struct representing a singly linked list node.
+ */
 typedef struct singly_linked_list_node
 {
     // Value held by the node
