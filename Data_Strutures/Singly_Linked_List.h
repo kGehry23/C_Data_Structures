@@ -214,6 +214,8 @@ int remove_node(singly_linked_list *list, int removal_value)
     // Pointer used to keep a reference to the previous node in the traversal
     singly_linked_list_node *previous_node = list->head;
 
+    int removed_element;
+
     do
     {
         // Logic for if the node to remove is found
@@ -223,6 +225,7 @@ int remove_node(singly_linked_list *list, int removal_value)
             if (search_node->value == (list->head)->value)
             {
                 // search node is assigned to the following node
+                removed_element = search_node->value;
                 search_node = search_node->next;
                 // The value and pointer of the head node are re-assigned
                 (list->head)->value = search_node->value;
@@ -231,14 +234,12 @@ int remove_node(singly_linked_list *list, int removal_value)
             // If the node to remove is any other element in the list
             else
             {
+                removed_element = search_node->value;
                 // Re-assigns the previous node's pointer to point to the node after the node to remove
                 previous_node->next = search_node->next;
                 // Re-assign the pointer to the tail element
                 list->tail = previous_node;
             }
-
-            // need to fix this
-            int removed_element = search_node->value;
 
             list->list_size--;
             return removed_element;
@@ -258,6 +259,5 @@ int remove_node(singly_linked_list *list, int removal_value)
         {
             return -1;
         }
-
     } while (search_node != NULL);
 }

@@ -44,7 +44,7 @@ int main(void)
     printf("\nEmpty: %d", is_empty(&queue1));
 
     // Removes and returns the value stored by the removed node
-    int value1 = dequeue(&queue1); //->>> currently does not work.. need to fix
+    int value1 = dequeue(&queue1);
     printf("\nValue: %d", value1);
     display_queue(&queue1);
 
@@ -62,8 +62,10 @@ int main(void)
     enqueue(&queue2, 10);
 
     display_queue(&queue2);
+    printf("\nHead element: %d", first(&queue2));
+    printf("\nSize of queue: %d", size(&queue2));
 
-    int value2 = dequeue(&queue2); //->>> currently does not work.. need to fix
+    int value2 = dequeue(&queue2);
     printf("\nValue: %d", value2);
     display_queue(&queue2);
 
