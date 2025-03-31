@@ -4,7 +4,7 @@
  * @author  Kai Gehry
  * @date    2025-03-25
  *
- * @brief   Defines t
+ * @brief   Defines the operations on a singly linked list.
  ********************************************************************************
  */
 
