@@ -13,7 +13,7 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
-#include "C:\Users\Kai Gehry\Desktop\C\C_Data_Structures\Data_Strutures\Linked_List_Queue.h"
+#include "C:\Users\Kai Gehry\Desktop\C\C_Data_Structures\Data_Structures\Linked_List_Queue.h"
 
 /*!
  * @brief main function used to test the functionality of the linked_list_queue header file.
