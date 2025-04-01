@@ -4,11 +4,14 @@
  * @author  Kai Gehry
  * @date    2025-03-25
  *
- * @brief   Tests the functionality of the functions defined in
+ * @brief   Tests the functionality of the operations defined in
  *          the singly_linked_list header file.
  ********************************************************************************
  */
 
+/************************************
+ * INCLUDES
+ ************************************/
 #include <stdio.h>
 #include "C:\Users\Kai Gehry\Desktop\C\C_Data_Structures\Data_Structures\singly_linked_list.h"
 
