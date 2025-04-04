@@ -70,7 +70,11 @@ void display_linked_list(singly_linked_list *list)
  */
 int return_tail_element(singly_linked_list *list)
 {
-    return (list->tail)->value;
+
+    if (list->list_size == 0)
+        return -1;
+    else
+        return (list->tail)->value;
 }
 
 /*!
@@ -80,7 +84,11 @@ int return_tail_element(singly_linked_list *list)
  */
 int return_head_element(singly_linked_list *list)
 {
-    return (list->head)->value;
+
+    if (list->list_size == 0)
+        return -1;
+    else
+        return (list->head)->value;
 }
 
 /*!

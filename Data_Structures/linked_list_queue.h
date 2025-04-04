@@ -13,7 +13,7 @@
  ************************************/
 #include <stdio.h>
 #include <stdbool.h>
-#include "Singly_Linked_List.h"
+#include "singly_linked_list.h"
 
 /*!
  * @brief   Struct which represents a queue.
