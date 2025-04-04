@@ -13,7 +13,7 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
-#include "../Data_Structures/singly_linked_list.h"
+#include "../Data_Structures/Linked_Lists/singly_linked_list.h"
 
 /*!
  * @brief main function used to test the functionality of the singly linked list header file.
