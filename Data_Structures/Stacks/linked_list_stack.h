@@ -46,7 +46,7 @@ void push(linked_list_stack *stack, int value)
 /*!
  * @brief Displays the contents of the stack.
  * @param stack Pointer to a linked list stack.
- * @return None
+ * @return The value held by the node at the top of the stack.
  */
 int pop(linked_list_stack *stack)
 {
@@ -56,7 +56,7 @@ int pop(linked_list_stack *stack)
 /*!
  * @brief Returns the element at the top of the stack.
  * @param stack Pointer to a linked list stack.
- * @return An integer which is the value at the head of the stack.
+ * @return The value held by the node at the head of the stack.
  */
 int peek(linked_list_stack *stack)
 {
