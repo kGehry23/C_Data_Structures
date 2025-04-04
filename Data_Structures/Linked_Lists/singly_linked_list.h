@@ -70,7 +70,7 @@ void display_linked_list(singly_linked_list *list)
  */
 int return_tail_element(singly_linked_list *list)
 {
-
+    // Returns -1 if the lis is empty
     if (list->list_size == 0)
         return -1;
     else
@@ -84,7 +84,7 @@ int return_tail_element(singly_linked_list *list)
  */
 int return_head_element(singly_linked_list *list)
 {
-
+    // Returns -1 is the list is empty
     if (list->list_size == 0)
         return -1;
     else
@@ -264,7 +264,7 @@ int remove_node(singly_linked_list *list, int removal_value)
         // The current node is updated to the next node in the list
         search_node = search_node->next;
 
-        // If the node is not found, -1 is returned
+        // If the node is not found or there are no elements in the list, -1 is returned
         if (search_node == NULL || list->list_size == 0)
         {
             return -1;
