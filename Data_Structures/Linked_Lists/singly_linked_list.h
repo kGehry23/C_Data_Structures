@@ -265,7 +265,7 @@ int remove_node(singly_linked_list *list, int removal_value)
         search_node = search_node->next;
 
         // If the node is not found, -1 is returned
-        if (search_node == NULL)
+        if (search_node == NULL || list->list_size == 0)
         {
             return -1;
         }

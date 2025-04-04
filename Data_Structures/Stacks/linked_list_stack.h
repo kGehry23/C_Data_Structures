@@ -1,11 +1,10 @@
-
 /**
  ********************************************************************************
- * @file    singly_linked_list_node.h
+ * @file    linked_list_stack.h
  * @author  Kai Gehry
  * @date    2025-03-25
  *
- * @brief   Defines the operations on a linked list queue.
+ * @brief   Defines the operations on a linked list stack.
  ********************************************************************************
  */
 
@@ -14,10 +13,10 @@
  ************************************/
 #include <stdio.h>
 #include <stdbool.h>
-#include "singly_linked_list.h"
+#include "../Linked_Lists/singly_linked_list.h"
 
 /*!
- * @brief   Struct which represents a stack.
+ * @brief Struct which represents a stack.
  */
 typedef struct
 {

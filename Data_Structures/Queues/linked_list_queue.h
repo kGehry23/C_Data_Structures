@@ -13,10 +13,10 @@
  ************************************/
 #include <stdio.h>
 #include <stdbool.h>
-#include "singly_linked_list.h"
+#include "../Linked_Lists/singly_linked_list.h"
 
 /*!
- * @brief   Struct which represents a queue.
+ * @brief Struct which represents a queue.
  */
 typedef struct
 {
