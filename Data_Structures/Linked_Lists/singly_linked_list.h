@@ -70,7 +70,11 @@ void display_linked_list(singly_linked_list *list)
  */
 int return_tail_element(singly_linked_list *list)
 {
-    return (list->tail)->value;
+    // Returns -1 if the lis is empty
+    if (list->list_size == 0)
+        return -1;
+    else
+        return (list->tail)->value;
 }
 
 /*!
@@ -80,7 +84,11 @@ int return_tail_element(singly_linked_list *list)
  */
 int return_head_element(singly_linked_list *list)
 {
-    return (list->head)->value;
+    // Returns -1 is the list is empty
+    if (list->list_size == 0)
+        return -1;
+    else
+        return (list->head)->value;
 }
 
 /*!
@@ -213,7 +221,7 @@ int remove_node(singly_linked_list *list, int removal_value)
     singly_linked_list_node *search_node = list->head;
     // Pointer used to keep a reference to the previous node in the traversal
     singly_linked_list_node *previous_node = list->head;
-
+    // Integer to hold value of removed node
     int removed_element;
 
     do
@@ -239,6 +247,8 @@ int remove_node(singly_linked_list *list, int removal_value)
                 previous_node->next = search_node->next;
                 // Re-assign the pointer to the tail element
                 list->tail = previous_node;
+                // Free memory held by removed node
+                free(search_node);
             }
 
             list->list_size--;
@@ -254,8 +264,8 @@ int remove_node(singly_linked_list *list, int removal_value)
         // The current node is updated to the next node in the list
         search_node = search_node->next;
 
-        // If the node is not found, -1 is returned
-        if (search_node == NULL)
+        // If the node is not found or there are no elements in the list, -1 is returned
+        if (search_node == NULL || list->list_size == 0)
         {
             return -1;
         }
