@@ -20,6 +20,6 @@ typedef struct singly_linked_list_node
 {
     // Value held by the node
     int value;
-    // pointer to the next node in the singly linked list
+    // Pointer to the next node in the singly linked list
     struct singly_linked_list_node *next;
 } singly_linked_list_node;
