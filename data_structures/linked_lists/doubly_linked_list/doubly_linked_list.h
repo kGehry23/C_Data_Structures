@@ -34,3 +34,5 @@ void initialize_dl_list(doubly_linked_list *list)
 {
 	list->list_size = 0;
 }
+
+// test
