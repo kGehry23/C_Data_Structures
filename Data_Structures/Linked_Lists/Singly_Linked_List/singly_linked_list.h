@@ -30,7 +30,7 @@ typedef struct
  * @param list  Pointer to the linked list being initalized.
  * @return  None
  */
-void initialize_list(singly_linked_list *list)
+void initialize_sl_list(singly_linked_list *list)
 {
     list->list_size = 0;
 }

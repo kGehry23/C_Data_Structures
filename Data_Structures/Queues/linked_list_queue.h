@@ -30,7 +30,7 @@ typedef struct
  */
 void initialize_queue(linked_list_queue *queue)
 {
-    initialize_list(&(queue->list));
+    initialize_sl_list(&(queue->list));
 }
 
 /*!

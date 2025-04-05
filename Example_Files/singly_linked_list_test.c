@@ -25,7 +25,7 @@ int main(void)
     singly_linked_list list1;
 
     // Initializes the size of the linked list to 0
-    initialize_list(&list1);
+    initialize_sl_list(&list1);
     // Displays the contents of the linked list
     display_linked_list(&list1);
 
@@ -46,7 +46,7 @@ int main(void)
 
     // Creates another linked list and adds and removes from it
     singly_linked_list list2;
-    initialize_list(&list2);
+    initialize_sl_list(&list2);
 
     // Adds items to the tail of the linked list
     add_node_to_tail(&list2, 3);

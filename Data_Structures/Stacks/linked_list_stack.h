@@ -30,7 +30,7 @@ typedef struct
  */
 void initialize_stack(linked_list_stack *stack)
 {
-    initialize_list(&(stack->list));
+    initialize_sl_list(&(stack->list));
 }
 
 /*!
