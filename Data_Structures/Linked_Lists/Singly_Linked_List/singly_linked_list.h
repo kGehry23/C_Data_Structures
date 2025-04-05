@@ -70,7 +70,7 @@ void display_linked_list(singly_linked_list *list)
  */
 int return_tail_element(singly_linked_list *list)
 {
-    // Returns -1 if the lis is empty
+    // Returns -1 if the list is empty
     if (list->list_size == 0)
         return -1;
     else
@@ -94,7 +94,7 @@ int return_head_element(singly_linked_list *list)
 /*!
  * @brief Returns the length of the singly linked list.
  * @param list Pointer to a linked list struct.
- * @return The value held at the head of the linked list.
+ * @return An integer representing the size of the linked list.
  */
 int list_length(singly_linked_list *list)
 {
