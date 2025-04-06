@@ -18,7 +18,7 @@
 /*!
  * @brief main function used to test the functionality of the doubly_linked_list header file.
  */
-int main(void)
+void main(void)
 {
     // Creates a new doubly linked list
     doubly_linked_list dl_list;

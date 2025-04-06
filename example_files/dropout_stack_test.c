@@ -18,7 +18,7 @@
 /*!
  * @brief main function used to test the functionality of the dropout_stack header file.
  */
-int main(void)
+void main(void)
 {
     // Creates a new dropout stack
     dropout_stack stack;

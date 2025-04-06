@@ -18,7 +18,7 @@
 /*!
  * @brief main function used to test the functionality of the singly linked list header file.
  */
-int main(void)
+void main(void)
 {
     // Creates a new linked list
     singly_linked_list list1;
@@ -67,6 +67,4 @@ int main(void)
 
     printf("\nTail Element: %d", return_sl_tail(&list2));
     printf("\nHead Element: %d", return_sl_head(&list2));
-
-    return 0;
 }
