@@ -91,5 +91,5 @@ bool is_empty(linked_list_queue *queue)
  */
 void display_queue(linked_list_queue *queue)
 {
-    display_linked_list(&(queue->list));
+    display_sl_list(&(queue->list));
 }
