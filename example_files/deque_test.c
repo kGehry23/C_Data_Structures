@@ -40,6 +40,10 @@ void main(void)
     dequeue_head(&deque);
     dequeue_tail(&deque);
 
+    // Returns but does not remove the head and tail elements
+    printf("\nFront element: %d", front(&deque));
+    printf("\nBack element: %d", back(&deque));
+
     display_deque(&deque);
 
     // Returns the number of elements in the deque
