@@ -13,7 +13,7 @@
  ************************************/
 #include <stdio.h>
 #include <stdbool.h>
-#include "../Linked_Lists/singly_linked_list.h"
+#include "../linked_lists/singly_linked_list/singly_linked_list.h"
 
 /*!
  * @brief Struct which represents a queue.
@@ -30,7 +30,7 @@ typedef struct
  */
 void initialize_queue(linked_list_queue *queue)
 {
-    initialize_list(&(queue->list));
+    initialize_sl_list(&(queue->list));
 }
 
 /*!
@@ -91,5 +91,5 @@ bool is_empty(linked_list_queue *queue)
  */
 void display_queue(linked_list_queue *queue)
 {
-    display_linked_list(&(queue->list));
+    display_sl_list(&(queue->list));
 }

@@ -13,7 +13,7 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
-#include "../Data_Structures/Stacks/linked_list_stack.h"
+#include "../data_structures/stacks/linked_list_stack.h"
 
 /*!
  * @brief main function used to test the functionality of the linked list stack header file.

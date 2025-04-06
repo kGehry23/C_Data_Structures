@@ -13,7 +13,7 @@
  ************************************/
 #include <stdio.h>
 #include <stdbool.h>
-#include "../Linked_Lists/singly_linked_list.h"
+#include "../linked_lists/singly_linked_list/singly_linked_list.h"
 
 /*!
  * @brief Struct which represents a stack.
@@ -30,7 +30,7 @@ typedef struct
  */
 void initialize_stack(linked_list_stack *stack)
 {
-    initialize_list(&(stack->list));
+    initialize_sl_list(&(stack->list));
 }
 
 /*!
@@ -40,7 +40,7 @@ void initialize_stack(linked_list_stack *stack)
  */
 void push(linked_list_stack *stack, int value)
 {
-    add_node_to_tail(&(stack->list), value);
+    add_node_to_head(&(stack->list), value);
 }
 
 /*!
@@ -50,7 +50,7 @@ void push(linked_list_stack *stack, int value)
  */
 int pop(linked_list_stack *stack)
 {
-    return remove_node(&(stack->list), (stack->list.tail)->value);
+    return remove_node(&(stack->list), (stack->list.head)->value);
 }
 
 /*!
@@ -60,7 +60,7 @@ int pop(linked_list_stack *stack)
  */
 int peek(linked_list_stack *stack)
 {
-    return return_tail_element(&(stack->list));
+    return return_head_element(&(stack->list));
 }
 
 /*!
@@ -90,5 +90,28 @@ bool is_empty(linked_list_stack *stack)
  */
 void display_stack(linked_list_stack *stack)
 {
-    display_linked_list(&(stack->list));
+    // If the stack is empty, NULL is printed
+    if (stack->list.list_size == 0)
+    {
+        printf("\nNULL");
+    }
+    // If the stack is not empty, the stack is traversed and the elements are printed to the terminal
+    else
+    {
+        singly_linked_list_node *node = stack->list.head;
+        printf("\n");
+        printf("\nNULL->");
+
+        do
+        {
+            printf("%d", node->value);
+            node = node->next;
+
+            if (node != NULL)
+            {
+                printf("->");
+            }
+
+        } while (node != NULL);
+    }
 }
