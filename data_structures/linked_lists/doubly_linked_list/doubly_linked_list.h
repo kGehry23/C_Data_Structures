@@ -13,7 +13,7 @@
  ************************************/
 #include <stdio.h>
 #include <stdlib.h>
-#include "../Data_Structures/Linked_Lists/Doubly_Linked_List/doubly_linked_list_node.h"
+#include "doubly_linked_list_node.h"
 
 /*!
  * @brief   Struct representing a doubly linked list.

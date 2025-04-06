@@ -13,7 +13,7 @@
  ************************************/
 #include <stdio.h>
 #include <stdbool.h>
-#include "../Linked_Lists/Singly_Linked_List/singly_linked_list.h"
+#include "../linked_lists/singly_linked_list/singly_linked_list.h"
 
 /*!
  * @brief Struct which represents a stack.
