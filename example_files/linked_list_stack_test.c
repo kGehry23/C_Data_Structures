@@ -18,7 +18,7 @@
 /*!
  * @brief main function used to test the functionality of the linked list stack header file.
  */
-int main(void)
+void main(void)
 {
 
     // Creates a new stack
