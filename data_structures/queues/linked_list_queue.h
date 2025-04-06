@@ -41,7 +41,7 @@ void initialize_queue(linked_list_queue *queue)
  */
 void enqueue(linked_list_queue *queue, int value)
 {
-    add_node_to_tail(&(queue->list), value);
+    add_sl_node_to_tail(&(queue->list), value);
 }
 
 /*!
@@ -51,7 +51,7 @@ void enqueue(linked_list_queue *queue, int value)
  */
 int dequeue(linked_list_queue *queue)
 {
-    return remove_node(&(queue->list), ((queue->list).head)->value);
+    return remove_sl_node(&(queue->list), ((queue->list).head)->value);
 }
 
 /*!
@@ -61,7 +61,7 @@ int dequeue(linked_list_queue *queue)
  */
 int first(linked_list_queue *queue)
 {
-    return return_head_element(&(queue->list));
+    return return_sl_head(&(queue->list));
 }
 
 /*!
@@ -71,7 +71,7 @@ int first(linked_list_queue *queue)
  */
 int size(linked_list_queue *queue)
 {
-    return list_length(&(queue->list));
+    return sl_list_length(&(queue->list));
 }
 
 /*!
@@ -81,7 +81,7 @@ int size(linked_list_queue *queue)
  */
 bool is_empty(linked_list_queue *queue)
 {
-    return list_length(&(queue->list)) == 0;
+    return sl_list_length(&(queue->list)) == 0;
 }
 
 /*!

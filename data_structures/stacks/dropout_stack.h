@@ -1,10 +1,10 @@
 /**
  ********************************************************************************
- * @file    linked_list_stack.h
+ * @file    dropout_stack.h
  * @author  Kai Gehry
- * @date    2025-03-25
+ * @date    2025-04-06
  *
- * @brief   Defines the operations on a linked list stack.
+ * @brief   Defines the operations on a dropout stack.
  ********************************************************************************
  */
 
@@ -16,80 +16,91 @@
 #include "../linked_lists/singly_linked_list/singly_linked_list.h"
 
 /*!
- * @brief Struct which represents a stack.
+ * @brief Struct which represents a dropout stack.
  */
 typedef struct
 {
+    // Defines the size limit of the dropout stack
+    int stack_limit;
     singly_linked_list list;
-} linked_list_stack;
+} dropout_stack;
 
 /*!
- * @brief Initializes the stack.
- * @param stack Pointer to a linked list stack.
+ * @brief Initializes the dropout stack.
+ * @param stack Pointer to a dropout stack stack.
+ * @param dropout_limit Limit for the number of items to keep in the
+ *                      stack. Items at the bottom of the stack are
+ *                      dropped off as when the limit is exceeded.
  * @return None
  */
-void initialize_stack(linked_list_stack *stack)
+void initialize_do_stack(dropout_stack *stack, int dropout_limit)
 {
     initialize_sl_list(&(stack->list));
+    stack->stack_limit = dropout_limit;
 }
 
 /*!
  * @brief Adds an element to the top of the stack
- * @param stack Pointer to a linked list stack.
+ * @param stack Pointer to a dropout stack.
  * @param value Element to push onto the stack.
  * @return None
  */
-void push(linked_list_stack *stack, int value)
+void push(dropout_stack *stack, int value)
 {
     add_sl_node_to_head(&(stack->list), value);
+
+    if (stack->list.list_size > stack->stack_limit)
+    {
+        remove_sl_node(&(stack->list), (stack->list.tail)->value);
+    }
 }
 
 /*!
- * @brief Displays the contents of the stack.
- * @param stack Pointer to a linked list stack.
+ * @brief Displays the contents of the dropout stack.
+ * @param stack Pointer to a dropout stack.
  * @return The value held by the node at the top of the stack.
  */
-int pop(linked_list_stack *stack)
+int pop(dropout_stack *stack)
 {
     return remove_sl_node(&(stack->list), (stack->list.head)->value);
 }
 
 /*!
  * @brief Returns the element at the top of the stack.
- * @param stack Pointer to a linked list stack.
+ * @param stack Pointer to a dropout stack.
  * @return The value held by the node at the head of the stack.
  */
-int peek(linked_list_stack *stack)
+int peek(dropout_stack *stack)
 {
     return return_sl_head(&(stack->list));
 }
 
 /*!
  * @brief Returns the size (number of elements) in the stack.
- * @param stack Pointer to a linked list stack.
+ * @param stack Pointer to a dropout stack.
  * @return An integer value representing the number of elements in the stack.
  */
-int size(linked_list_stack *stack)
+int size(dropout_stack *stack)
 {
     return sl_list_length(&(stack->list));
 }
 
 /*!
- * @brief Returns if the stack is empty or not.
- * @param queue Pointer to a linked list stack.
+ * @brief Returns if the dropout stack is empty or not.
+ * @param queue Pointer to a dropout stack.
  * @return A boolean value representing if the stack is empty (1) or not empty (0)
  */
-bool is_empty(linked_list_stack *stack)
+bool is_empty(dropout_stack *stack)
 {
     return sl_list_length(&(stack->list)) == 0;
 }
 
 /*!
  * @brief Displays the contents of the stack.
- * @param stack Pointer to a linked list stack.
+ * @param stack Pointer to a dropout stack.
  * @return None
  */
-void display_stack(linked_list_stack *stack)
+void display_do_stack(dropout_stack *stack)
 {
     // If the stack is empty, NULL is printed
     if (stack->list.list_size == 0)

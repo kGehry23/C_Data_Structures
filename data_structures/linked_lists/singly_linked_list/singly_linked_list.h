@@ -18,7 +18,7 @@
 /*!
  * @brief   Struct representing a singly linked list.
  */
-typedef struct
+typedef struct singly_linked_list
 {
     singly_linked_list_node *head;
     singly_linked_list_node *tail;
@@ -238,8 +238,9 @@ int remove_sl_node(singly_linked_list *list, int removal_value)
             // If the node is the head element, the head element is re-assigned
             if (search_node == (list->head))
             {
-                // search node is assigned to the following node
+                // Search node is assigned to the following node
                 removed_element = search_node->value;
+                // Reassigns the node to the node's next node
                 search_node = search_node->next;
                 // The value and pointer of the head node are re-assigned
                 (list->head)->value = search_node->value;
@@ -249,6 +250,8 @@ int remove_sl_node(singly_linked_list *list, int removal_value)
             {
                 // Re-assign the pointer to the tail element
                 list->tail = previous_node;
+                // Re-assigns the tail node's next pointer to NULL
+                previous_node->next = NULL;
                 // Free memory held by removed node
                 free(search_node);
             }
