@@ -1,0 +1,49 @@
+/**
+ ********************************************************************************
+ * @file    deque_test.c
+ * @author  Kai Gehry
+ * @date    2025-03-26
+ *
+ * @brief   Tests the functionality of the operations defined in
+ *          the deque header file.
+ ********************************************************************************
+ */
+
+/************************************
+ * INCLUDES
+ ************************************/
+#include <stdio.h>
+#include "../data_structures/queues/deque.h"
+
+/*!
+ * @brief main function used to test the functionality of the deque header file.
+ */
+void main(void)
+{
+    // Creates a new deque
+    linked_deque deque;
+
+    // Initializes the deque
+    initialize_deque(&deque);
+
+    // Adds elements to the head of the deque
+    enqueue_head(&deque, 1);
+    enqueue_head(&deque, 2);
+    // Adds elements to the tail of the deque
+    enqueue_tail(&deque, 3);
+    enqueue_tail(&deque, 4);
+    enqueue_tail(&deque, 5);
+
+    enqueue_head(&deque, 6);
+
+    // Removes an element from the head and the tail of the deque
+    dequeue_head(&deque);
+    dequeue_tail(&deque);
+
+    display_deque(&deque);
+
+    // Returns the number of elements in the deque
+    printf("\nSize of deque: %d", size(&deque));
+    // Returns if the deque is empty or not
+    printf("\nEmpty: %d", is_empty(&deque));
+}

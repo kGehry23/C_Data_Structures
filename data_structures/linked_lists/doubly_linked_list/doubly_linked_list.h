@@ -52,10 +52,11 @@ void display_dl_list(doubly_linked_list *list)
 	{
 		doubly_linked_list_node *node = list->head;
 		printf("\n");
+		printf("NULL<=>");
 
 		do
 		{
-			printf("%d->", node->value);
+			printf("%d<=>", node->value);
 			node = node->next;
 		} while (node != NULL);
 
