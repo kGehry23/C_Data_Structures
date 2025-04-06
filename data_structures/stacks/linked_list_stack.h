@@ -40,7 +40,7 @@ void initialize_stack(linked_list_stack *stack)
  */
 void push(linked_list_stack *stack, int value)
 {
-    add_node_to_head(&(stack->list), value);
+    add_sl_node_to_head(&(stack->list), value);
 }
 
 /*!
@@ -50,7 +50,7 @@ void push(linked_list_stack *stack, int value)
  */
 int pop(linked_list_stack *stack)
 {
-    return remove_node(&(stack->list), (stack->list.head)->value);
+    return remove_sl_node(&(stack->list), (stack->list.head)->value);
 }
 
 /*!
@@ -60,7 +60,7 @@ int pop(linked_list_stack *stack)
  */
 int peek(linked_list_stack *stack)
 {
-    return return_head_element(&(stack->list));
+    return return_sl_head(&(stack->list));
 }
 
 /*!
@@ -70,7 +70,7 @@ int peek(linked_list_stack *stack)
  */
 int size(linked_list_stack *stack)
 {
-    return list_length(&(stack->list));
+    return sl_list_length(&(stack->list));
 }
 
 /*!
@@ -80,7 +80,7 @@ int size(linked_list_stack *stack)
  */
 bool is_empty(linked_list_stack *stack)
 {
-    return list_length(&(stack->list)) == 0;
+    return sl_list_length(&(stack->list)) == 0;
 }
 
 /*!
