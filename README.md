@@ -4,6 +4,6 @@ Implementation of the basic data structures written in C. All implementations in
 
 The Data_Structures folder includes implementations of:
 
-    1. Linked Lists -> Singly Linked
-    2. Stacks -> Classic Linked Implementation
-    2. Queues -> Classic Linked Implementation
+    1. Linked Lists -> Singly Linked, Doubly Linked
+    2. Stacks -> Classic Linked Implementation, Dropout Stack
+    2. Queues -> Classic Linked Implementation, Deque (Double Ended Queue)
