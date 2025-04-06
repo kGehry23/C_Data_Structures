@@ -28,6 +28,9 @@ typedef struct
 /*!
  * @brief Initializes the dropout stack.
  * @param stack Pointer to a dropout stack stack.
+ * @param dropout_limit Limit for the number of items to keep in the
+ *                      stack. Items at the bottom of the stack are
+ *                      dropped off as when the limit is exceeded.
  * @return None
  */
 void initialize_do_stack(dropout_stack *stack, int dropout_limit)
@@ -39,6 +42,7 @@ void initialize_do_stack(dropout_stack *stack, int dropout_limit)
 /*!
  * @brief Adds an element to the top of the stack
  * @param stack Pointer to a dropout stack.
+ * @param value Element to push onto the stack.
  * @return None
  */
 void push(dropout_stack *stack, int value)

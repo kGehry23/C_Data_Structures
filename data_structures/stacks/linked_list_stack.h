@@ -36,6 +36,7 @@ void initialize_stack(linked_list_stack *stack)
 /*!
  * @brief Adds an element to the top of the stack
  * @param stack Pointer to a linked list stack.
+ * @param value Element to push onto the stack.
  * @return None
  */
 void push(linked_list_stack *stack, int value)
