@@ -19,6 +19,7 @@
  * PRIVATE MACROS AND DEFINES
  ************************************/
 #define KEY_TYPE long
+#define VALUE_TYPE (*char)[]
 
 /*!
  * @brief Struct which represents a hash table.
@@ -74,12 +75,13 @@ int shift_folding(hash_table *table, KEY_TYPE hash_key)
  * @param hash_key Key to create an index from
  * @return An integer specifying the index into the hash table
  */
-void put(hash_table *table, KEY_TYPE hash_key)
+void put(hash_table *table, long hash_key, void *hash_value)
 {
     int index;
     index = (table->hash_function)(table, hash_key);
-    table->num_elements++;
     printf("%d", index);
+    ((*(table->table_ptr))[index]).value = hash_value;
+    table->num_elements++;
 }
 
 /*!

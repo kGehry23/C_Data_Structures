@@ -19,7 +19,7 @@
 typedef struct hash_node
 {
     // Value held by the node
-    char value[30];
+    void *value;
     // Pointer to the next node in the singly linked list
     struct hash_node *next;
 } hash_node;
