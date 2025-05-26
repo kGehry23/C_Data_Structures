@@ -8,6 +8,7 @@ int main(void)
     hash_table table;
     initialize_hash_table(&table, 5, 0.5, 0);
     put(&table, 756473, "Test");
+    // get(&table, 756473);
 
     printf("\n%s", (*(table.table_ptr))[3].value);
 

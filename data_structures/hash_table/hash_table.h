@@ -75,13 +75,20 @@ int shift_folding(hash_table *table, KEY_TYPE hash_key)
  * @param hash_key Key to create an index from
  * @return An integer specifying the index into the hash table
  */
-void put(hash_table *table, long hash_key, void *hash_value)
+void put(hash_table *table, long hash_key, char hash_value[])
 {
     int index;
     index = (table->hash_function)(table, hash_key);
-    printf("%d", index);
+    printf("%d\n", index);
     ((*(table->table_ptr))[index]).value = hash_value;
     table->num_elements++;
+}
+
+void get(hash_table *table, long hash_key)
+{
+    int index;
+    index = (table->hash_function)(table, hash_key);
+    printf("%d\n", index);
 }
 
 /*!
@@ -92,7 +99,6 @@ void put(hash_table *table, long hash_key, void *hash_value)
  */
 void hash_function_select(hash_table *table, int function_select)
 {
-
     switch (function_select)
     {
     case 0:
