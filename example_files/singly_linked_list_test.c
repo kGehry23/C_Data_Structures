@@ -15,10 +15,33 @@
 #include <stdio.h>
 #include "../data_structures/linked_lists/singly_linked_list/singly_linked_list.h"
 
+void display_sl_list(singly_linked_list *list)
+{
+
+    // If the list is empty, NULL is printed
+    if (list->list_size == 0)
+    {
+        printf("\nNULL");
+    }
+
+    else
+    {
+        singly_linked_list_node *node = list->head;
+        printf("\n", node->value);
+
+        do
+        {
+            printf("%d->", node->value);
+            node = node->next;
+        } while (node != NULL);
+
+        printf("NULL\n");
+    }
+}
 /*!
  * @brief main function used to test the functionality of the singly linked list header file.
  */
-void main(void)
+int main(void)
 {
     // Creates a new linked list
     singly_linked_list list1;
@@ -67,4 +90,6 @@ void main(void)
 
     printf("\nTail Element: %d", return_sl_tail(&list2));
     printf("\nHead Element: %d", return_sl_head(&list2));
+
+    return 0;
 }

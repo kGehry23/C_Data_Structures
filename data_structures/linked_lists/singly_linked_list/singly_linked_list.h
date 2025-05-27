@@ -36,39 +36,11 @@ void initialize_sl_list(singly_linked_list *list)
 }
 
 /*!
- * @brief Prints the contents of the singly linked list to the terminal.
- * @param list Pointer to a singly linked list struct.
- * @return None
- */
-void display_sl_list(singly_linked_list *list)
-{
-    // If the list is empty, NULL is printed
-    if (list->list_size == 0)
-    {
-        printf("\nNULL");
-    }
-    // If the list is not empty, the list is traversed and the elements are printed to the terminal
-    else
-    {
-        singly_linked_list_node *node = list->head;
-        printf("\n");
-
-        do
-        {
-            printf("%d->", node->value);
-            node = node->next;
-        } while (node != NULL);
-
-        printf("NULL");
-    }
-}
-
-/*!
  * @brief Returns the element at the tail of the singly linked list.
  * @param list Pointer to a singly linked list struct.
  * @return The value held at the tail of the linked list.
  */
-int return_sl_tail(singly_linked_list *list)
+void *return_sl_tail(singly_linked_list *list)
 {
     // Returns -1 if the list is empty
     if (list->list_size == 0)
@@ -82,7 +54,7 @@ int return_sl_tail(singly_linked_list *list)
  * @param list Pointer to a singly linked list struct.
  * @return The value held at the head of the linked list.
  */
-int return_sl_head(singly_linked_list *list)
+void *return_sl_head(singly_linked_list *list)
 {
     // Returns -1 is the list is empty
     if (list->list_size == 0)
@@ -221,7 +193,7 @@ void insert_sl_node(singly_linked_list *list, int insert_value, int insert_after
  * @param removal_value Value to remove from the list.
  * @return The value of the element to be removed.
  */
-int remove_sl_node(singly_linked_list *list, int removal_value)
+void *remove_sl_node(singly_linked_list *list, int removal_value)
 {
     // Place holder node used to hold the nodes as the list is traversed
     singly_linked_list_node *search_node = list->head;
@@ -288,3 +260,33 @@ int remove_sl_node(singly_linked_list *list, int removal_value)
         }
     } while (search_node != NULL);
 }
+
+/*!
+ * @brief Prints the contents of the singly linked list to the terminal. If the type
+ *        of element added to the linked list remains constant for a given implementation, this
+ *        can be uncommented and used
+ * @param list Pointer to a singly linked list struct.
+//  * @return None
+//  */
+// void display_sl_list(singly_linked_list *list)
+// {
+//     // If the list is empty, NULL is printed
+//     if (list->list_size == 0)
+//     {
+//         printf("\nNULL");
+//     }
+//     // If the list is not empty, the list is traversed and the elements are printed to the terminal
+//     else
+//     {
+//         singly_linked_list_node *node = list->head;
+//         printf("\n");
+
+//         do
+//         {
+//             printf("%d->", node->value);
+//             node = node->next;
+//         } while (node != NULL);
+
+//         printf("NULL");
+//     }
+// }
