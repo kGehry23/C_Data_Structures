@@ -16,9 +16,39 @@
 #include "../data_structures/linked_lists/doubly_linked_list/doubly_linked_list.h"
 
 /*!
+ * @brief Prints the contents of the doubly linked list to the terminal.
+ * @param list Pointer to a doubly linked list struct.
+ * @return None
+ */
+void display_dl_list(doubly_linked_list *list)
+{
+
+    // If the list is empty, NULL is printed
+    if (list->list_size == 0)
+    {
+        printf("\nNULL");
+    }
+
+    else
+    {
+        doubly_linked_list_node *node = list->head;
+        printf("\n", node->value);
+        printf("NULL<=>");
+
+        do
+        {
+            printf("%d<=>", node->value);
+            node = node->next;
+        } while (node != NULL);
+
+        printf("NULL\n");
+    }
+}
+
+/*!
  * @brief main function used to test the functionality of the doubly_linked_list header file.
  */
-void main(void)
+int main(void)
 {
     // Creates a new doubly linked list
     doubly_linked_list dl_list;
@@ -58,4 +88,6 @@ void main(void)
     // Returns the head and tail elements
     printf("\n\nHead Element: %d", return_dl_head(&dl_list));
     printf("\nTail Element: %d", return_dl_tail(&dl_list));
+
+    return 0;
 }

@@ -79,7 +79,7 @@ int sl_list_length(singly_linked_list *list)
  * @param insert_value Value to insert at the head of the list.
  * @return None
  */
-void add_sl_node_to_head(singly_linked_list *list, int insert_value)
+void add_sl_node_to_head(singly_linked_list *list, void *insert_value)
 {
     // Linked list node pointer which represents the new node to be added
     singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
@@ -118,7 +118,7 @@ void add_sl_node_to_head(singly_linked_list *list, int insert_value)
  * @param insert_value Value to insert at the tail of the list.
  * @return None
  */
-void add_sl_node_to_tail(singly_linked_list *list, int insert_value)
+void add_sl_node_to_tail(singly_linked_list *list, void *insert_value)
 {
     // Linked list node pointer which represents the new node to be added
     singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
@@ -153,7 +153,7 @@ void add_sl_node_to_tail(singly_linked_list *list, int insert_value)
  * @param insert_after_value The value of the element to insert an element after.
  * @return None
  */
-void insert_sl_node(singly_linked_list *list, int insert_value, int insert_after_value)
+void insert_sl_node(singly_linked_list *list, int insert_value, void *insert_after_value)
 {
     // Pointer for the node to be inserted
     singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
@@ -193,7 +193,7 @@ void insert_sl_node(singly_linked_list *list, int insert_value, int insert_after
  * @param removal_value Value to remove from the list.
  * @return The value of the element to be removed.
  */
-void *remove_sl_node(singly_linked_list *list, int removal_value)
+void *remove_sl_node(singly_linked_list *list, void *removal_value)
 {
     // Place holder node used to hold the nodes as the list is traversed
     singly_linked_list_node *search_node = list->head;

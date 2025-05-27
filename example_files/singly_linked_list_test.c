@@ -15,6 +15,11 @@
 #include <stdio.h>
 #include "../data_structures/linked_lists/singly_linked_list/singly_linked_list.h"
 
+/*!
+ * @brief Prints the contents of the doubly linked list to the terminal.
+ * @param list Pointer to a singly linked list struct.
+ * @return None
+ */
 void display_sl_list(singly_linked_list *list)
 {
 

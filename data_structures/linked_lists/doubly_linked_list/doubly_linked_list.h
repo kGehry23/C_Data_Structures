@@ -36,40 +36,11 @@ void initialize_dl_list(doubly_linked_list *list)
 }
 
 /*!
- * @brief Prints the contents of the doubly linked list to the terminal.
- * @param list Pointer to a doubly linked list struct.
- * @return None
- */
-void display_dl_list(doubly_linked_list *list)
-{
-	// If the list is empty, NULL is printed
-	if (list->list_size == 0)
-	{
-		printf("\nNULL");
-	}
-	// If the list is not empty, the list is traversed and the elements are printed to the terminal
-	else
-	{
-		doubly_linked_list_node *node = list->head;
-		printf("\n");
-		printf("NULL<=>");
-
-		do
-		{
-			printf("%d<=>", node->value);
-			node = node->next;
-		} while (node != NULL);
-
-		printf("NULL");
-	}
-}
-
-/*!
  * @brief Returns the element at the tail of the doubly linked list.
  * @param list Pointer to a doubly linked list struct.
  * @return The value held at the tail of the doubly linked list.
  */
-int return_dl_tail(doubly_linked_list *list)
+void *return_dl_tail(doubly_linked_list *list)
 {
 	// Returns -1 if the list is empty
 	if (list->list_size == 0)
@@ -83,7 +54,7 @@ int return_dl_tail(doubly_linked_list *list)
  * @param list Pointer to a doubly linked list.
  * @return The value held at the head of the doubly linked list.
  */
-int return_dl_head(doubly_linked_list *list)
+void *return_dl_head(doubly_linked_list *list)
 {
 	// Returns -1 is the list is empty
 	if (list->list_size == 0)
@@ -108,7 +79,7 @@ int dl_list_length(doubly_linked_list *list)
  * @param insert_value Value to insert at the head of the list.
  * @return None
  */
-void add_dl_node_to_head(doubly_linked_list *list, int insert_value)
+void add_dl_node_to_head(doubly_linked_list *list, void *insert_value)
 {
 	// Linked list node pointer which represents the new node to be added
 	doubly_linked_list_node *new_node = (doubly_linked_list_node *)malloc(sizeof(doubly_linked_list_node));
@@ -157,7 +128,7 @@ void add_dl_node_to_head(doubly_linked_list *list, int insert_value)
  * @param insert_value Value to insert at the tail of the list.
  * @return None
  */
-void add_dl_node_to_tail(doubly_linked_list *list, int insert_value)
+void add_dl_node_to_tail(doubly_linked_list *list, void *insert_value)
 {
 	// Linked list node pointer which represents the new node to be added
 	doubly_linked_list_node *new_node = (doubly_linked_list_node *)malloc(sizeof(doubly_linked_list_node));
@@ -195,7 +166,7 @@ void add_dl_node_to_tail(doubly_linked_list *list, int insert_value)
  * @param insert_after_value The value of the element to insert an element after.
  * @return None
  */
-void insert_dl_node(doubly_linked_list *list, int insert_value, int insert_after_value)
+void insert_dl_node(doubly_linked_list *list, int insert_value, void *insert_after_value)
 {
 
 	// Pointer used to hold a reference to the tail node in the list traversal
@@ -239,7 +210,7 @@ void insert_dl_node(doubly_linked_list *list, int insert_value, int insert_after
  * @param removal_value Value to remove from the list.
  * @return The value of the element to be removed.
  */
-int remove_dl_node(doubly_linked_list *list, int removal_value)
+void *remove_dl_node(doubly_linked_list *list, void *removal_value)
 {
 	// Place holder node used to hold the nodes as the list is traversed
 	doubly_linked_list_node *search_node = list->head;
@@ -308,3 +279,34 @@ int remove_dl_node(doubly_linked_list *list, int removal_value)
 		}
 	} while (search_node != NULL);
 }
+
+/*!
+ * @brief Prints the contents of the doubly linked list to the terminal. If the type
+ *        of element added to the linked list remains constant for a given implementation, this
+ *        can be uncommented and used
+ * @param list Pointer to a doubly linked list struct.
+ * @return None
+ */
+// void display_dl_list(doubly_linked_list *list)
+// {
+// 	// If the list is empty, NULL is printed
+// 	if (list->list_size == 0)
+// 	{
+// 		printf("\nNULL");
+// 	}
+// 	// If the list is not empty, the list is traversed and the elements are printed to the terminal
+// 	else
+// 	{
+// 		doubly_linked_list_node *node = list->head;
+// 		printf("\n");
+// 		printf("NULL<=>");
+
+// 		do
+// 		{
+// 			printf("%d<=>", node->value);
+// 			node = node->next;
+// 		} while (node != NULL);
+
+// 		printf("NULL");
+// 	}
+// }
