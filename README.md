@@ -7,3 +7,4 @@ The Data_Structures folder includes implementations of:
     1. Linked Lists -> Singly Linked, Doubly Linked
     2. Stacks -> Classic Linked Implementation, Dropout Stack
     3. Queues -> Classic Linked Implementation, Deque (Double Ended Queue)
+    4. Hash Table -> With chaining used to resolve collisions
