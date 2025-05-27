@@ -12,6 +12,7 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
+#include <stdlib.h>
 #include <strings.h>
 #include "hash_node.h"
 
@@ -19,7 +20,6 @@
  * PRIVATE MACROS AND DEFINES
  ************************************/
 #define KEY_TYPE long
-#define VALUE_TYPE (*char)[]
 
 /*!
  * @brief Struct which represents a hash table.
@@ -75,20 +75,62 @@ int shift_folding(hash_table *table, KEY_TYPE hash_key)
  * @param hash_key Key to create an index from
  * @return An integer specifying the index into the hash table
  */
-void put(hash_table *table, long hash_key, char hash_value[])
+void put(hash_table *table, long hash_key, void *hash_value)
 {
-    int index;
-    index = (table->hash_function)(table, hash_key);
-    printf("%d\n", index);
-    ((*(table->table_ptr))[index]).value = hash_value;
+    // Calculate the index to store the element at
+    int index = (table->hash_function)(table, hash_key);
+
+    if (((*(table->table_ptr))[index]).value == NULL)
+    {
+        ((*(table->table_ptr))[index]).value = hash_value;
+        hash_node *next_node = (hash_node *)malloc(sizeof(hash_node));
+        ((*(table->table_ptr))[index]).next = next_node;
+
+        char test_str1[9] = "Entered1";
+
+        printf("\n%s", test_str1);
+    }
+
+    else if (((*(table->table_ptr))[index]).value != NULL)
+    {
+        hash_node *node_ptr = &((*(table->table_ptr))[index]);
+
+        char test_str2[9] = "Entered2";
+
+        printf("\n%s", test_str2);
+
+        while (node_ptr->value != hash_key)
+        {
+            node_ptr = node_ptr->next;
+        }
+
+        node_ptr->value = hash_value;
+    }
+
     table->num_elements++;
 }
 
-void get(hash_table *table, long hash_key)
+void *get(hash_table *table, void *hash_key)
 {
-    int index;
-    index = (table->hash_function)(table, hash_key);
-    printf("%d\n", index);
+    // Calculate index
+    int index = (table->hash_function)(table, hash_key);
+
+    // return ((*(table->table_ptr))[index]).value;
+
+    if (((*(table->table_ptr))[index]).next != NULL)
+    {
+        // Return associated value in hash table
+        return ((*(table->table_ptr))[index]).value;
+    }
+
+    // else
+    // {
+    //     if (((*(table->table_ptr))[index]).key == hash_key)
+    //     {
+    //         // Return associated value in hash table
+    //         return ((*(table->table_ptr))[index]).value;
+    //     }
+    // }
 }
 
 /*!
@@ -125,6 +167,12 @@ void initialize_hash_table(hash_table *table, int size, float load_factor, int f
 {
     table->table_size = size;
     hash_node table_contents[size];
+
+    for (int i = 0; i < size; i++)
+    {
+        table_contents[i].next = NULL;
+        table_contents[i].value = NULL;
+    }
 
     table->table_ptr = &table_contents;
     table->load_factor = load_factor;

@@ -18,8 +18,10 @@
  */
 typedef struct hash_node
 {
+    // Key associated with the hash node
+    void *key;
     // Value held by the node
     void *value;
-    // Pointer to the next node in the singly linked list
+    // Pointer to the next node
     struct hash_node *next;
 } hash_node;
