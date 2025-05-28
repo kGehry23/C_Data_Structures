@@ -82,46 +82,40 @@ void put(hash_table *table, long hash_key, void *hash_value)
     // Calculate the index to store the element at
     int index = (table->hash_function)(table, hash_key);
     printf("Index: %d", index);
-    ((*(table->table_ptr))[index]).value = hash_value;
+
+    hash_node *node = (hash_node *)malloc(sizeof(hash_node));
+    node = &((*(table->table_ptr))[index]);
+
+    if (node->next == NULL)
+    {
+        printf("\nEntered");
+        node->value = hash_value;
+
+        hash_node *next_node;
+        node->next = next_node;
+    }
+    // else
+    // {
+    //     hash_node *node_ptr = (hash_node *)malloc(sizeof(hash_node));
+    //     node_ptr = &((*(table->table_ptr))[index]);
+
+    //     printf("\nEntered2");
+
+    //     while (node_ptr->next != NULL)
+    //     {
+    //         printf("\nEnteredBefore");
+    //         node_ptr = node_ptr->next;
+    //         printf("\nEntered3");
+
+    //         if (node_ptr->next == NULL)
+    //         {
+    //             node_ptr->value = hash_value;
+    //         }
+    //     }
+    // }
+
+    table->num_elements++;
 }
-
-//     ((*(table->table_ptr))[index]).value = hash_value;
-//     printf("Hash value: %d", ((*(table->table_ptr))[index]).value);
-
-//     // if (((*(table->table_ptr))[index]).next == NULL)
-//     // {
-
-//     //     // hash_node *next_node = (hash_node *)malloc(sizeof(hash_node));
-//     //     // ((*(table->table_ptr))[index]).next = next_node;
-
-//     //     // printf("\nEntered1");
-//     // }
-
-//     // else if (((*(table->table_ptr))[index]).value != NULL)
-//     // {
-//     //     hash_node *node_ptr = (hash_node *)malloc(sizeof(hash_node));
-//     //     node_ptr = &((*(table->table_ptr))[index]);
-
-//     //     printf("\nEntered2");
-
-//     //     while (node_ptr->next != NULL && node_ptr->key != hash_key)
-//     //     {
-//     //         printf("Entered3");
-//     //         node_ptr = &(node_ptr->next);
-//     //     }
-
-//     //     node_ptr->value = hash_value;
-//     // }
-
-//     // table->num_elements++;
-// }
-
-// void put(hash_table *table, long hash_key, void *hash_value)
-// {
-//     int index = (table->hash_function)(table, hash_key);
-//     printf("%d\n", index);
-//     ((*(table->table_ptr))[index]).value = hash_value;
-// }
 
 void *get(hash_table *table, void *hash_key)
 {
