@@ -4,7 +4,7 @@
  * @author  Kai Gehry
  * @date    2025-05-25
  *
- * @brief   Defines a structure  and functions defined on a hash table.
+ * @brief   Defines the structure of and functions on a hash table.
  ********************************************************************************
  */
 
@@ -14,12 +14,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
+#include <stdbool.h>
 #include "hash_node.h"
 
 /************************************
  * PRIVATE MACROS AND DEFINES
  ************************************/
-#define KEY_TYPE long
 
 /*!
  * @brief Struct which represents a hash table.
@@ -27,11 +27,10 @@
 typedef struct hash_table
 {
     int table_size;
-    // Need to decide what the table should contain
-    hash_node (*table_ptr)[];
     int num_elements;
     float load_factor;
-    int (*hash_function)(struct hash_table *, KEY_TYPE);
+    int (*hash_function)(struct hash_table *, long);
+    hash_node array[5];
 
 } hash_table;
 
@@ -41,7 +40,7 @@ typedef struct hash_table
  * @param hash_key Key to create an index from
  * @return An integer specifying the index into the hash table
  */
-int division(hash_table *table, KEY_TYPE hash_key)
+int division(hash_table *table, long hash_key)
 {
     int index;
     index = hash_key % (table->table_size);
@@ -53,7 +52,7 @@ int division(hash_table *table, KEY_TYPE hash_key)
  * @param hash_key Key to create an index from
  * @return An integer specifying the index into the hash table
  */
-int folding(hash_table *table, KEY_TYPE hash_key)
+int folding(hash_table *table, long hash_key)
 {
     int index;
     return index;
@@ -64,80 +63,92 @@ int folding(hash_table *table, KEY_TYPE hash_key)
  * @param hash_key Key to create an index from
  * @return An integer specifying the index into the hash table
  */
-int shift_folding(hash_table *table, KEY_TYPE hash_key)
+int shift_folding(hash_table *table, long hash_key)
 {
     int index;
     return index;
 }
 
 /*!
- * @brief Produces an index into the hash table given a key
+ * @brief Adds an element to the hash table
  * @param table Pointer to a hash table
  * @param hash_key Key to create an index from
  * @param hash_value Value to place into the hash table
- * @return An integer specifying the index into the hash table
+ * @return None
  */
 void put(hash_table *table, long hash_key, void *hash_value)
 {
     // Calculate the index to store the element at
     int index = (table->hash_function)(table, hash_key);
-    printf("Index: %d", index);
+    // Boolean used to track if a collision has occurred.
+    bool collision = 0;
 
+    // Allocate memory for a hash_node pointer and assign to the first element in the hash table
     hash_node *node = (hash_node *)malloc(sizeof(hash_node));
-    node = &((*(table->table_ptr))[index]);
+    node = &((table->array)[index]);
 
-    if (node->next == NULL)
+    // Traverse the hash table entry until the next reference is NULL.
+    // Artifact of collisions
+    if (node->next != NULL)
     {
-        printf("\nEntered");
-        node->value = hash_value;
-
-        hash_node *next_node;
-        node->next = next_node;
+        collision = 1;
+        while (node->next != NULL)
+        {
+            node = node->next;
+        }
     }
-    // else
-    // {
-    //     hash_node *node_ptr = (hash_node *)malloc(sizeof(hash_node));
-    //     node_ptr = &((*(table->table_ptr))[index]);
 
-    //     printf("\nEntered2");
+    // Assign the value to be stored by the node in the table entry
+    node->value = hash_value;
+    // Assign the associated hash key to the node
+    node->key = hash_key;
 
-    //     while (node_ptr->next != NULL)
-    //     {
-    //         printf("\nEnteredBefore");
-    //         node_ptr = node_ptr->next;
-    //         printf("\nEntered3");
+    // Allocate memory for the next node at a given table location
+    hash_node *next_node = (hash_node *)malloc(sizeof(hash_node));
+    node->next = next_node;
+    // Assign this node's next node to NULL
+    next_node->next = NULL;
 
-    //         if (node_ptr->next == NULL)
-    //         {
-    //             node_ptr->value = hash_value;
-    //         }
-    //     }
-    // }
-
-    table->num_elements++;
+    // If a collision did not occur, the counter for the number of elements is incremented
+    if (collision == 0)
+    {
+        table->num_elements++;
+    }
 }
 
-void *get(hash_table *table, void *hash_key)
+/*!
+ * @brief Returns the element associated with a key
+ * @param table Pointer to a hash table
+ * @param hash_key Key to create an index from
+ * @param hash_value Value to place into the hash table
+ * @return An integer specifying the index into the hash table
+ */
+void *get(hash_table *table, long hash_key)
 {
     // Calculate index
     int index = (table->hash_function)(table, hash_key);
 
-    return ((*(table->table_ptr))[index]).value;
+    // Allocate memory for traversal node
+    hash_node *node = (hash_node *)malloc(sizeof(hash_node));
+    node = &((table->array)[index]);
 
-    // if (((*(table->table_ptr))[index]).next == NULL && ((*(table->table_ptr))[index]).value == hash_key)
-    // {
-    //     // Return associated value in hash table
-    //     return ((*(table->table_ptr))[index]).value;
-    // }
+    // While the key does not match the one specified, continue traversing the nodes at a given index
+    while (node->key != hash_key)
+    {
+        node = node->next;
+    }
 
-    // else
-    // {
-    //     if (((*(table->table_ptr))[index]).key == hash_key)
-    //     {
-    //         // Return associated value in hash table
-    //         return ((*(table->table_ptr))[index]).value;
-    //     }
-    // }
+    return node->value;
+}
+
+/*!
+ * @brief Returns the percent of the hash table occupied
+ * @param table Pointer to a hash table
+ * @return A float representing the percentage of the hash table that is occupied
+ */
+float percent_occupied(hash_table *table)
+{
+    return ((float)table->num_elements / table->table_size) * 100;
 }
 
 /*!
@@ -173,15 +184,12 @@ void hash_function_select(hash_table *table, int function_select)
 void initialize_hash_table(hash_table *table, int size, float load_factor, int function_select)
 {
     table->table_size = size;
-    hash_node table_contents[size];
+    table->load_factor = load_factor;
 
     for (int i = 0; i < size; i++)
     {
-        table_contents[i].next = NULL;
+        ((table->array)[i]).next = NULL;
     }
-
-    table->table_ptr = &table_contents;
-    table->load_factor = load_factor;
 
     table->num_elements = 0;
     hash_function_select(table, function_select);
