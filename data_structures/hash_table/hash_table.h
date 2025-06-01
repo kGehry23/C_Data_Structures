@@ -19,7 +19,6 @@
 
 /*!
  * @brief Struct which represents a hash table.
- *
  */
 typedef struct hash_table
 {
