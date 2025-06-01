@@ -17,10 +17,6 @@
 #include <stdbool.h>
 #include "hash_node.h"
 
-/************************************
- * PRIVATE MACROS AND DEFINES
- ************************************/
-
 /*!
  * @brief Struct which represents a hash table.
  */
@@ -30,7 +26,7 @@ typedef struct hash_table
     int num_elements;
     float load_factor;
     int (*hash_function)(struct hash_table *, long);
-    hash_node array[5];
+    hash_node *array;
 
 } hash_table;
 
@@ -40,21 +36,11 @@ typedef struct hash_table
  * @param hash_key Key to create an index from
  * @return An integer specifying the index into the hash table
  */
-int division(hash_table *table, long hash_key)
+int division(hash_table *table, void *hash_key)
 {
     int index;
-    index = hash_key % (table->table_size);
-    return index;
-}
-
-/*!
- * @brief Defines the folding method for creating an index from a key
- * @param hash_key Key to create an index from
- * @return An integer specifying the index into the hash table
- */
-int folding(hash_table *table, long hash_key)
-{
-    int index;
+    long cast_hash_key = (long *)hash_key;
+    index = cast_hash_key % (table->table_size);
     return index;
 }
 
@@ -76,7 +62,7 @@ int shift_folding(hash_table *table, long hash_key)
  * @param hash_value Value to place into the hash table
  * @return None
  */
-void put(hash_table *table, long hash_key, void *hash_value)
+void put(hash_table *table, void *hash_key, void *hash_value)
 {
     // Calculate the index to store the element at
     int index = (table->hash_function)(table, hash_key);
@@ -120,10 +106,9 @@ void put(hash_table *table, long hash_key, void *hash_value)
  * @brief Returns the element associated with a key
  * @param table Pointer to a hash table
  * @param hash_key Key to create an index from
- * @param hash_value Value to place into the hash table
- * @return An integer specifying the index into the hash table
+ * @return The value associated with the specified key
  */
-void *get(hash_table *table, long hash_key)
+void *get(hash_table *table, void *hash_key)
 {
     // Calculate index
     int index = (table->hash_function)(table, hash_key);
@@ -165,9 +150,6 @@ void hash_function_select(hash_table *table, int function_select)
         table->hash_function = &division;
         break;
     case 1:
-        table->hash_function = &folding;
-        break;
-    case 2:
         table->hash_function = &shift_folding;
         break;
     }
@@ -185,6 +167,8 @@ void initialize_hash_table(hash_table *table, int size, float load_factor, int f
 {
     table->table_size = size;
     table->load_factor = load_factor;
+
+    table->array = (hash_node *)malloc(size * sizeof(hash_node));
 
     for (int i = 0; i < size; i++)
     {

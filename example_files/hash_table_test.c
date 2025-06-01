@@ -28,6 +28,7 @@ int main(void)
     put(&table, 756472, 3);
     put(&table, 756471, 2);
     put(&table, 756478, 1);
+    put(&table, 657435, 7);
 
     // Return the values associated with specified keys
     printf("\n%d", get(&table, 756473));
