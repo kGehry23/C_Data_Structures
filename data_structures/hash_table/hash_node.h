@@ -24,4 +24,6 @@ typedef struct hash_node
     void *value;
     // Pointer to the next node
     struct hash_node *next;
+    // Pointer to the previous node
+    struct hash_node *previous;
 } hash_node;

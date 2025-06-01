@@ -29,7 +29,7 @@ typedef struct hash_table
     // Percentage of hash table populated at which to resize
     float load_factor;
     // Pointer to a hash function
-    int (*hash_function)(struct hash_table *, long);
+    int (*hash_function)(struct hash_table *, void *);
     // Pointer to the array holding the table elements
     hash_node *array;
 
@@ -77,31 +77,53 @@ void put(hash_table *table, void *hash_key, void *hash_value)
     // Boolean used to track if a collision has occurred.
     bool collision = 0;
 
-    // Allocate memory for a hash_node pointer and assign to the first element in the hash table
-    hash_node *node = (hash_node *)malloc(sizeof(hash_node));
-    node = &((table->array)[index]);
-
-    // Traverse the hash table entry until the next reference is NULL.
-    // Artifact of collisions
-    if (node->next != NULL)
+    // Entered if only one element is hashed to a given location
+    if (((table->array)[index]).key == NULL)
     {
-        collision = 1;
-        while (node->next != NULL)
-        {
-            node = node->next;
-        }
+        // Assign the value to be stored by the node in the table entry
+        ((table->array)[index]).value = hash_value;
+        // Assign the associated hash key to the node
+        ((table->array)[index]).key = hash_key;
     }
 
-    // Assign the value to be stored by the node in the table entry
-    node->value = hash_value;
-    // Assign the associated hash key to the node
-    node->key = hash_key;
+    else
+    {
+        // Allocate memory for a hash_node pointer and assign to the first element in the hash table
+        hash_node *node = (hash_node *)malloc(sizeof(hash_node));
+        node = &((table->array)[index]);
 
-    // Allocate memory for the next node at a given table location
-    hash_node *next_node = (hash_node *)malloc(sizeof(hash_node));
-    node->next = next_node;
-    // Assign this node's next node to NULL
-    next_node->next = NULL;
+        // Allocate memory for a previous node hash_node pointer
+        hash_node *previous_node = (hash_node *)malloc(sizeof(hash_node));
+
+        // Indicates a collision has occurred
+        collision = 1;
+
+        if (node->next != NULL)
+        {
+            // Traverse the hash table entry until the next reference is NULL.
+            // Artifact of collisions
+            while (node->next != NULL)
+            {
+                previous_node = node;
+                node = node->next;
+            }
+        }
+
+        // Allocate memory for the next node at a given table location
+        hash_node *next_node = (hash_node *)malloc(sizeof(hash_node));
+
+        // Assign this node's next node to NULL
+        next_node->next = NULL;
+        // Assign the previous node pointer to the predecessor of the current node
+        next_node->previous = previous_node;
+        // Assign the value to be stored by the node in the table entry
+        next_node->value = hash_value;
+        // Assign the associated hash key to the node
+        next_node->key = hash_key;
+
+        // Assigns the next node
+        node->next = next_node;
+    }
 
     // If a collision did not occur, the counter for the number of elements is incremented
     if (collision == 0)
@@ -121,6 +143,33 @@ void *get(hash_table *table, void *hash_key)
     // Calculate index
     int index = (table->hash_function)(table, hash_key);
 
+    // Entered if only one element is hashed to given index
+    if (((table->array)[index]).next == NULL)
+    {
+        return ((table->array)[index]).value;
+    }
+
+    else
+    {
+        // Allocate memory for traversal node
+        hash_node *node = (hash_node *)malloc(sizeof(hash_node));
+        node = &((table->array)[index]);
+
+        // While the key does not match the one specified, continue traversing the nodes at a given index
+        while (node->key != hash_key)
+        {
+            node = node->next;
+        }
+
+        return node->value;
+    }
+}
+
+void remove_hash(hash_table *table, void *hash_key)
+{
+    // Calculate index
+    int index = (table->hash_function)(table, hash_key);
+
     // Allocate memory for traversal node
     hash_node *node = (hash_node *)malloc(sizeof(hash_node));
     node = &((table->array)[index]);
@@ -131,7 +180,11 @@ void *get(hash_table *table, void *hash_key)
         node = node->next;
     }
 
-    return node->value;
+    node->key = NULL;
+
+    // will get rid of all following nodes immediately. Cannot have this
+    // Consider adding a previous pointer to each hash node to deal with this
+    node->next = NULL;
 }
 
 /*!
@@ -186,7 +239,9 @@ void initialize_hash_table(hash_table *table, int size, float load_factor, int f
     // Assigns the next pointer of all hash nodes to null
     for (int i = 0; i < size; i++)
     {
+        ((table->array)[i]).key = NULL;
         ((table->array)[i]).next = NULL;
+        ((table->array)[i]).previous = NULL;
     }
 
     // Sets the initial counter for table elements to 0

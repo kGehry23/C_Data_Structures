@@ -31,7 +31,7 @@ int main(void)
     put(&table, 657435, 7);
 
     // Return the values associated with specified keys
-    printf("\nValue for key 756473: %s", get(&table, 756473));
+    printf("\nValue for key 756473: %d", get(&table, 756473));
     printf("\nValue for key 756472: %d", get(&table, 756472));
     printf("\nValue for key 756471: %d", get(&table, 756471));
     printf("\nValue for key 756478: %d", get(&table, 756478));
