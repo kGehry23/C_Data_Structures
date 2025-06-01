@@ -19,13 +19,19 @@
 
 /*!
  * @brief Struct which represents a hash table.
+ *
  */
 typedef struct hash_table
 {
+    // Size of the hash table
     int table_size;
+    // Number of elements stored in the hash table
     int num_elements;
+    // Percentage of hash table populated at which to resize
     float load_factor;
+    // Pointer to a hash function
     int (*hash_function)(struct hash_table *, long);
+    // Pointer to the array holding the table elements
     hash_node *array;
 
 } hash_table;
@@ -39,8 +45,11 @@ typedef struct hash_table
 int division(hash_table *table, void *hash_key)
 {
     int index;
+    // Casts the hash key to a long type
     long cast_hash_key = (long *)hash_key;
+    // Calculates the index
     index = cast_hash_key % (table->table_size);
+
     return index;
 }
 
@@ -146,9 +155,11 @@ void hash_function_select(hash_table *table, int function_select)
 {
     switch (function_select)
     {
+    // Selects the division method
     case 0:
         table->hash_function = &division;
         break;
+    // Selects the shift folding method
     case 1:
         table->hash_function = &shift_folding;
         break;
@@ -165,16 +176,22 @@ void hash_function_select(hash_table *table, int function_select)
  */
 void initialize_hash_table(hash_table *table, int size, float load_factor, int function_select)
 {
+    // Defines the size of the hash table
     table->table_size = size;
+    // Defines the load factor
     table->load_factor = load_factor;
 
+    // Assigns the array pointer to an array of the desired size
     table->array = (hash_node *)malloc(size * sizeof(hash_node));
 
+    // Assigns the next pointer of all hash nodes to null
     for (int i = 0; i < size; i++)
     {
         ((table->array)[i]).next = NULL;
     }
 
+    // Sets the initial counter for table elements to 0
     table->num_elements = 0;
+    // Selects the desired hashing function
     hash_function_select(table, function_select);
 }

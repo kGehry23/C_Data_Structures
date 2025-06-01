@@ -18,7 +18,7 @@
  */
 typedef struct hash_node
 {
-    // Key associated with the hash node
+    /// Key associated with the hash node
     void *key;
     // Value held by the node
     void *value;
