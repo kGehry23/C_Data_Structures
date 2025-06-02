@@ -46,7 +46,7 @@ void display_queue(linked_list_queue *queue)
 /*!
  * @brief main function used to test the functionality of the linked_list_queue header file.
  */
-void main(void)
+int main(void)
 {
 
     // Creates a new queue
@@ -96,4 +96,6 @@ void main(void)
     int value2 = dequeue(&queue2);
     printf("\nValue: %d", value2);
     display_queue(&queue2);
+
+    return 0;
 }
