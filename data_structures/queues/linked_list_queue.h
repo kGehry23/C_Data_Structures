@@ -39,7 +39,7 @@ void initialize_queue(linked_list_queue *queue)
  * @param value Value to add to the queue.
  * @return None
  */
-void enqueue(linked_list_queue *queue, int value)
+void enqueue(linked_list_queue *queue, void *value)
 {
     add_sl_node_to_tail(&(queue->list), value);
 }
@@ -84,12 +84,12 @@ bool is_empty(linked_list_queue *queue)
     return sl_list_length(&(queue->list)) == 0;
 }
 
-/*!
- * @brief Displays the contents of the queue.
- * @param queue Pointer to a linked list queue.
- * @return None
- */
-void display_queue(linked_list_queue *queue)
-{
-    display_sl_list(&(queue->list));
-}
+// /*!
+//  * @brief Displays the contents of the queue.
+//  * @param queue Pointer to a linked list queue.
+//  * @return None
+//  */
+// void display_queue(linked_list_queue *queue)
+// {
+//     display_sl_list(&(queue->list));
+// }

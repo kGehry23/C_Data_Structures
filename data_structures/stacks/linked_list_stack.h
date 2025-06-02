@@ -39,7 +39,7 @@ void initialize_stack(linked_list_stack *stack)
  * @param value Element to push onto the stack.
  * @return None
  */
-void push(linked_list_stack *stack, int value)
+void push(linked_list_stack *stack, void *value)
 {
     add_sl_node_to_head(&(stack->list), value);
 }
@@ -85,34 +85,35 @@ bool is_empty(linked_list_stack *stack)
 }
 
 /*!
- * @brief Displays the contents of the stack.
+ * @brief Displays the contents of the stack. Can be uncommented if data type
+ *        to be added remains constant.
  * @param stack Pointer to a linked list stack.
  * @return None
  */
-void display_stack(linked_list_stack *stack)
-{
-    // If the stack is empty, NULL is printed
-    if (stack->list.list_size == 0)
-    {
-        printf("\nNULL");
-    }
-    // If the stack is not empty, the stack is traversed and the elements are printed to the terminal
-    else
-    {
-        singly_linked_list_node *node = stack->list.head;
-        printf("\n");
-        printf("\nNULL->");
+// void display_stack(linked_list_stack *stack)
+// {
+//     // If the stack is empty, NULL is printed
+//     if (stack->list.list_size == 0)
+//     {
+//         printf("\nNULL");
+//     }
+//     // If the stack is not empty, the stack is traversed and the elements are printed to the terminal
+//     else
+//     {
+//         singly_linked_list_node *node = stack->list.head;
+//         printf("\n");
+//         printf("\nNULL->");
 
-        do
-        {
-            printf("%d", node->value);
-            node = node->next;
+//         do
+//         {
+//             printf("%d", node->value);
+//             node = node->next;
 
-            if (node != NULL)
-            {
-                printf("->");
-            }
+//             if (node != NULL)
+//             {
+//                 printf("->");
+//             }
 
-        } while (node != NULL);
-    }
-}
+//         } while (node != NULL);
+//     }
+// }
