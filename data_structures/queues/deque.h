@@ -39,7 +39,7 @@ void initialize_deque(linked_deque *deque)
  * @param value Value to add to the deque.
  * @return None
  */
-void enqueue_head(linked_deque *deque, int value)
+void enqueue_head(linked_deque *deque, void *value)
 {
     add_dl_node_to_head(&(deque->list), value);
 }
@@ -50,7 +50,7 @@ void enqueue_head(linked_deque *deque, int value)
  * @param value Value to add to the deque.
  * @return None
  */
-void enqueue_tail(linked_deque *deque, int value)
+void enqueue_tail(linked_deque *deque, void *value)
 {
     add_dl_node_to_tail(&(deque->list), value);
 }
@@ -115,12 +115,13 @@ bool is_empty(linked_deque *deque)
     return dl_list_length(&(deque->list)) == 0;
 }
 
-/*!
- * @brief Displays the contents of the deque.
- * @param deque Pointer to a deque.
- * @return None
- */
-void display_deque(linked_deque *deque)
-{
-    display_dl_list(&(deque->list));
-}
+// /*!
+//  * @brief Displays the contents of the deque. Can be uncommented if
+//  *        data type to be added remains constant.
+//  * @param deque Pointer to a deque.
+//  * @return None
+//  */
+// void display_deque(linked_deque *deque)
+// {
+//     display_dl_list(&(deque->list));
+// }

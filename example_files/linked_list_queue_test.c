@@ -16,9 +16,37 @@
 #include "../data_structures/queues/linked_list_queue.h"
 
 /*!
+ * @brief Displays the contents of the queue.
+ * @param queue Pointer to a linked list queue.
+ * @return None
+ */
+void display_queue(linked_list_queue *queue)
+{
+    // If the list is empty, NULL is printed
+    if ((queue->list).list_size == 0)
+    {
+        printf("\nNULL");
+    }
+    // If the list is not empty, the list is traversed and the elements are printed to the terminal
+    else
+    {
+        singly_linked_list_node *node = (queue->list).head;
+        printf("\n");
+
+        do
+        {
+            printf("%d->", node->value);
+            node = node->next;
+        } while (node != NULL);
+
+        printf("NULL");
+    }
+}
+
+/*!
  * @brief main function used to test the functionality of the linked_list_queue header file.
  */
-void main(void)
+int main(void)
 {
 
     // Creates a new queue
@@ -68,4 +96,6 @@ void main(void)
     int value2 = dequeue(&queue2);
     printf("\nValue: %d", value2);
     display_queue(&queue2);
+
+    return 0;
 }
