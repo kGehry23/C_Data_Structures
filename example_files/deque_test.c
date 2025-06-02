@@ -15,8 +15,6 @@
 #include <stdio.h>
 #include "../data_structures/queues/deque.h"
 
-#pragma GCC diagnostic ignored "-Wint-conversion"
-
 /*!
  * @brief Prints the contents of the doubly linked list to the terminal.
  * @param list Pointer to a doubly linked list struct.

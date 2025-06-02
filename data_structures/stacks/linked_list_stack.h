@@ -15,6 +15,10 @@
 #include <stdbool.h>
 #include "../linked_lists/singly_linked_list/singly_linked_list.h"
 
+/************************************
+ * COMPILER DIRECTIVES
+ ************************************/
+// Added for void* to required type conversions
 #pragma GCC diagnostic ignored "-Wint-conversion"
 
 /*!

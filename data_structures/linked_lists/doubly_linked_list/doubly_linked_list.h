@@ -15,6 +15,10 @@
 #include <stdlib.h>
 #include "doubly_linked_list_node.h"
 
+/************************************
+ * COMPILER DIRECTIVES
+ ************************************/
+// Added for void* to required type conversions
 #pragma GCC diagnostic ignored "-Wint-conversion"
 
 /*!
