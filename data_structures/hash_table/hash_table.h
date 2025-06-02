@@ -51,17 +51,6 @@ int division(hash_table *table, void *hash_key)
 }
 
 /*!
- * @brief Defines the shift folding method for creating an index from a key
- * @param hash_key Key to create an index from
- * @return An integer specifying the index into the hash table
- */
-int shift_folding(hash_table *table, long hash_key)
-{
-    int index;
-    return index;
-}
-
-/*!
  * @brief Adds an element to the hash table
  * @param table Pointer to a hash table
  * @param hash_key Key to create an index from
@@ -248,10 +237,6 @@ void hash_function_select(hash_table *table, int function_select)
     // Selects the division method
     case 0:
         table->hash_function = &division;
-        break;
-    // Selects the shift folding method
-    case 1:
-        table->hash_function = &shift_folding;
         break;
     }
 }
