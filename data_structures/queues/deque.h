@@ -15,6 +15,12 @@
 #include <stdbool.h>
 #include "../linked_lists/doubly_linked_list/doubly_linked_list.h"
 
+/************************************
+ * COMPILER DIRECTIVES
+ ************************************/
+// Added for void* to required type conversions
+#pragma GCC diagnostic ignored "-Wint-conversion"
+
 /*!
  * @brief Struct which represents a deque.
  */

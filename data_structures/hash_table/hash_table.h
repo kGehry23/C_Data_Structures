@@ -17,6 +17,12 @@
 #include <stdbool.h>
 #include "hash_node.h"
 
+/************************************
+ * COMPILER DIRECTIVES
+ ************************************/
+// Added for void* to required type conversions
+#pragma GCC diagnostic ignored "-Wint-conversion"
+
 /*!
  * @brief Struct which represents a hash table.
  */
