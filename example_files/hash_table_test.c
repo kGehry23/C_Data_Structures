@@ -21,7 +21,7 @@ int main(void)
     hash_table table;
 
     // Initialize the hash table
-    initialize_hash_table(&table, 5, 0.5, 0);
+    initialize_hash_table(&table, 5, 0);
 
     // Add key value pairs
     put(&table, 756473, 4);
@@ -32,15 +32,24 @@ int main(void)
 
     // Return the values associated with specified keys
     printf("\nValue for key 756473: %d", get(&table, 756473));
-    printf("\nValue for key 756472: %d", get(&table, 756472));
+    printf("\nValue for key 756471: %d", get(&table, 756471));
+    printf("\nValue for key 756478: %d", get(&table, 756478));
+    printf("\nValue for key 657435: %d", get(&table, 657435));
+
+    // Remove hashed elements
+    remove_hash(&table, 756473);
+    remove_hash(&table, 756471);
+
+    // Check resulting return values once an element has been removed
+    printf("\n\nValue for key 756473: %s", get(&table, 756473));
     printf("\nValue for key 756471: %d", get(&table, 756471));
     printf("\nValue for key 756478: %d", get(&table, 756478));
     printf("\nValue for key 657435: %d", get(&table, 657435));
 
     // Return the number of elements at different indices in the table
-    printf("\nSize: %d", table.num_elements);
+    printf("\n\nSize: %d", table.num_elements);
     // Return the percentage of the table occupied
-    printf("\nPercent Occupied: %f", percent_occupied(&table));
+    printf("\nPercent Occupied: %.2f", percent_occupied(&table));
 
     return 0;
 }
