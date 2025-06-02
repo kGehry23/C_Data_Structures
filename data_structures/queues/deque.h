@@ -15,6 +15,8 @@
 #include <stdbool.h>
 #include "../linked_lists/doubly_linked_list/doubly_linked_list.h"
 
+#pragma GCC diagnostic ignored "-Wint-conversion"
+
 /*!
  * @brief Struct which represents a deque.
  */

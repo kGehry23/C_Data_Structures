@@ -15,6 +15,8 @@
 #include <stdbool.h>
 #include "../linked_lists/singly_linked_list/singly_linked_list.h"
 
+#pragma GCC diagnostic ignored "-Wint-conversion"
+
 /*!
  * @brief Struct which represents a dropout stack.
  */

@@ -17,6 +17,8 @@
 #include <stdbool.h>
 #include "hash_node.h"
 
+#pragma GCC diagnostic ignored "-Wint-conversion"
+
 /*!
  * @brief Struct which represents a hash table.
  */

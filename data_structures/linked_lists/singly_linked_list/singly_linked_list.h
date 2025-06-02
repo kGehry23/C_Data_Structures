@@ -15,6 +15,8 @@
 #include <stdlib.h>
 #include "singly_linked_list_node.h"
 
+#pragma GCC diagnostic ignored "-Wint-conversion"
+
 /*!
  * @brief   Struct representing a singly linked list.
  */
