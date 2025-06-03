@@ -70,7 +70,7 @@ void push(array_stack *stack, void *value)
 }
 
 /*!
- * @brief Removes an element from the top of the stack
+ * @brief Returns and removes the element at the top of the stack
  * @param stack Pointer to a stack
  * @return The element at the top of the stack
  */
@@ -104,6 +104,36 @@ void *pop(array_stack *stack)
     stack->num_elements--;
 
     return top;
+}
+
+/*!
+ * @brief Returns but does not remove the element at the top of the stack
+ * @param stack Pointer to a stack
+ * @return Element at the top of the stack
+ */
+void *peek(array_stack *stack)
+{
+    return (stack->array)[stack->top_index];
+}
+
+/*!
+ * @brief Returns the size (number of elements) in the stack.
+ * @param stack Pointer to a stack.
+ * @return An integer value representing the number of elements in the stack.
+ */
+int size(array_stack *stack)
+{
+    return (stack->num_elements);
+}
+
+/*!
+ * @brief Returns if the stack is empty or not.
+ * @param queue Pointer to a stack.
+ * @return A boolean value representing if the stack is empty (1) or not empty (0)
+ */
+bool is_empty(array_stack *stack)
+{
+    return (stack->num_elements) == 0;
 }
 
 /*!

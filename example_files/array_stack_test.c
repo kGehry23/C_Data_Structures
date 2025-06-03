@@ -38,6 +38,9 @@ int main(void)
     // Initializes the stack
     initialize_array_stack(&stack, 5);
 
+    // Checks if the stack is empty
+    printf("\nEmpty: %d", is_empty(&stack));
+
     // Pushes elements onto the stack
     push(&stack, 1);
     push(&stack, 2);
@@ -48,14 +51,26 @@ int main(void)
     // Tests the output when the element limit is reached
     push(&stack, 6);
 
+    // Checks if the stack is empty
+    printf("\nEmpty: %d\n", is_empty(&stack));
+
+    // Returns the number of elements in the stack
+    printf("\nNumber of elements in stack: %d", size(&stack));
+
+    // Peeks the element at the top of the stack
+    printf("\nElement at top of stack: %d\n", peek(&stack));
+
     // Prints the contents of the stack to the terminal
     display_stack(&stack);
 
     // Pop elements off of the stack and view the updated content of the stack
-    printf("\n\n%d\n", pop(&stack));
+    printf("\n\nPopped: %d\n", pop(&stack));
 
     display_stack(&stack);
-    printf("\n\n%d", pop(&stack));
+    printf("\n\nPopped: %d", pop(&stack));
+
+    // Returns the number of elements in the stack
+    printf("\nNumber of elements in stack: %d", size(&stack));
 
     printf("\n\n");
 
@@ -66,6 +81,9 @@ int main(void)
 
     push(&stack, 8);
     display_stack(&stack);
+
+    // Peeks the element at the top of the stack
+    printf("\n\nElement at top of stack: %d\n", peek(&stack));
 
     return 0;
 }
