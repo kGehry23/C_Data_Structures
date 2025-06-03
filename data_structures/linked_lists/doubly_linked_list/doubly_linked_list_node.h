@@ -19,7 +19,7 @@
 typedef struct doubly_linked_list_node
 {
     // Value held by the node
-    int value;
+    void *value;
     // Pointer to the previous node in the doubly linked list
     struct doubly_linked_list_node *previous;
     // Pointer to the next node in the doubly linked list

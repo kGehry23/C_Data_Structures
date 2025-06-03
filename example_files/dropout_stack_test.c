@@ -16,9 +16,42 @@
 #include "../data_structures/stacks/dropout_stack.h"
 
 /*!
+ * @brief Displays the contents of the stack.
+ * @param stack Pointer to a dropout stack.
+ * @return None
+ */
+void display_do_stack(dropout_stack *stack)
+{
+    // If the stack is empty, NULL is printed
+    if (stack->list.list_size == 0)
+    {
+        printf("\nNULL");
+    }
+    // If the stack is not empty, the stack is traversed and the elements are printed to the terminal
+    else
+    {
+        singly_linked_list_node *node = stack->list.head;
+        printf("\n");
+        printf("\nNULL->");
+
+        do
+        {
+            printf("%d", node->value);
+            node = node->next;
+
+            if (node != NULL)
+            {
+                printf("->");
+            }
+
+        } while (node != NULL);
+    }
+}
+
+/*!
  * @brief main function used to test the functionality of the dropout_stack header file.
  */
-void main(void)
+int main(void)
 {
     // Creates a new dropout stack
     dropout_stack stack;
@@ -47,4 +80,6 @@ void main(void)
 
     // Returns the size of the stack
     printf("\n\nList Size: %d", size(&stack));
+
+    return 0;
 }

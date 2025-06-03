@@ -16,9 +16,39 @@
 #include "../data_structures/queues/deque.h"
 
 /*!
+ * @brief Prints the contents of the doubly linked list to the terminal.
+ * @param list Pointer to a doubly linked list struct.
+ * @return None
+ */
+void display_deque(linked_deque *deque)
+{
+
+    // If the list is empty, NULL is printed
+    if ((deque->list).list_size == 0)
+    {
+        printf("\nNULL");
+    }
+
+    else
+    {
+        doubly_linked_list_node *node = (deque->list).head;
+        printf("\n", node->value);
+        printf("NULL<=>");
+
+        do
+        {
+            printf("%d<=>", node->value);
+            node = node->next;
+        } while (node != NULL);
+
+        printf("NULL\n");
+    }
+}
+
+/*!
  * @brief main function used to test the functionality of the deque header file.
  */
-void main(void)
+int main(void)
 {
     // Creates a new deque
     linked_deque deque;
@@ -50,4 +80,6 @@ void main(void)
     printf("\nSize of deque: %d", size(&deque));
     // Returns if the deque is empty or not
     printf("\nEmpty: %d", is_empty(&deque));
+
+    return 0;
 }
