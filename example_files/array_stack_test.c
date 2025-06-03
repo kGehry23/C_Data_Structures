@@ -1,30 +1,71 @@
+/**
+ ********************************************************************************
+ * @file    array_stack_test.c
+ * @author  Kai Gehry
+ * @date    2025-06-02
+ *
+ * @brief   Tests the functionality of the operations defined in
+ *          the array_stack header file.
+ ********************************************************************************
+ */
+
+/************************************
+ * INCLUDES
+ ************************************/
 #include <stdio.h>
-#include <stdlib.h>
 #include "../data_structures/stacks/array_stack.h"
 
-int main()
+/*!
+ * @brief Prints the contents of the array based stack to the terminal.
+ * @param list Pointer to a stack.
+ * @return None
+ */
+void display_stack(array_stack *stack)
 {
+    for (int i = (stack->size - 1); i >= 0; i--)
+    {
+        printf("\n%d", (stack->array)[i]);
+    }
+}
 
-    // int (*array)[5];
-
-    // int test[5];
-
-    // array = &test;
-
-    // (&array)[0] = 1;
-
-    // printf("%d", (&array)[0]);
-    // printf("\n%d", test[0]);
-
+/*!
+ * @brief main function used to test the functionality of the array_stack header file.
+ */
+int main(void)
+{
     array_stack stack;
 
+    // Initializes the stack
     initialize_array_stack(&stack, 5);
-    // push(&stack, 4);
-    // push(&stack, 5);
-    // push(&stack, 6);
-    // push(&stack, 7);
 
-    // display_array_stack(&stack);
+    // Pushes elements onto the stack
+    push(&stack, 1);
+    push(&stack, 2);
+    push(&stack, 3);
+    push(&stack, 4);
+    push(&stack, 5);
+
+    // Tests the output when the element limit is reached
+    push(&stack, 6);
+
+    // Prints the contents of the stack to the terminal
+    display_stack(&stack);
+
+    // Pop elements off of the stack and view the updated content of the stack
+    printf("\n\n%d\n", pop(&stack));
+
+    display_stack(&stack);
+    printf("\n\n%d", pop(&stack));
+
+    printf("\n\n");
+
+    push(&stack, 7);
+    display_stack(&stack);
+
+    printf("\n\n");
+
+    push(&stack, 8);
+    display_stack(&stack);
 
     return 0;
 }
