@@ -50,6 +50,7 @@ void enqueue(array_queue *queue, void *element)
     // If space is at the front of the queue, as elements have been added and removed
     if (queue->end_index == queue->size - 1 && queue->front_index != 0)
     {
+        // Reference for the index to shift backwards
         int index_ref = queue->front_index;
 
         // Shifts all elements
