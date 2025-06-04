@@ -65,7 +65,7 @@ int pop(linked_list_stack *stack)
  * @param stack Pointer to a linked list stack.
  * @return The value held by the node at the head of the stack.
  */
-int peek(linked_list_stack *stack)
+void *peek(linked_list_stack *stack)
 {
     return return_sl_head(&(stack->list));
 }
