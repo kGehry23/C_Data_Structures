@@ -47,49 +47,54 @@ typedef struct
  */
 void enqueue(array_queue *queue, void *element)
 {
-    // If space is at the front of the queue, as elements have been added and removed
-    if (queue->end_index == queue->size - 1 && queue->front_index != 0)
-    {
-        // Reference for the index to shift backwards
-        int index_ref = queue->front_index;
+}
 
-        // Shifts all elements
-        for (int i = 0; i < queue->num_elements; i++)
-        {
-            (queue->array)[i] = (queue->array)[index_ref];
-            index_ref = index_ref + 1;
-        }
+/*!
+ * @brief Removes an item from the queue and returns its value.
+ * @param queue Pointer to a linked list queue.
+ * @return Removes and returns the item at the head of the queue
+ */
+void *dequeue(array_queue *queue)
+{
+    void *removed_element = (queue->array)[queue->front_index];
 
-        // Add the new element
-        (queue->array)[index_ref] = element;
-        // Update the element count
-        queue->num_elements = queue->num_elements + 1;
+    (queue->array)[queue->front_index] = NULL;
 
-        // If the end index does not currently equal the index of the element at the end of the queue
-        if (index_ref + 1 <= queue->size - 1)
-        {
-            // Update the index for where a new element should be added
-            queue->end_index = index_ref + 1;
-        }
-        else
-        {
-            // If the updated index wil be greater than the last element index, we keep the index the same
-            queue->end_index = index_ref;
-        }
-    }
+    queue->front_index = queue->front_index + 1;
 
-    // Need to be more concrete here with these cases
-    else if (queue->num_elements == queue->size)
-    {
-        printf("\nCapacity Reached");
-    }
-    else
-    {
-        (queue->array)[queue->front_index] = element;
-        queue->end_index = queue->end_index + 1;
+    queue->num_elements = queue->num_elements - 1;
 
-        queue->size = queue->size + 1;
-    }
+    return removed_element;
+}
+
+/*!
+ * @brief Returns the element at the front of the queue.
+ * @param queue Pointer to a queue.
+ * @return A value representing the value stored by the node at the head of queue.
+ */
+void *first(array_queue *queue)
+{
+    return (queue->array)[queue->front_index];
+}
+
+/*!
+ * @brief Returns the size (number of elements) in the queue.
+ * @param queue Pointer to a queue.
+ * @return An integer value representing the number of elements in the queue.
+ */
+int size(array_queue *queue)
+{
+    return (queue->num_elements);
+}
+
+/*!
+ * @brief Returns if the queue is empty or not.
+ * @param queue Pointer to a queue.
+ * @return A boolean value representing if the queue is empty (1) or not empty (0).
+ */
+bool is_empty(array_queue *queue)
+{
+    return (queue->num_elements) == 0;
 }
 
 /*!

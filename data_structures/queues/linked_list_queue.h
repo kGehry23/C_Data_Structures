@@ -55,7 +55,7 @@ void enqueue(linked_list_queue *queue, void *value)
  * @param queue Pointer to a linked list queue.
  * @return Removes and returns the item at the head of the queue
  */
-int dequeue(linked_list_queue *queue)
+void *dequeue(linked_list_queue *queue)
 {
     return remove_sl_node(&(queue->list), ((queue->list).head)->value);
 }
@@ -65,7 +65,7 @@ int dequeue(linked_list_queue *queue)
  * @param queue Pointer to a linked list queue.
  * @return A value representing the value stored by the node at the head of queue.
  */
-int first(linked_list_queue *queue)
+void *first(linked_list_queue *queue)
 {
     return return_sl_head(&(queue->list));
 }
