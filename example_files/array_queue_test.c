@@ -21,6 +21,15 @@
  */
 void display_queue(array_queue *queue)
 {
+    int j = 0;
+
+    for (int i = queue->front_index; j < queue->num_elements; i++)
+    {
+        printf("\n%d", (queue->array)[i]);
+        j++;
+    }
+
+    printf("\n");
 }
 
 /*!
@@ -38,37 +47,47 @@ int main(void)
 
     display_queue(&queue);
 
-    printf("\nFront Index: %d", queue.front_index);
-
-    printf("\nElement dequeued: %d", dequeue(&queue));
-
-    printf("\nFront Index: %d", queue.front_index);
-
-    printf("\nNumber of Elements: %d", size(&queue));
-
-    display_queue(&queue);
-
-    printf("\nElement at front of queue: %d", first(&queue));
-
-    display_queue(&queue);
-
-    printf("\n\nEmpty: %d", is_empty(&queue));
-    printf("\nNumber of Elements: %d", size(&queue));
-
     enqueue(&queue, 4);
-    // enqueue(&queue, 5);
-
+    enqueue(&queue, 5);
     enqueue(&queue, 6);
-    display_queue(&queue);
-    printf("\nNumber of Elements: %d", size(&queue));
-
-    // enqueue(&queue, 7);
-
-    printf("\nFront Index: %d", queue.front_index);
-
-    printf("\nNumber of Elements: %d", size(&queue));
 
     display_queue(&queue);
+
+    dequeue(&queue);
+
+    display_queue(&queue);
+
+    // printf("\nFront Index: %d", queue.front_index);
+
+    // printf("\nElement dequeued: %d", dequeue(&queue));
+
+    // printf("\nFront Index: %d", queue.front_index);
+
+    // printf("\nNumber of Elements: %d", size(&queue));
+
+    // display_queue(&queue);
+
+    // printf("\nElement at front of queue: %d", first(&queue));
+
+    // display_queue(&queue);
+
+    // printf("\n\nEmpty: %d", is_empty(&queue));
+    // printf("\nNumber of Elements: %d", size(&queue));
+
+    // enqueue(&queue, 4);
+    // // enqueue(&queue, 5);
+
+    // enqueue(&queue, 6);
+    // display_queue(&queue);
+    // printf("\nNumber of Elements: %d", size(&queue));
+
+    // // enqueue(&queue, 7);
+
+    // printf("\nFront Index: %d", queue.front_index);
+
+    // printf("\nNumber of Elements: %d", size(&queue));
+
+    // display_queue(&queue);
 
     return 0;
 }

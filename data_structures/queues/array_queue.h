@@ -47,6 +47,29 @@ typedef struct
  */
 void enqueue(array_queue *queue, void *element)
 {
+
+    // If there are available positions to add to and the end element's index is not equal to the end index
+    if (queue->num_elements < queue->size && queue->end_index <= queue->size - 1)
+    {
+        // Add the element to the end of the queue
+        (queue->array)[queue->end_index] = element;
+
+        // Update the end index. If the end index is equal to the defined size - 1, it remains the same
+        if (queue->end_index + 1 != queue->size)
+        {
+            queue->end_index = queue->end_index + 1;
+        }
+
+        // Increment the number of elements
+        queue->num_elements = queue->num_elements + 1;
+
+        printf("\nNumber of elements: %d", queue->num_elements);
+    }
+    // If the capacity has been reached
+    else if (queue->num_elements == queue->size)
+    {
+        printf("\nCapacity Reached\n");
+    }
 }
 
 /*!
@@ -56,13 +79,18 @@ void enqueue(array_queue *queue, void *element)
  */
 void *dequeue(array_queue *queue)
 {
+    // void pointer to store the value of the dequeued element
     void *removed_element = (queue->array)[queue->front_index];
 
+    // Assigns the value at the position of the removed element to null
     (queue->array)[queue->front_index] = NULL;
-
+    // Updates the front index
     queue->front_index = queue->front_index + 1;
 
+    // Decrements the number of elements
     queue->num_elements = queue->num_elements - 1;
+
+    printf("\nNumber of elements: %d", queue->num_elements);
 
     return removed_element;
 }
