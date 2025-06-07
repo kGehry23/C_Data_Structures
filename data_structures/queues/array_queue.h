@@ -34,7 +34,7 @@ typedef struct
     int end_index;
     // Number of elements currently in the queue
     int num_elements;
-    //  Pointer to void* type which will point to the underlying array
+    // Pointer to void* type which will point to the underlying array
     void **array;
 
 } array_queue;
@@ -105,18 +105,29 @@ void enqueue(array_queue *queue, void *element)
  */
 void *dequeue(array_queue *queue)
 {
-    // void pointer to store the value of the dequeued element
-    void *removed_element = (queue->array)[queue->front_index];
 
-    // Assigns the value at the position of the removed element to null
-    (queue->array)[queue->front_index] = NULL;
-    // Updates the front index
-    queue->front_index = queue->front_index + 1;
+    // If there are elements in the queue
+    if (queue->num_elements > 0)
+    {
+        // void pointer to store the value of the dequeued element
+        void *removed_element = (queue->array)[queue->front_index];
 
-    // Decrements the number of elements
-    queue->num_elements = queue->num_elements - 1;
+        // Assigns the value at the position of the removed element to null
+        (queue->array)[queue->front_index] = NULL;
+        // Updates the front index
+        queue->front_index = queue->front_index + 1;
 
-    return removed_element;
+        // Decrements the number of elements
+        queue->num_elements = queue->num_elements - 1;
+
+        return removed_element;
+    }
+    // If the queue is empty
+    else
+    {
+        printf("\nQueue contains no elements.\n");
+        return NULL;
+    }
 }
 
 /*!
