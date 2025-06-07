@@ -2,10 +2,10 @@
  ********************************************************************************
  * @file    array_stack_test.c
  * @author  Kai Gehry
- * @date    2025-06-02
+ * @date    2025-06-07
  *
  * @brief   Tests the functionality of the operations defined in
- *          the array_stack header file.
+ *          the array_queue header file.
  ********************************************************************************
  */
 
@@ -14,22 +14,27 @@
  ************************************/
 #include <stdio.h>
 #include "../data_structures/queues/array_queue.h"
+
 /*!
- * @brief Prints the contents of the array based queue to the terminal.
+ * @brief Prints the relevant contents of the array based queue to the terminal.
  * @param list Pointer to a queue.
  * @return None
  */
 void display_queue(array_queue *queue)
 {
+    // Counter variable used to track how many elements have been traversed
     int j = 0;
 
+    printf("\nQueue contents: [ ");
+
+    // Displays only the elements from the front to the end index
     for (int i = queue->front_index; j < queue->num_elements; i++)
     {
-        printf("\n%d", (queue->array)[i]);
+        printf("%d ", (queue->array)[i]);
         j++;
     }
 
-    printf("\n");
+    printf("]\n");
 }
 
 /*!
@@ -39,55 +44,72 @@ int main(void)
 {
     array_queue queue;
 
+    // Initializes the queue
     initialize_array_queue(&queue, 5);
 
+    // Adds elements to the queue
     enqueue(&queue, 1);
     enqueue(&queue, 2);
     enqueue(&queue, 3);
 
+    // Displays the contents of the queue
     display_queue(&queue);
 
     enqueue(&queue, 4);
     enqueue(&queue, 5);
+
+    // Adds an element beyond the capacity of the queue
+    printf("\nAttempt to add an element when queue is full: ");
     enqueue(&queue, 6);
 
     display_queue(&queue);
 
+    // Removes an element from the queue
     dequeue(&queue);
 
     display_queue(&queue);
 
-    // printf("\nFront Index: %d", queue.front_index);
+    // Returns the element at the front of the queue
+    printf("\nElement at front of queue: %d\n", first(&queue));
 
-    // printf("\nElement dequeued: %d", dequeue(&queue));
+    // Add an element where a shift is required
+    enqueue(&queue, 7);
+    display_queue(&queue);
 
-    // printf("\nFront Index: %d", queue.front_index);
+    // Adds an element beyond the capacity of the queue
+    printf("\nAttempt to add an element when queue is full: ");
+    enqueue(&queue, 8);
 
-    // printf("\nNumber of Elements: %d", size(&queue));
+    display_queue(&queue);
 
-    // display_queue(&queue);
+    printf("Front Index: %d", queue.front_index);
+    printf("\nEnd Index: %d\n", queue.end_index);
 
-    // printf("\nElement at front of queue: %d", first(&queue));
+    // Removes elements sequentially from the front of the queue
+    dequeue(&queue);
+    dequeue(&queue);
+    dequeue(&queue);
 
-    // display_queue(&queue);
+    display_queue(&queue);
 
-    // printf("\n\nEmpty: %d", is_empty(&queue));
-    // printf("\nNumber of Elements: %d", size(&queue));
+    printf("Front Index: %d", queue.front_index);
+    printf("\nEnd Index: %d\n", queue.end_index);
 
-    // enqueue(&queue, 4);
-    // // enqueue(&queue, 5);
+    // Returns the number of elements in the queue
+    printf("\nNumber of elements in queue: %d\n", size(&queue));
 
-    // enqueue(&queue, 6);
-    // display_queue(&queue);
-    // printf("\nNumber of Elements: %d", size(&queue));
+    // Add elements where a shift is required
+    enqueue(&queue, 9);
+    enqueue(&queue, 10);
+    enqueue(&queue, 11);
 
-    // // enqueue(&queue, 7);
+    display_queue(&queue);
 
-    // printf("\nFront Index: %d", queue.front_index);
+    printf("Front Index: %d", queue.front_index);
+    printf("\nEnd Index: %d\n", queue.end_index);
 
-    // printf("\nNumber of Elements: %d", size(&queue));
-
-    // display_queue(&queue);
+    // Returns the number of elements in the queue
+    printf("\nNumber of elements in queue: %d\n\n", size(&queue));
 
     return 0;
 }

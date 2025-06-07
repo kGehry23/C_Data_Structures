@@ -2,7 +2,7 @@
  ********************************************************************************
  * @file    array_queue.h
  * @author  Kai Gehry
- * @date    2025-06-03
+ * @date    2025-06-07
  *
  * @brief   Defines the operations on an array based queue.
  ********************************************************************************
@@ -51,6 +51,31 @@ void enqueue(array_queue *queue, void *element)
     // If there are available positions to add to and the end element's index is not equal to the end index
     if (queue->num_elements < queue->size && queue->end_index <= queue->size - 1)
     {
+
+        /*Entered when there is no more space at the end of the queue to add an element
+          but there is space at the beginning due to element removal.
+
+          The elements are then shifted, but this is only done when truly needed to fit more
+          elements. In the worst case, the enqueue operation is then O(n) rather than O(1).
+        */
+        if ((queue->front_index != 0) && (queue->end_index == queue->size - 1))
+        {
+            // Index variable to keep track current element in shift process
+            int index_ref = queue->front_index;
+            // Index for index reassignment
+            int i;
+
+            for (i = 0; i < queue->num_elements; i++)
+            {
+                (queue->array)[i] = (queue->array)[index_ref];
+                index_ref = index_ref + 1;
+            }
+
+            // Reassignment of end index and front index
+            queue->end_index = i;
+            queue->front_index = 0;
+        }
+
         // Add the element to the end of the queue
         (queue->array)[queue->end_index] = element;
 
@@ -62,13 +87,14 @@ void enqueue(array_queue *queue, void *element)
 
         // Increment the number of elements
         queue->num_elements = queue->num_elements + 1;
-
-        printf("\nNumber of elements: %d", queue->num_elements);
     }
-    // If the capacity has been reached
+
+    /*This can be removed if desired, but simply provides an indication that the capacity was reached and
+      the element was not added.
+    */
     else if (queue->num_elements == queue->size)
     {
-        printf("\nCapacity Reached\n");
+        printf("\nCapacity reached. Queue contents unchanged.\n");
     }
 }
 
@@ -89,8 +115,6 @@ void *dequeue(array_queue *queue)
 
     // Decrements the number of elements
     queue->num_elements = queue->num_elements - 1;
-
-    printf("\nNumber of elements: %d", queue->num_elements);
 
     return removed_element;
 }
@@ -143,3 +167,26 @@ void initialize_array_queue(array_queue *queue, int queue_size)
     //  Create an array of the specified size
     queue->array = (void *)malloc(queue_size * sizeof(void *));
 }
+
+/*!
+ * @brief Prints the relevant contents of the array based queue to the terminal.
+ *        Can be uncommented if the element type remains constant.
+ * @param list Pointer to a queue.
+ * @return None
+ */
+// void display_queue(array_queue *queue)
+// {
+//     // Counter variable used to track how many elements have been traversed
+//     int j = 0;
+
+//     printf("\n");
+
+//     // Displays only the elements from the front to the end index
+//     for (int i = queue->front_index; j < queue->num_elements; i++)
+//     {
+//         printf("\n%d", (queue->array)[i]);
+//         j++;
+//     }
+
+//     printf("\n");
+// }
