@@ -15,6 +15,12 @@
 #include <stdbool.h>
 #include "../linked_lists/singly_linked_list/singly_linked_list.h"
 
+/************************************
+ * COMPILER DIRECTIVES
+ ************************************/
+// Added for void* to required type conversions
+#pragma GCC diagnostic ignored "-Wint-conversion"
+
 /*!
  * @brief Struct which represents a queue.
  */
@@ -39,7 +45,7 @@ void initialize_queue(linked_list_queue *queue)
  * @param value Value to add to the queue.
  * @return None
  */
-void enqueue(linked_list_queue *queue, int value)
+void enqueue(linked_list_queue *queue, void *value)
 {
     add_sl_node_to_tail(&(queue->list), value);
 }
@@ -49,7 +55,7 @@ void enqueue(linked_list_queue *queue, int value)
  * @param queue Pointer to a linked list queue.
  * @return Removes and returns the item at the head of the queue
  */
-int dequeue(linked_list_queue *queue)
+void *dequeue(linked_list_queue *queue)
 {
     return remove_sl_node(&(queue->list), ((queue->list).head)->value);
 }
@@ -59,7 +65,7 @@ int dequeue(linked_list_queue *queue)
  * @param queue Pointer to a linked list queue.
  * @return A value representing the value stored by the node at the head of queue.
  */
-int first(linked_list_queue *queue)
+void *first(linked_list_queue *queue)
 {
     return return_sl_head(&(queue->list));
 }
@@ -84,12 +90,12 @@ bool is_empty(linked_list_queue *queue)
     return sl_list_length(&(queue->list)) == 0;
 }
 
-/*!
- * @brief Displays the contents of the queue.
- * @param queue Pointer to a linked list queue.
- * @return None
- */
-void display_queue(linked_list_queue *queue)
-{
-    display_sl_list(&(queue->list));
-}
+// /*!
+//  * @brief Displays the contents of the queue.
+//  * @param queue Pointer to a linked list queue.
+//  * @return None
+//  */
+// void display_queue(linked_list_queue *queue)
+// {
+//     display_sl_list(&(queue->list));
+// }

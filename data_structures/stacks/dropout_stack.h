@@ -15,6 +15,12 @@
 #include <stdbool.h>
 #include "../linked_lists/singly_linked_list/singly_linked_list.h"
 
+/************************************
+ * COMPILER DIRECTIVES
+ ************************************/
+// Added for void* to required type conversions
+#pragma GCC diagnostic ignored "-Wint-conversion"
+
 /*!
  * @brief Struct which represents a dropout stack.
  */
@@ -45,7 +51,7 @@ void initialize_do_stack(dropout_stack *stack, int dropout_limit)
  * @param value Element to push onto the stack.
  * @return None
  */
-void push(dropout_stack *stack, int value)
+void push(dropout_stack *stack, void *value)
 {
     add_sl_node_to_head(&(stack->list), value);
 
@@ -95,35 +101,36 @@ bool is_empty(dropout_stack *stack)
     return sl_list_length(&(stack->list)) == 0;
 }
 
-/*!
- * @brief Displays the contents of the stack.
- * @param stack Pointer to a dropout stack.
- * @return None
- */
-void display_do_stack(dropout_stack *stack)
-{
-    // If the stack is empty, NULL is printed
-    if (stack->list.list_size == 0)
-    {
-        printf("\nNULL");
-    }
-    // If the stack is not empty, the stack is traversed and the elements are printed to the terminal
-    else
-    {
-        singly_linked_list_node *node = stack->list.head;
-        printf("\n");
-        printf("\nNULL->");
+// /*!
+//  * @brief Displays the contents of the stack. Can be uncommented if the data type to be
+//           stored remains constant.
+//  * @param stack Pointer to a dropout stack.
+//  * @return None
+//  */
+// void display_do_stack(dropout_stack *stack)
+// {
+//     // If the stack is empty, NULL is printed
+//     if (stack->list.list_size == 0)
+//     {
+//         printf("\nNULL");
+//     }
+//     // If the stack is not empty, the stack is traversed and the elements are printed to the terminal
+//     else
+//     {
+//         singly_linked_list_node *node = stack->list.head;
+//         printf("\n");
+//         printf("\nNULL->");
 
-        do
-        {
-            printf("%d", node->value);
-            node = node->next;
+//         do
+//         {
+//             printf("%d", node->value);
+//             node = node->next;
 
-            if (node != NULL)
-            {
-                printf("->");
-            }
+//             if (node != NULL)
+//             {
+//                 printf("->");
+//             }
 
-        } while (node != NULL);
-    }
-}
+//         } while (node != NULL);
+//     }
+// }
