@@ -1,10 +1,10 @@
 /**
  ********************************************************************************
- * @file    array_stack.h
+ * @file    circular_queue.h
  * @author  Kai Gehry
  * @date    2025-06-02
  *
- * @brief   Defines the operations on an array based stack.
+ * @brief   Defines the operations on a circular queue
  ********************************************************************************
  */
 
@@ -22,23 +22,22 @@
 #pragma GCC diagnostic ignored "-Wint-conversion"
 
 /*!
- * @brief Struct which represents an array based stack.
+ * @brief Struct which represents an array based queue.
  */
 typedef struct
 {
-    // Defines the number of elements allowable in the stack
+    // Defines the number of elements allowable in the queue
     int size;
-    // Integer index indicating the top of the stack
-    int top_index;
-    // Integer indicating the next index at the top of the stack
-    int stack_pointer;
-    // Number of elements currently in the stack
+    // Index of the element at the front of the queue
+    int front_index;
+    // Index of the next position to add an element to
+    int end_index;
+    // Number of elements currently in the queue
     int num_elements;
-    //  Integer pointer to an array
-    int *array;
+    //  Pointer to void* type which will point to the underlying array
+    void **array; // Don't know why this was causing issues
 
-} array_stack;
-
+} circular_queue;
 // /*!
 //  * @brief Adds an element to the top of the stack
 //  * @param stack Pointer to a stack
@@ -89,26 +88,17 @@ typedef struct
 //     return top;
 // }
 
-// void display_array_stack(array_stack *stack)
-// {
-
-//     for (int i = 0; i < stack->size; i++)
-//     {
-//         printf("%d\n", (&(stack->array))[i]);
-//     }
-// }
-
 /*!
- * @brief Initializes the stack.
- * @param stack Pointer to a dropout stack stack
- * @param num_elements Number of elements allowable in the stack
+ * @brief Initializes the queue.
+ * @param circ_queue Pointer to a dropout stack stack
+ * @param circ_queue_size Number of elements allowable in the stack
  * @return None
  */
-void initialize_array_stack(array_stack *stack, int size)
+void initialize_circ_queue(circular_queue *circ_queue, int circ_queue_size)
 {
-    stack->size = size;
-    // Initialize the top and bottom element indices of the stack to 0
-    stack->top_index = 0;
+    circ_queue->size = circ_queue_size;
+    // Initialize the top and bottom element indices of the queue to 0
+    circ_queue->front_index = 0;
     // Create an array of the specified size
-    stack->array = (int *)malloc(size * sizeof(int *));
+    circ_queue->array = (void *)malloc(circ_queue_size * sizeof(void *));
 }
