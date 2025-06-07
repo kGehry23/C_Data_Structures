@@ -42,15 +42,15 @@ typedef struct
 /*!
  * @brief Adds an element to the top of the stack
  * @param stack Pointer to a stack
- * @param value Element to add to the stack
+ * @param element Element to add to the stack
  * @return None
  */
-void push(array_stack *stack, void *value)
+void push(array_stack *stack, void *element)
 {
     if (stack->num_elements != stack->size)
     {
         // Assign the new value to the top of the stack
-        (stack->array)[stack->stack_pointer] = value;
+        (stack->array)[stack->stack_pointer] = element;
         // Update the stack pointer
         stack->top_index = stack->stack_pointer;
 
@@ -145,7 +145,7 @@ bool is_empty(array_stack *stack)
 void initialize_array_stack(array_stack *stack, int stack_size)
 {
     stack->size = stack_size;
-    // Initialize the top and bottom element indices of the stack to 0
+    // Initialize the top element index of the stack to 0
     stack->top_index = 0;
     // Initialize stack pointer to 0
     stack->stack_pointer = 0;
