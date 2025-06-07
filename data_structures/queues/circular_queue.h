@@ -41,7 +41,7 @@ typedef struct
 
 /*!
  * @brief Adds an element to the end of the circular queue
- * @param queue Pointer to a circular queue
+ * @param circ_queue Pointer to a circular queue
  * @param element Element to add to the circular queue
  * @return None
  */
@@ -50,10 +50,10 @@ void enqueue(circular_queue *circ_queue, void *element)
 
     if (circ_queue->num_elements < circ_queue->size)
     {
-
         // Add the element to the end of the queue
         (circ_queue->array)[circ_queue->end_index] = element;
 
+        // Calculate the new index where a new element can be placed
         circ_queue->end_index = (circ_queue->end_index + 1) % (circ_queue->size);
 
         // Increment the number of elements
@@ -76,18 +76,28 @@ void enqueue(circular_queue *circ_queue, void *element)
  */
 void *dequeue(circular_queue *circ_queue)
 {
-    // void pointer to store the value of the dequeued element
-    void *removed_element = (circ_queue->array)[circ_queue->front_index];
+    // If there are elements in the circular queue
+    if (circ_queue->num_elements > 0)
+    {
+        // void pointer to store the value of the dequeued element
+        void *removed_element = (circ_queue->array)[circ_queue->front_index];
 
-    // Assigns the value at the position of the removed element to null
-    (circ_queue->array)[circ_queue->front_index] = NULL;
-    // Updates the front index
-    circ_queue->front_index = circ_queue->front_index + 1;
+        // Assigns the value at the position of the removed element to null
+        (circ_queue->array)[circ_queue->front_index] = NULL;
+        // Updates the front index
+        circ_queue->front_index = (circ_queue->front_index + 1) % circ_queue->size;
 
-    // Decrements the number of elements
-    circ_queue->num_elements = circ_queue->num_elements - 1;
+        // Decrements the number of elements
+        circ_queue->num_elements = circ_queue->num_elements - 1;
 
-    return removed_element;
+        return removed_element;
+    }
+    // If the circular queue is empty
+    else
+    {
+        printf("\nCircular queue contains no elements.\n");
+        return NULL;
+    }
 }
 
 /*!
@@ -128,14 +138,14 @@ bool is_empty(circular_queue *circ_queue)
  */
 void initialize_circular_queue(circular_queue *circ_queue, int queue_size)
 {
-    // Defines the number of allowable elements in the array
+    // Defines the number of allowable elements in the queue
     circ_queue->size = queue_size;
-    // Set the initial top and bottom indices to 0
+    // Set the initial front and end indices to 0
     circ_queue->front_index = 0;
     circ_queue->end_index = 0;
     circ_queue->num_elements = 0;
 
-    //  Create an array of the specified size
+    //  Create an array of the specified size to hold the queue elements
     circ_queue->array = (void *)malloc(queue_size * sizeof(void *));
 }
 

@@ -39,7 +39,9 @@ void display_circular_queue(circular_queue *queue)
         else
             printf("%d ", (queue->array)[i]);
 
+        // Update the element index
         i = (i + 1) % (queue->size);
+        // Increment the counter
         j++;
     }
 
@@ -56,6 +58,9 @@ int main(void)
     // Initializes the circular queue
     initialize_circular_queue(&circ_queue, 5);
 
+    // Attempts to remove an element from an empty queue
+    dequeue(&circ_queue);
+
     // Checks if the queue is empty
     printf("\nEmpty: %d\n", is_empty(&circ_queue));
 
@@ -66,16 +71,38 @@ int main(void)
     enqueue(&circ_queue, 4);
     enqueue(&circ_queue, 5);
 
+    display_circular_queue(&circ_queue);
+
     // Adds an element beyond the capacity of the queue
     printf("\nAttempt to add an element when queue is full: ");
     enqueue(&circ_queue, 6);
 
-    display_circular_queue(&circ_queue);
-
-    // Removes an element from the queue
+    /*Elements removed until there is only one element left in the queue.
+      This element's index is at the final position of the queue.*/
+    dequeue(&circ_queue);
+    dequeue(&circ_queue);
+    dequeue(&circ_queue);
     dequeue(&circ_queue);
 
     display_circular_queue(&circ_queue);
+
+    printf("Front Index: %d", circ_queue.front_index);
+    printf("\nEnd Index: %d\n", circ_queue.end_index);
+
+    // Add an element and check that the front and end indices have been updated correctly
+    enqueue(&circ_queue, 6);
+
+    display_circular_queue(&circ_queue);
+
+    printf("Front Index: %d", circ_queue.front_index);
+    printf("\nEnd Index: %d\n", circ_queue.end_index);
+
+    dequeue(&circ_queue);
+
+    display_circular_queue(&circ_queue);
+
+    printf("Front Index: %d", circ_queue.front_index);
+    printf("\nEnd Index: %d\n", circ_queue.end_index);
 
     enqueue(&circ_queue, 7);
     display_circular_queue(&circ_queue);
@@ -86,18 +113,15 @@ int main(void)
     // Returns the number of elements in the queue
     printf("\nNumber of elements in queue: %d\n", size(&circ_queue));
 
-    // Adds an element beyond the capacity of the queue
-    printf("\nAttempt to add an element when queue is full: ");
-    enqueue(&circ_queue, 8);
-
-    display_circular_queue(&circ_queue);
-
     // Removes an element and displays the contents
     dequeue(&circ_queue);
     display_circular_queue(&circ_queue);
 
     printf("Front Index: %d", circ_queue.front_index);
     printf("\nEnd Index: %d\n", circ_queue.end_index);
+
+    enqueue(&circ_queue, 8);
+    display_circular_queue(&circ_queue);
 
     enqueue(&circ_queue, 9);
     display_circular_queue(&circ_queue);
