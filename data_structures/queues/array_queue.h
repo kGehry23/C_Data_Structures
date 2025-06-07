@@ -34,7 +34,7 @@ typedef struct
     int end_index;
     // Number of elements currently in the queue
     int num_elements;
-    //  Pointer to void* type which will point to the underlying array
+    // Pointer to void* type which will point to the underlying array
     void **array;
 
 } array_queue;
