@@ -22,7 +22,7 @@
 #pragma GCC diagnostic ignored "-Wint-conversion"
 
 /*!
- * @brief Struct which represents an array based queue.
+ * @brief Struct which represents a circular queue.
  */
 typedef struct
 {
@@ -40,153 +40,133 @@ typedef struct
 } circular_queue;
 
 /*!
- * @brief Adds an element to the end of the queue
- * @param queue Pointer to a queue
- * @param element Element to add to the queue
+ * @brief Adds an element to the end of the circular queue
+ * @param queue Pointer to a circular queue
+ * @param element Element to add to the circular queue
  * @return None
  */
-void enqueue(circular_queue *queue, void *element)
+void enqueue(circular_queue *circ_queue, void *element)
 {
 
-    // If there are available positions to add to and the end element's index is not equal to the end index
-    if (queue->num_elements < queue->size && queue->end_index <= queue->size - 1)
+    if (circ_queue->num_elements < circ_queue->size)
     {
 
-        /*Entered when there is no more space at the end of the queue to add an element
-          but there is space at the beginning due to element removal.
-
-          The elements are then shifted, but this is only done when truly needed to fit more
-          elements. In the worst case, the enqueue operation is then O(n) rather than O(1).
-        */
-        if ((queue->front_index != 0) && (queue->end_index == queue->size - 1))
-        {
-            // Index variable to keep track current element in shift process
-            int index_ref = queue->front_index;
-            // Index for index reassignment
-            int i;
-
-            for (i = 0; i < queue->num_elements; i++)
-            {
-                (queue->array)[i] = (queue->array)[index_ref];
-                index_ref = index_ref + 1;
-            }
-
-            // Reassignment of end index and front index
-            queue->end_index = i;
-            queue->front_index = 0;
-        }
-
         // Add the element to the end of the queue
-        (queue->array)[queue->end_index] = element;
+        (circ_queue->array)[circ_queue->end_index] = element;
 
-        // Update the end index. If the end index is equal to the defined size - 1, it remains the same
-        if (queue->end_index + 1 != queue->size)
-        {
-            queue->end_index = queue->end_index + 1;
-        }
+        circ_queue->end_index = (circ_queue->end_index + 1) % (circ_queue->size);
 
         // Increment the number of elements
-        queue->num_elements = queue->num_elements + 1;
+        circ_queue->num_elements = circ_queue->num_elements + 1;
     }
 
     /*This can be removed if desired, but simply provides an indication that the capacity was reached and
       the element was not added.
     */
-    else if (queue->num_elements == queue->size)
+    else
     {
         printf("\nCapacity reached. Queue contents unchanged.\n");
     }
 }
 
 /*!
- * @brief Removes an item from the queue and returns its value.
- * @param queue Pointer to a linked list queue.
- * @return Removes and returns the item at the head of the queue
+ * @brief Removes an item from the circular queue and returns its value.
+ * @param circ_queue Pointer to a circular queue.
+ * @return Removes and returns the item at the head of the circular queue
  */
-void *dequeue(circular_queue *queue)
+void *dequeue(circular_queue *circ_queue)
 {
     // void pointer to store the value of the dequeued element
-    void *removed_element = (queue->array)[queue->front_index];
+    void *removed_element = (circ_queue->array)[circ_queue->front_index];
 
     // Assigns the value at the position of the removed element to null
-    (queue->array)[queue->front_index] = NULL;
+    (circ_queue->array)[circ_queue->front_index] = NULL;
     // Updates the front index
-    queue->front_index = queue->front_index + 1;
+    circ_queue->front_index = circ_queue->front_index + 1;
 
     // Decrements the number of elements
-    queue->num_elements = queue->num_elements - 1;
+    circ_queue->num_elements = circ_queue->num_elements - 1;
 
     return removed_element;
 }
 
 /*!
- * @brief Returns the element at the front of the queue.
- * @param queue Pointer to a queue.
- * @return A value representing the value stored by the node at the head of queue.
+ * @brief Returns the element at the front of the circular queue.
+ * @param circ_queue Pointer to a circular queue.
+ * @return A value representing the value stored by the node at the head of circular queue.
  */
-void *first(circular_queue *queue)
+void *first(circular_queue *circ_queue)
 {
-    return (queue->array)[queue->front_index];
+    return (circ_queue->array)[circ_queue->front_index];
 }
 
 /*!
- * @brief Returns the size (number of elements) in the queue.
- * @param queue Pointer to a queue.
- * @return An integer value representing the number of elements in the queue.
+ * @brief Returns the size (number of elements) in the circular queue.
+ * @param circ_queue Pointer to a circular queue.
+ * @return An integer value representing the number of elements in the circular queue.
  */
-int size(circular_queue *queue)
+int size(circular_queue *circ_queue)
 {
-    return (queue->num_elements);
+    return (circ_queue->num_elements);
 }
 
 /*!
- * @brief Returns if the queue is empty or not.
- * @param queue Pointer to a queue.
- * @return A boolean value representing if the queue is empty (1) or not empty (0).
+ * @brief Returns if the circular queue is empty or not.
+ * @param circ_queue Pointer to a circular queue.
+ * @return A boolean value representing if the circular queue is empty (1) or not empty (0).
  */
-bool is_empty(circular_queue *queue)
+bool is_empty(circular_queue *circ_queue)
 {
-    return (queue->num_elements) == 0;
+    return (circ_queue->num_elements) == 0;
 }
 
 /*!
- * @brief Initializes the queue.
- * @param queue Pointer to a queue
- * @param num_elements Number of allowable elements in the queue
+ * @brief Initializes the circular queue.
+ * @param circ_queue Pointer to a circular queue
+ * @param num_elements Number of allowable elements in the circular queue
  * @return None
  */
-void initialize_circular_queue(circular_queue *queue, int queue_size)
+void initialize_circular_queue(circular_queue *circ_queue, int queue_size)
 {
     // Defines the number of allowable elements in the array
-    queue->size = queue_size;
+    circ_queue->size = queue_size;
     // Set the initial top and bottom indices to 0
-    queue->front_index = 0;
-    queue->end_index = 0;
-    queue->num_elements = 0;
+    circ_queue->front_index = 0;
+    circ_queue->end_index = 0;
+    circ_queue->num_elements = 0;
 
     //  Create an array of the specified size
-    queue->array = (void *)malloc(queue_size * sizeof(void *));
+    circ_queue->array = (void *)malloc(queue_size * sizeof(void *));
 }
 
 /*!
- * @brief Prints the relevant contents of the array based queue to the terminal.
+ * @brief Prints the relevant contents of the circular queue to the terminal.
  *        Can be uncommented if the element type remains constant.
- * @param list Pointer to a queue.
+ * @param list Pointer to a circular queue.
  * @return None
  */
-// void display_queue(array_queue *queue)
+// void display_circular_queue(circular_queue *queue)
 // {
 //     // Counter variable used to track how many elements have been traversed
 //     int j = 0;
+//     // Variable which indicates which index to begin traversal at
+//     int i = queue->front_index;
 
-//     printf("\n");
+//     printf("\nQueue contents: [ ");
 
 //     // Displays only the elements from the front to the end index
-//     for (int i = queue->front_index; j < queue->num_elements; i++)
+//     while (j < queue->num_elements)
 //     {
-//         printf("\n%d", (queue->array)[i]);
+//         if (i == queue->front_index)
+//             printf("->%d ", (queue->array)[i]);
+//         else if (j + 1 == queue->num_elements)
+//             printf("%d-> ", (queue->array)[i]);
+//         else
+//             printf("%d ", (queue->array)[i]);
+
+//         i = (i + 1) % (queue->size);
 //         j++;
 //     }
 
-//     printf("\n");
+//     printf("]\n");
 // }
