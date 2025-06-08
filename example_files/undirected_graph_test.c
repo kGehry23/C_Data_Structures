@@ -12,7 +12,7 @@ int main(void)
     add_vertex(&ud_graph, "A", 1);
     add_vertex(&ud_graph, "B", 2);
 
-    // printf("\n%d", ud_graph.num_vertices);
+    printf("\n%d", ud_graph.num_vertices);
 
     return 0;
 }

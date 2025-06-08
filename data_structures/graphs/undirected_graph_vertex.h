@@ -22,5 +22,7 @@ typedef struct
     void *value;
     // Vertex identifier
     void *identifier;
+    // Stores the index of the vertex in the adjacency matrix
+    int adj_index;
 
 } undirected_graph_vertex;
