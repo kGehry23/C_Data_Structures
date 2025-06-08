@@ -6,12 +6,12 @@ int main(void)
 {
     undirected_graph ud_graph;
 
-    initialize_undirected_graph(&ud_graph);
+    initialize_undirected_graph(&ud_graph, 5);
 
-    add_vertex(&ud_graph, "A", 10);
-    add_vertex(&ud_graph, "B", 6);
+    add_vertex(&ud_graph);
+    add_vertex(&ud_graph);
 
-    printf("\n%d", ud_graph.num_vertices);
+    // printf("\n%d", ud_graph.num_vertices);
 
     return 0;
 }
