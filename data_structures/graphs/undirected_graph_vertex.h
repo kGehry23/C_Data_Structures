@@ -12,6 +12,7 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
+#include <stdbool.h>
 
 /*!
  * @brief Struct which represents an undirected graph vertex
