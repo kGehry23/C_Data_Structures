@@ -28,7 +28,6 @@
  */
 int main(void)
 {
-
     undirected_graph ud_graph;
 
     // Initializes the undirected graph

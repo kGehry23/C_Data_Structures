@@ -54,8 +54,6 @@ typedef struct
  */
 void add_vertex(undirected_graph *ud_graph, void *identifier, void *vertex_value)
 {
-    // Integer which keeps track of the current index to associate with the new node in the adjacency matrix
-    static int array_index = 0;
 
     // Allocate memory for a new undirected graph vertex
     undirected_graph_vertex *new_vertex = (undirected_graph_vertex *)malloc(sizeof(undirected_graph_vertex));
@@ -66,12 +64,10 @@ void add_vertex(undirected_graph *ud_graph, void *identifier, void *vertex_value
     */
     new_vertex->identifier = identifier;
     new_vertex->value = vertex_value;
-    new_vertex->adj_index = array_index;
+    new_vertex->adj_index = identifier;
 
     // Add vertex to the graph
-    ud_graph->vertices[array_index] = new_vertex;
-
-    array_index++;
+    ud_graph->vertices[new_vertex->adj_index] = new_vertex;
 
     // Increment the number of vertices in the graph
     ud_graph->num_vertices = ud_graph->num_vertices + 1;
