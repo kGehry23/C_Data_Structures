@@ -41,7 +41,18 @@ int main(void)
     add_edge(&ud_graph, RESOURCE_A, RESOURCE_B);
 
     // Checks that the edge exists between the two vertices
-    printf("\nConnected: %d", is_connected(&ud_graph, RESOURCE_A, RESOURCE_B));
+    printf("\nConnected: %d", edge_exists(&ud_graph, RESOURCE_A, RESOURCE_B));
+
+    // // Removes an edge
+    // remove_edge(&ud_graph, RESOURCE_A, RESOURCE_B);
+
+    // // Checks that the edge exists between the two vertices
+    // printf("\nConnected: %d", is_connected(&ud_graph, RESOURCE_A, RESOURCE_B));
+
+    remove_vertex(&ud_graph, RESOURCE_A);
+
+    // Checks that the edge exists between the two vertices
+    printf("\nConnected: %d", edge_exists(&ud_graph, RESOURCE_A, RESOURCE_B));
 
     // Displays the number of vertices
     printf("\n%d", ud_graph.num_vertices);

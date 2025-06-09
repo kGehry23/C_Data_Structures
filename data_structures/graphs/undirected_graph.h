@@ -38,6 +38,8 @@ typedef struct
     int num_vertices;
     // Stores the number of edges
     int num_edges;
+    // Capacity of the adjacency matrix
+    int adjacency_size;
     // Pointer to an array which will store pointers to the vertices
     undirected_graph_vertex **vertices;
     // Pointer to 2D array to indicate if two vertices are connected
@@ -52,7 +54,7 @@ typedef struct
  * @param vertex_value Value stored by the vertex
  * @return None
  */
-void add_vertex(undirected_graph *ud_graph, void *identifier, void *vertex_value)
+void add_vertex(undirected_graph *ud_graph, int identifier, void *vertex_value)
 {
 
     // Allocate memory for a new undirected graph vertex
@@ -67,10 +69,37 @@ void add_vertex(undirected_graph *ud_graph, void *identifier, void *vertex_value
     new_vertex->adj_index = identifier;
 
     // Add vertex to the graph
-    ud_graph->vertices[new_vertex->adj_index] = new_vertex;
+    ud_graph->vertices[identifier] = new_vertex;
 
     // Increment the number of vertices in the graph
     ud_graph->num_vertices = ud_graph->num_vertices + 1;
+}
+
+/*!
+ * @brief Removes a vertex from the undirected graph
+ * @param ud_graph Pointer to an undirected graph
+ * @param identifier Value to identify the vertex by
+ * @return None
+ */
+undirected_graph_vertex *remove_vertex(undirected_graph *ud_graph, int identifier)
+{
+    // Pointer to the vertex to be removed
+    undirected_graph_vertex *removed_vertex = ud_graph->vertices[identifier];
+
+    // Set the pointer to the vertex to NULL
+    ud_graph->vertices[identifier] = NULL;
+
+    // Sets all the edges that may exist attached to the node to remove to FALSE in the adjacency matrix
+    for (int i = 0; i < ud_graph->adjacency_size; i++)
+    {
+        if ((ud_graph->adjacency_matrix)[i][identifier] == TRUE)
+        {
+            (ud_graph->adjacency_matrix)[i][identifier] = FALSE;
+            (ud_graph->adjacency_matrix)[identifier][i] = FALSE;
+        }
+    }
+
+    return removed_vertex;
 }
 
 /*!
@@ -88,13 +117,27 @@ void add_edge(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
 }
 
 /*!
+ * @brief Removes an edge between two vertices in the undirected graph
+ * @param ud_graph Pointer to an undirected graph
+ * @param vertex_id_1 Identifier of the first vertex
+ * @param vertex_id_2 Identifier of the second vertex
+ * @return None
+ */
+void remove_edge(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
+{
+    // Updates the relevant indices in the adjacency matrix to FALSE (0)
+    (ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] = FALSE;
+    (ud_graph->adjacency_matrix)[vertex_id_2][vertex_id_1] = FALSE;
+}
+
+/*!
  * @brief Checks if there is an edge between two vertices
  * @param ud_graph Pointer to an undirected graph
  * @param vertex_id_1 Identifier of the first vertex
  * @param vertex_id_2 Identifier of the second vertex
  * @return A boolean value indicating if an edge exists between the specified vertices
  */
-bool is_connected(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
+bool edge_exists(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
 {
     // Checks if the specified vertices have an edge between them
     return ((ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] == TRUE);
@@ -111,6 +154,9 @@ void initialize_undirected_graph(undirected_graph *ud_graph, int size_upper_boun
     // Sets the number of vertices and the number of edges to 0
     ud_graph->num_vertices = 0;
     ud_graph->num_edges = 0;
+
+    // Assign the number of rows and columns to the specified upper bound
+    ud_graph->adjacency_size = size_upper_bound;
 
     ud_graph->vertices = (undirected_graph_vertex *)malloc(size_upper_bound * sizeof(undirected_graph_vertex));
 
