@@ -7,3 +7,4 @@ The data_structures folder includes implementations of:
     2. Stacks -> Classic Linked Implementation, Dropout Stack, Array-Based Stack
     3. Queues -> Classic Linked Implementation, Deque (Double Ended Queue), Array-Based Queue, Circular Queue
     4. Hash Table -> With chaining used to resolve collisions
+    5. Graphs -> Undirected Graph (Adjacency Matrix Implementation)
