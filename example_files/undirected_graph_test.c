@@ -23,6 +23,7 @@
 // Unique identifiers for each vertex
 #define RESOURCE_A 0
 #define RESOURCE_B 1
+#define RESOURCE_C 2
 
 /*!
  * @brief main function used to test the functionality of the undirected_graph header file.
@@ -37,26 +38,28 @@ int main(void)
     // Adds vertices to the graph
     add_vertex(&ud_graph, RESOURCE_A, 1);
     add_vertex(&ud_graph, RESOURCE_B, 2);
+    add_vertex(&ud_graph, RESOURCE_C, 3);
 
     // Adds an edge
     add_edge(&ud_graph, RESOURCE_A, RESOURCE_B);
 
     // Checks that the edge exists between the two vertices
-    printf("\nConnected: %d", edge_exists(&ud_graph, RESOURCE_A, RESOURCE_B));
+    printf("\nEdge between A and B exists: %d", edge_exists(&ud_graph, RESOURCE_A, RESOURCE_B));
 
-    // // Removes an edge
-    // remove_edge(&ud_graph, RESOURCE_A, RESOURCE_B);
+    // Removes a vertex from the graph
+    remove_vertex(&ud_graph, RESOURCE_C);
 
-    // // Checks that the edge exists between the two vertices
-    // printf("\nConnected: %d", is_connected(&ud_graph, RESOURCE_A, RESOURCE_B));
-
-    printf("\n%d", remove_vertex(&ud_graph, RESOURCE_A));
+    // Removes an edge
+    remove_edge(&ud_graph, RESOURCE_A, RESOURCE_B);
 
     // Checks that the edge exists between the two vertices
-    printf("\nConnected: %d", edge_exists(&ud_graph, RESOURCE_A, RESOURCE_B));
+    printf("\nEdge between A and B exists: %d", edge_exists(&ud_graph, RESOURCE_A, RESOURCE_B));
+
+    // Returns the value associated with an vertex
+    printf("\nValue held by resource B: %d", return_vertex_value(&ud_graph, RESOURCE_B));
 
     // Displays the number of vertices
-    printf("\n%d", ud_graph.num_vertices);
+    printf("\nNumber of vertices: %d", graph_size(&ud_graph));
 
     return 0;
 }

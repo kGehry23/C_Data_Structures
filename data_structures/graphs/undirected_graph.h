@@ -76,7 +76,8 @@ void add_vertex(undirected_graph *ud_graph, int identifier, void *vertex_value)
 }
 
 /*!
- * @brief Removes a vertex from the undirected graph
+ * @brief Removes and returns the value associated with the specified vertex
+ *        in the undirected graph
  * @param ud_graph Pointer to an undirected graph
  * @param identifier Value to identify the vertex by
  * @return None
@@ -105,6 +106,17 @@ void *remove_vertex(undirected_graph *ud_graph, int identifier)
     ud_graph->num_vertices = ud_graph->num_vertices - 1;
 
     return removed_vertex_value;
+}
+
+/*!
+ * @brief Returns the value stored by the specified vertex.
+ * @param ud_graph Pointer to an undirected graph
+ * @param identifier Value to identify the vertex by
+ * @return The value stored by the specified vertex
+ */
+void *return_vertex_value(undirected_graph *ud_graph, int identifier)
+{
+    return (ud_graph->vertices[identifier])->value;
 }
 
 /*!
@@ -152,6 +164,15 @@ bool edge_exists(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
 {
     // Checks if the specified vertices have an edge between them
     return ((ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] == TRUE);
+}
+
+/*!
+ * @brief Returns the number of vertices in the graph
+ * @return An integer representing the number of vertices in the graph
+ */
+int graph_size(undirected_graph *ud_graph)
+{
+    return ud_graph->num_vertices;
 }
 
 /*!
