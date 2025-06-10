@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <strings.h>
 #include "../data_structures/graphs/undirected_graph.h"
+#include <math.h>
 
 /************************************
  * PRIVATE MACROS AND DEFINES
@@ -49,7 +50,7 @@ int main(void)
     // // Checks that the edge exists between the two vertices
     // printf("\nConnected: %d", is_connected(&ud_graph, RESOURCE_A, RESOURCE_B));
 
-    remove_vertex(&ud_graph, RESOURCE_A);
+    printf("\n%d", remove_vertex(&ud_graph, RESOURCE_A));
 
     // Checks that the edge exists between the two vertices
     printf("\nConnected: %d", edge_exists(&ud_graph, RESOURCE_A, RESOURCE_B));

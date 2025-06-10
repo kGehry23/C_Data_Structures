@@ -81,12 +81,14 @@ void add_vertex(undirected_graph *ud_graph, int identifier, void *vertex_value)
  * @param identifier Value to identify the vertex by
  * @return None
  */
-undirected_graph_vertex *remove_vertex(undirected_graph *ud_graph, int identifier)
+void *remove_vertex(undirected_graph *ud_graph, int identifier)
 {
     // Pointer to the vertex to be removed
-    undirected_graph_vertex *removed_vertex = ud_graph->vertices[identifier];
+    void *removed_vertex_value = (ud_graph->vertices[identifier])->value;
 
-    // Set the pointer to the vertex to NULL
+    // Free memory held by removed vertex
+    free(ud_graph->vertices[identifier]);
+    // Set the pointer to the vertex to NULL to avoid dangling pointer
     ud_graph->vertices[identifier] = NULL;
 
     // Sets all the edges that may exist attached to the node to remove to FALSE in the adjacency matrix
@@ -99,7 +101,10 @@ undirected_graph_vertex *remove_vertex(undirected_graph *ud_graph, int identifie
         }
     }
 
-    return removed_vertex;
+    // Decrement the counter for the number of vertices
+    ud_graph->num_vertices = ud_graph->num_vertices - 1;
+
+    return removed_vertex_value;
 }
 
 /*!
@@ -114,6 +119,9 @@ void add_edge(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
     // Updates the relevant indices in the adjacency matrix to TRUE (1)
     (ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] = TRUE;
     (ud_graph->adjacency_matrix)[vertex_id_2][vertex_id_1] = TRUE;
+
+    // Increment the counter for the number of edges
+    ud_graph->num_edges = ud_graph->num_edges + 1;
 }
 
 /*!
@@ -128,6 +136,9 @@ void remove_edge(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
     // Updates the relevant indices in the adjacency matrix to FALSE (0)
     (ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] = FALSE;
     (ud_graph->adjacency_matrix)[vertex_id_2][vertex_id_1] = FALSE;
+
+    // Decrement the counter for the number of edges
+    ud_graph->num_edges = ud_graph->num_edges - 1;
 }
 
 /*!
@@ -158,7 +169,7 @@ void initialize_undirected_graph(undirected_graph *ud_graph, int size_upper_boun
     // Assign the number of rows and columns to the specified upper bound
     ud_graph->adjacency_size = size_upper_bound;
 
-    ud_graph->vertices = (undirected_graph_vertex *)malloc(size_upper_bound * sizeof(undirected_graph_vertex));
+    ud_graph->vertices = (undirected_graph_vertex **)malloc(size_upper_bound * sizeof(undirected_graph_vertex *));
 
     // Resize the main array to the required size
     ud_graph->adjacency_matrix = (int *)malloc(size_upper_bound * sizeof(int));
