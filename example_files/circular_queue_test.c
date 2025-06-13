@@ -13,7 +13,7 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
-#include "../data_structures/queues/circular_queue.h"
+#include "../data_structures/queues/circular_queue/circular_queue.h"
 
 /*!
  * @brief Prints the relevant contents of the circular queue to the terminal.
