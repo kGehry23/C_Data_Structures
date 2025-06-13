@@ -13,7 +13,6 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
-#include <strings.h>
 #include "../data_structures/hash_table/hash_table.h"
 
 /*!
