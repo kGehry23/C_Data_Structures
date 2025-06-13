@@ -16,6 +16,9 @@
 #include <strings.h>
 #include "../data_structures/hash_table/hash_table.h"
 
+/*!
+ * @brief main function used to test the functionality of the hash_table header file.
+ */
 int main(void)
 {
     hash_table table;
