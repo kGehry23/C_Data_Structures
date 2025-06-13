@@ -24,6 +24,10 @@
 // Added for void* to required type conversions
 #pragma GCC diagnostic ignored "-Wint-conversion"
 
+/************************************
+ * FUNCTION PROTOTYPES
+ ************************************/
+
 /*!
  * @brief Struct representing a singly linked list node.
  */
@@ -106,4 +110,4 @@ void insert_sl_node(singly_linked_list *list, int insert_value, void *insert_aft
  */
 void *remove_sl_node(singly_linked_list *list, void *removal_value);
 
-#endif
+#endif // SINGLY_LINKED_LIST_H

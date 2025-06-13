@@ -13,6 +13,10 @@
  ************************************/
 #include "singly_linked_list.h"
 
+/************************************
+ * FUNCTION DEFINITIONS
+ ************************************/
+
 /*!
  * @brief Initializes a singly linked list type by setting its list_size variable to 0.
  * @param list  Pointer to the singly linked list being initalized.

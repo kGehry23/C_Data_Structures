@@ -13,7 +13,7 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
-#include "../data_structures/queues/array_queue.h"
+#include "../data_structures/queues/array_queue/array_queue.h"
 
 /*!
  * @brief Prints the relevant contents of the array based queue to the terminal.

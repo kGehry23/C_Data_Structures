@@ -19,6 +19,10 @@
 // Added for void* to required type conversions
 #pragma GCC diagnostic ignored "-Wint-conversion"
 
+/************************************
+ * FUNCTION DEFINITIONS
+ ************************************/
+
 /*!
  * @brief   Initializes a doubly linked list type by setting its list_size variable to 0.
  * @param list  Pointer to the doubly linked list being initalized.

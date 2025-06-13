@@ -24,6 +24,10 @@
 // Added for void* to required type conversions
 #pragma GCC diagnostic ignored "-Wint-conversion"
 
+/************************************
+ * TYPEDEFS
+ ************************************/
+
 /*!
  * @brief Struct representing a doubly linked list node.
  */
@@ -49,6 +53,10 @@ typedef struct
     // Size of the doubly linked list
     int list_size;
 } doubly_linked_list;
+
+/************************************
+ * FUNCTION PROTOTYPES
+ ************************************/
 
 /*!
  * @brief   Initializes a doubly linked list type by setting its list_size variable to 0.
@@ -111,4 +119,4 @@ void insert_dl_node(doubly_linked_list *list, int insert_value, void *insert_aft
  */
 void *remove_dl_node(doubly_linked_list *list, void *removal_value);
 
-#endif
+#endif // DOUBLY_LINKED_LIST_H
