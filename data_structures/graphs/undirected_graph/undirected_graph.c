@@ -1,51 +1,21 @@
 /**
  ********************************************************************************
- * @file    undirected_graph.h
+ * @file    undirected_graph.c
  * @author  Kai Gehry
  * @date    2025-06-07
  *
- * @brief   Defines the functions to create and manipulate an undirected graph.
+ * @brief   Defines the operations on an undirected graph
  ********************************************************************************
  */
 
 /************************************
  * INCLUDES
  ************************************/
-#include <stdio.h>
-#include <stdlib.h>
-#include <strings.h>
-#include "../hash_table/hash_table.h"
-#include "undirected_graph_vertex.h"
+#include "undirected_graph.h"
 
 /************************************
- * MACROS AND DEFINES
+ * FUNCTION DEFINITIONS
  ************************************/
-#define TRUE 1
-#define FALSE 0
-
-/************************************
- * COMPILER DIRECTIVES
- ************************************/
-// Added for void* to required type conversions
-#pragma GCC diagnostic ignored "-Wint-conversion"
-
-/*!
- * @brief Struct which represents an undirected graph
- */
-typedef struct
-{
-    // Stores the number of vertices
-    int num_vertices;
-    // Stores the number of edges
-    int num_edges;
-    // Capacity of the adjacency matrix
-    int adjacency_size;
-    // Pointer to an array which will store pointers to the vertices
-    undirected_graph_vertex **vertices;
-    // Pointer to 2D array to indicate if two vertices are connected
-    int **adjacency_matrix;
-
-} undirected_graph;
 
 /*!
  * @brief Adds a vertex to the undirected graph
