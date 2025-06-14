@@ -4,9 +4,13 @@
  * @author  Kai Gehry
  * @date    2025-05-25
  *
- * @brief   Defines the structure of and functions on a hash table.
+ * @brief   Defines the structure and functions defined on a hash table with
+ *          chaining used to resolve collisions.
  ********************************************************************************
  */
+
+#ifndef HASH_TABLE_H
+#define HASH_TABLE_H
 
 /************************************
  * INCLUDES
@@ -15,13 +19,31 @@
 #include <stdlib.h>
 #include <strings.h>
 #include <stdbool.h>
-#include "hash_node.h"
 
 /************************************
  * COMPILER DIRECTIVES
  ************************************/
 // Added for void* to required type conversions
 #pragma GCC diagnostic ignored "-Wint-conversion"
+
+/************************************
+ * TYPEDEFS
+ ************************************/
+
+/*!
+ * @brief Struct representing a hash table element.
+ */
+typedef struct hash_node
+{
+    /// Key associated with the hash node
+    void *key;
+    // Value held by the node
+    void *value;
+    // Pointer to the next node
+    struct hash_node *next;
+    // Pointer to the previous node
+    struct hash_node *previous;
+} hash_node;
 
 /*!
  * @brief Struct which represents a hash table.
@@ -39,22 +61,17 @@ typedef struct hash_table
 
 } hash_table;
 
+/************************************
+ * FUNCTION PROTOTYPES
+ ************************************/
+
 /*!
  * @brief Defines the division method for creating an index from a key. Uses
  *        the remainder of the hash key divided by the table size to determine the index.
  * @param hash_key Key to create an index from
  * @return An integer specifying the index into the hash table
  */
-int division(hash_table *table, void *hash_key)
-{
-    int index;
-    // Casts the hash key to a long type
-    long cast_hash_key = (long *)hash_key;
-    // Calculates the index
-    index = cast_hash_key % (table->table_size);
-
-    return index;
-}
+int division(hash_table *table, void *hash_key);
 
 /*!
  * @brief Adds an element to the hash table
@@ -63,64 +80,7 @@ int division(hash_table *table, void *hash_key)
  * @param hash_value Value to place into the hash table
  * @return None
  */
-void put(hash_table *table, void *hash_key, void *hash_value)
-{
-    // Calculate the index to store the element at
-    int index = (table->hash_function)(table, hash_key);
-    // Boolean used to track if a collision has occurred.
-    bool collision = 0;
-
-    // Entered if only one element is hashed to a given location
-    if (((table->array)[index]).key == NULL)
-    {
-        // Assign the value to be stored by the node in the table entry
-        ((table->array)[index]).value = hash_value;
-        // Assign the associated hash key to the node
-        ((table->array)[index]).key = hash_key;
-    }
-
-    else
-    {
-        // Allocate memory for a hash_node pointer and assign to the first element in the hash table
-        hash_node *node = (hash_node *)malloc(sizeof(hash_node));
-        node = &((table->array)[index]);
-
-        // Allocate memory for a previous node hash_node pointer
-        hash_node *previous_node = (hash_node *)malloc(sizeof(hash_node));
-
-        // Indicates a collision has occurred
-        collision = 1;
-
-        // Traverse the hash table entry until the next reference is NULL.
-        // Artifact of collisions
-        while (node->next != NULL)
-        {
-            previous_node = node;
-            node = node->next;
-        }
-
-        // Allocate memory for the next node at a given table location
-        hash_node *next_node = (hash_node *)malloc(sizeof(hash_node));
-
-        // Assign this node's next node to NULL
-        next_node->next = NULL;
-        // Assign the previous node pointer to the predecessor of the current node
-        next_node->previous = previous_node;
-        // Assign the value to be stored by the node in the table entry
-        next_node->value = hash_value;
-        // Assign the associated hash key to the node
-        next_node->key = hash_key;
-
-        // Assigns the next node
-        node->next = next_node;
-    }
-
-    // If a collision did not occur, the counter for the number of elements is incremented
-    if (collision == 0)
-    {
-        table->num_elements++;
-    }
-}
+void put(hash_table *table, void *hash_key, void *hash_value);
 
 /*!
  * @brief Returns the element associated with a key
@@ -128,107 +88,22 @@ void put(hash_table *table, void *hash_key, void *hash_value)
  * @param hash_key Key to create an index from
  * @return The value associated with the specified key
  */
-void *get(hash_table *table, void *hash_key)
-{
-    // Calculate index
-    int index = (table->hash_function)(table, hash_key);
+void *get(hash_table *table, void *hash_key);
 
-    // Entered if only one element is hashed to given index
-    if (((table->array)[index]).next == NULL && ((table->array)[index]).key == hash_key)
-    {
-        return ((table->array)[index]).value;
-    }
-    // Entered if key is not found and only one element is hashed to a given position
-    else if (((table->array)[index]).next == NULL && ((table->array)[index]).key != hash_key)
-    {
-        return NULL;
-    }
-    // Entered if more than one node is assigned to a given position
-    else
-    {
-        // Allocate memory for traversal node
-        hash_node *node = (hash_node *)malloc(sizeof(hash_node));
-        node = &((table->array)[index]);
-
-        // While the key does not match the one specified, continue traversing the nodes at a given index
-        while (node->key != hash_key)
-        {
-            node = node->next;
-
-            // If the key is not found in the table
-            if (node->next == NULL && node->key != hash_key)
-            {
-                return NULL;
-            }
-        }
-
-        return node->value;
-    }
-}
-
-void remove_hash(hash_table *table, void *hash_key)
-{
-    // Calculate index
-    int index = (table->hash_function)(table, hash_key);
-
-    // Allocate memory for traversal node
-    hash_node *node = (hash_node *)malloc(sizeof(hash_node));
-    node = &((table->array)[index]);
-
-    // Allocate memory for a previous node hash_node pointer
-    hash_node *previous_node = (hash_node *)malloc(sizeof(hash_node));
-
-    // While the key does not match the one specified, continue traversing the nodes at a given index
-    while (node->key != hash_key)
-    {
-        previous_node = node;
-        node = node->next;
-    }
-
-    // If the previous node (first node at a given index) is not NULL, the previous node is reassigned
-    if (node->next != NULL && node->previous != NULL)
-    {
-        // Correctly assigns the next node to the previous node
-        previous_node->next = node->next;
-        (node->next)->previous = previous_node;
-        // Releases memory held by the removed node
-        free(node);
-    }
-    // Entered if the node to remove is the first at a table position, and there is at least one
-    // other node in the chain
-    else if (node->previous == NULL && node->next != NULL)
-    {
-
-        node->key = (node->next)->key;
-        node->value = (node->next)->value;
-
-        hash_node *next_node = (hash_node *)malloc(sizeof(hash_node));
-        next_node = (node->next)->next;
-
-        // Release memory held by next node of node to remove.
-        // Does not release memory allocated for hash table position.
-        free(node->next);
-
-        node->next = next_node;
-    }
-    // If the element to remove is the only element at the table position
-    else
-    {
-        node->key = NULL;
-        node->value = NULL;
-        table->num_elements--;
-    }
-}
+/*!
+ * @brief Removes a key value pair from the hash table
+ * @param table Pointer to a hash table
+ * @param hash_key Key to create an index from
+ * @return None
+ */
+void remove_hash(hash_table *table, void *hash_key);
 
 /*!
  * @brief Returns the percent of the hash table occupied
  * @param table Pointer to a hash table
  * @return A float representing the percentage of the hash table that is occupied
  */
-float percent_occupied(hash_table *table)
-{
-    return ((float)table->num_elements / table->table_size) * 100;
-}
+float percent_occupied(hash_table *table);
 
 /*!
  * @brief Allows for selecting the hash function to use
@@ -236,16 +111,7 @@ float percent_occupied(hash_table *table)
  * @param function_select Integer specifying which hash function to use
  * @return None
  */
-void hash_function_select(hash_table *table, int function_select)
-{
-    switch (function_select)
-    {
-    // Selects the division method
-    case 0:
-        table->hash_function = &division;
-        break;
-    }
-}
+void hash_function_select(hash_table *table, int function_select);
 
 /*!
  * @brief Initializes the hash table
@@ -255,24 +121,6 @@ void hash_function_select(hash_table *table, int function_select)
  * @param function_select Integer specifying which hash function to use
  * @return None
  */
-void initialize_hash_table(hash_table *table, int size, int function_select)
-{
-    // Defines the size of the hash table
-    table->table_size = size;
+void initialize_hash_table(hash_table *table, int size, int function_select);
 
-    // Assigns the array pointer to an array of the desired size
-    table->array = (hash_node *)malloc(size * sizeof(hash_node));
-
-    // Assigns the next pointer of all hash nodes to null
-    for (int i = 0; i < size; i++)
-    {
-        ((table->array)[i]).key = NULL;
-        ((table->array)[i]).next = NULL;
-        ((table->array)[i]).previous = NULL;
-    }
-
-    // Sets the initial counter for table elements to 0
-    table->num_elements = 0;
-    // Selects the desired hashing function
-    hash_function_select(table, function_select);
-}
+#endif // HASH_TABLE_H

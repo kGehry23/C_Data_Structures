@@ -11,33 +11,11 @@
 /************************************
  * INCLUDES
  ************************************/
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#include "circular_queue.h"
 
 /************************************
- * COMPILER DIRECTIVES
+ * FUNCTION DEFINITIONS
  ************************************/
-// Added for void* to required type conversions
-#pragma GCC diagnostic ignored "-Wint-conversion"
-
-/*!
- * @brief Struct which represents a circular queue.
- */
-typedef struct
-{
-    // Defines the number of elements allowable in the queue
-    int size;
-    // Index of the element at the front of the queue
-    int front_index;
-    // Index of the next position to add an element to
-    int end_index;
-    // Number of elements currently in the queue
-    int num_elements;
-    // Pointer to void* type which will point to the underlying array
-    void **array;
-
-} circular_queue;
 
 /*!
  * @brief Adds an element to the end of the circular queue

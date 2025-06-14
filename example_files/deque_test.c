@@ -13,10 +13,10 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
-#include "../data_structures/queues/deque.h"
+#include "../data_structures/queues/deque/deque.h"
 
 /*!
- * @brief Prints the contents of the doubly linked list to the terminal.
+ * @brief Prints the contents of the doubly ended queue to the terminal.
  * @param list Pointer to a doubly linked list struct.
  * @return None
  */

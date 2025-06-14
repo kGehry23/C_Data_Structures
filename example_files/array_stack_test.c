@@ -13,7 +13,7 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
-#include "../data_structures/stacks/array_stack.h"
+#include "../data_structures/stacks/array_stack/array_stack.h"
 
 /*!
  * @brief Prints the contents of the array based stack to the terminal.
