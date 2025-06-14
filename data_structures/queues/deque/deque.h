@@ -15,7 +15,7 @@
  * INCLUDES
  ************************************/
 #include <stdbool.h>
-#include "../linked_lists/doubly_linked_list/doubly_linked_list.h"
+#include "data_structures/linked_lists/doubly_linked_list/doubly_linked_list.c"
 
 /************************************
  * COMPILER DIRECTIVES
