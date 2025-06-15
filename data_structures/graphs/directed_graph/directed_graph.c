@@ -27,22 +27,25 @@
 void add_vertex(directed_graph *d_graph, int identifier, void *vertex_value)
 {
 
-    // Allocate memory for a new directed graph vertex
-    directed_graph_vertex *new_vertex = (directed_graph_vertex *)malloc(sizeof(directed_graph_vertex));
+    if ((d_graph->vertices[identifier])->allocated == FALSE)
+    {
+        // Allocate memory for a new directed graph vertex
+        directed_graph_vertex *new_vertex = (directed_graph_vertex *)malloc(sizeof(directed_graph_vertex));
 
-    /*
-      Assign the specified identifier, value stored by the new node, and an associated index into the adjacency
-      matrix.
-    */
-    new_vertex->identifier = identifier;
-    new_vertex->value = vertex_value;
-    new_vertex->adj_index = identifier;
+        /*
+          Assign the specified identifier, value stored by the new node, and an associated index into the adjacency
+          matrix.
+        */
+        new_vertex->identifier = identifier;
+        new_vertex->value = vertex_value;
+        new_vertex->adj_index = identifier;
 
-    // Add vertex to the graph
-    d_graph->vertices[identifier] = new_vertex;
+        // Add vertex to the graph
+        d_graph->vertices[identifier] = new_vertex;
 
-    // Increment the number of vertices in the graph
-    d_graph->num_vertices = d_graph->num_vertices + 1;
+        // Increment the number of vertices in the graph
+        d_graph->num_vertices = d_graph->num_vertices + 1;
+    }
 }
 
 /*!
@@ -54,6 +57,7 @@ void add_vertex(directed_graph *d_graph, int identifier, void *vertex_value)
  */
 void *remove_vertex(directed_graph *d_graph, int identifier)
 {
+
     // Pointer to the vertex to be removed
     void *removed_vertex_value = (d_graph->vertices[identifier])->value;
 
@@ -80,47 +84,13 @@ void *remove_vertex(directed_graph *d_graph, int identifier)
 
 /*!
  * @brief Returns the value stored by the specified vertex.
- * @param d_graph Pointer to an undirected graph
+ * @param d_graph Pointer to a directed graph
  * @param identifier Value to identify the vertex by
  * @return The value stored by the specified vertex
  */
 void *return_vertex_value(directed_graph *d_graph, int identifier)
 {
     return (d_graph->vertices[identifier])->value;
-}
-
-/*!
- * @brief Adds an edge between two vertices in the directed graph
- * @param d_graph Pointer to a directed graph
- * @param vertex_id_1 Identifier of the first vertex
- * @param vertex_id_2 Identifier of the second vertex
- * @return None
- */
-void add_edge(directed_graph *d_graph, int vertex_id_1, int vertex_id_2)
-{
-    // Updates the relevant indices in the adjacency matrix to TRUE (1)
-    (d_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] = TRUE;
-    (d_graph->adjacency_matrix)[vertex_id_2][vertex_id_1] = TRUE;
-
-    // Increment the counter for the number of edges
-    d_graph->num_edges = d_graph->num_edges + 1;
-}
-
-/*!
- * @brief Removes an edge between two vertices in the directed graph
- * @param ud_graph Pointer to a directed graph
- * @param vertex_id_1 Identifier of the first vertex
- * @param vertex_id_2 Identifier of the second vertex
- * @return None
- */
-void remove_edge(directed_graph *d_graph, int vertex_id_1, int vertex_id_2)
-{
-    // Updates the relevant indices in the adjacency matrix to FALSE (0)
-    (d_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] = FALSE;
-    (d_graph->adjacency_matrix)[vertex_id_2][vertex_id_1] = FALSE;
-
-    // Decrement the counter for the number of edges
-    d_graph->num_edges = d_graph->num_edges - 1;
 }
 
 /*!
@@ -134,6 +104,46 @@ bool edge_exists(directed_graph *d_graph, int vertex_id_1, int vertex_id_2)
 {
     // Checks if the specified vertices have an edge between them
     return ((d_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] == TRUE);
+}
+
+/*!
+ * @brief Adds an edge between two vertices in the directed graph
+ * @param d_graph Pointer to a directed graph
+ * @param from_vertex_id Identifier of the first from which the edge is directed from.
+ * @param to_vertex_id Identifier of the vertex to which the edge goes.
+ * @return None
+ */
+void add_edge(directed_graph *d_graph, int from_vertex_id, int to_vertex_id)
+{
+    // Only adds the edge if an edge does not already exist
+    if (edge_exists(d_graph, from_vertex_id, to_vertex_id) == FALSE)
+    {
+        // Updates the relevant indices in the adjacency matrix to TRUE (1)
+        (d_graph->adjacency_matrix)[from_vertex_id][to_vertex_id] = TRUE;
+
+        // Increment the counter for the number of edges
+        d_graph->num_edges = d_graph->num_edges + 1;
+    }
+}
+
+/*!
+ * @brief Removes an edge between two vertices in the directed graph
+ * @param ud_graph Pointer to a directed graph
+ * @param from_vertex_id Identifier of the first from which the edge is directed from.
+ * @param to_vertex_id Identifier of the vertex to which the edge goes.
+ * @return None
+ */
+void remove_edge(directed_graph *d_graph, int from_vertex_id, int to_vertex_id)
+{
+    // Removes the edge if it exists
+    if (edge_exists(d_graph, from_vertex_id, to_vertex_id) == TRUE)
+    {
+        // Updates the relevant indices in the adjacency matrix to FALSE (0)
+        (d_graph->adjacency_matrix)[from_vertex_id][to_vertex_id] = FALSE;
+
+        // Decrement the counter for the number of edges
+        d_graph->num_edges = d_graph->num_edges - 1;
+    }
 }
 
 /*!

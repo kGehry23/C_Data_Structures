@@ -47,6 +47,8 @@ typedef struct
     void *identifier;
     // Stores the index of the vertex in the adjacency matrix
     int adj_index;
+    // Indicates if the vertex position in the vertex list has been allocated
+    bool allocated;
 
 } directed_graph_vertex;
 
