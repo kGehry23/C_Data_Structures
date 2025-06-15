@@ -26,9 +26,8 @@
  */
 void add_vertex(directed_graph *d_graph, int identifier, void *vertex_value)
 {
-
-    // Adds the vertex only if the vertex position in the vertex list is open
-    if ((d_graph->vertices[identifier])->allocated == FALSE)
+    // Adds the vertex if a vertex has not already been allocated to the specified position in the vertex list
+    if (d_graph->vertices[identifier] == NULL)
     {
         // Allocate memory for a new directed graph vertex
         directed_graph_vertex *new_vertex = (directed_graph_vertex *)malloc(sizeof(directed_graph_vertex));
@@ -58,10 +57,9 @@ void add_vertex(directed_graph *d_graph, int identifier, void *vertex_value)
  */
 void *remove_vertex(directed_graph *d_graph, int identifier)
 {
-
-    if ((d_graph->vertices[identifier])->value == TRUE)
+    // Removes the vertex if it is in the graph
+    if (d_graph->vertices[identifier] != NULL)
     {
-
         // Pointer to the vertex to be removed
         void *removed_vertex_value = (d_graph->vertices[identifier])->value;
 
@@ -171,7 +169,7 @@ int graph_size(directed_graph *d_graph)
  * @param size_upper_bound Row and column dimension of the adjacency matrix
  * @return None
  */
-void initialize_undirected_graph(directed_graph *d_graph, int size_upper_bound)
+void initialize_directed_graph(directed_graph *d_graph, int size_upper_bound)
 {
     // Sets the number of vertices and the number of edges to 0
     d_graph->num_vertices = 0;
@@ -182,21 +180,26 @@ void initialize_undirected_graph(directed_graph *d_graph, int size_upper_bound)
 
     d_graph->vertices = (directed_graph_vertex **)malloc(size_upper_bound * sizeof(directed_graph_vertex *));
 
-    // Resize the main array to the required size
-    d_graph->adjacency_matrix = (int *)malloc(size_upper_bound * sizeof(int));
-
-    // Populate the main array with internal arrays
     for (int i = 0; i < size_upper_bound; i++)
     {
-        (d_graph->adjacency_matrix)[i] = (int *)malloc(size_upper_bound * sizeof(int));
+        (d_graph->vertices)[i] = NULL;
+    }
+
+    // Resize the main array to the required size
+    d_graph->adjacency_matrix = (int **)malloc(size_upper_bound * sizeof(int *));
+
+    // Populate the main array with internal arrays
+    for (int j = 0; j < size_upper_bound; j++)
+    {
+        (d_graph->adjacency_matrix)[j] = (int *)malloc(size_upper_bound * sizeof(int));
     }
 
     // Initialize all elements in the adjacency matrix to 0
-    for (int j = 0; j < size_upper_bound; j++)
+    for (int k = 0; k < size_upper_bound; k++)
     {
-        for (int k = 0; k < size_upper_bound; k++)
+        for (int l = 0; l < size_upper_bound; l++)
         {
-            (d_graph->adjacency_matrix)[j][k] = 0;
+            (d_graph->adjacency_matrix)[k][l] = 0;
         }
     }
 }
