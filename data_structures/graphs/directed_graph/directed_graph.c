@@ -27,6 +27,7 @@
 void add_vertex(directed_graph *d_graph, int identifier, void *vertex_value)
 {
 
+    // Adds the vertex only if the vertex position in the vertex list is open
     if ((d_graph->vertices[identifier])->allocated == FALSE)
     {
         // Allocate memory for a new directed graph vertex
@@ -53,33 +54,42 @@ void add_vertex(directed_graph *d_graph, int identifier, void *vertex_value)
  *        in the undirected graph
  * @param d_graph Pointer to an directed graph
  * @param identifier Value to identify the vertex by
- * @return None
+ * @return The value associated with the specified vertex if it exists
  */
 void *remove_vertex(directed_graph *d_graph, int identifier)
 {
 
-    // Pointer to the vertex to be removed
-    void *removed_vertex_value = (d_graph->vertices[identifier])->value;
-
-    // Free memory held by removed vertex
-    free(d_graph->vertices[identifier]);
-    // Set the pointer to the vertex to NULL to avoid dangling pointer
-    d_graph->vertices[identifier] = NULL;
-
-    // Sets all the edges that may exist attached to the node to remove to FALSE in the adjacency matrix
-    for (int i = 0; i < d_graph->adjacency_size; i++)
+    if ((d_graph->vertices[identifier])->value == TRUE)
     {
-        if ((d_graph->adjacency_matrix)[i][identifier] == TRUE)
+
+        // Pointer to the vertex to be removed
+        void *removed_vertex_value = (d_graph->vertices[identifier])->value;
+
+        // Free memory held by removed vertex
+        free(d_graph->vertices[identifier]);
+        // Set the pointer to the vertex to NULL to avoid dangling pointer
+        d_graph->vertices[identifier] = NULL;
+
+        // Sets all the edges that may exist attached to the node to remove to FALSE in the adjacency matrix
+        for (int i = 0; i < d_graph->adjacency_size; i++)
         {
-            (d_graph->adjacency_matrix)[i][identifier] = FALSE;
-            (d_graph->adjacency_matrix)[identifier][i] = FALSE;
+            if ((d_graph->adjacency_matrix)[i][identifier] == TRUE)
+            {
+                (d_graph->adjacency_matrix)[i][identifier] = FALSE;
+                (d_graph->adjacency_matrix)[identifier][i] = FALSE;
+            }
         }
+
+        // Decrement the counter for the number of vertices
+        d_graph->num_vertices = d_graph->num_vertices - 1;
+
+        return removed_vertex_value;
     }
 
-    // Decrement the counter for the number of vertices
-    d_graph->num_vertices = d_graph->num_vertices - 1;
-
-    return removed_vertex_value;
+    else
+    {
+        return NULL;
+    }
 }
 
 /*!
