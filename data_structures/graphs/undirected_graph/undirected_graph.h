@@ -139,4 +139,11 @@ int graph_size(undirected_graph *ud_graph);
  */
 void initialize_undirected_graph(undirected_graph *ud_graph, int size_upper_bound);
 
+/*!
+ * @brief Releases the memory held by an undirected graph
+ * @param ud_graph Pointer to an undirected graph
+ * @return None
+ */
+void free_ud_graph(undirected_graph *ud_graph);
+
 #endif // UNDIRECTED_GRAPH_H
