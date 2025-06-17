@@ -71,10 +71,10 @@ void *remove_vertex(undirected_graph *ud_graph, int identifier)
         // Sets all the edges that may exist attached to the node to remove to FALSE in the adjacency matrix
         for (int i = 0; i < ud_graph->adjacency_size; i++)
         {
-            if ((ud_graph->adjacency_matrix)[i][identifier] == TRUE)
+            if ((ud_graph->adjacency_matrix)[i][identifier] == 1)
             {
-                (ud_graph->adjacency_matrix)[i][identifier] = FALSE;
-                (ud_graph->adjacency_matrix)[identifier][i] = FALSE;
+                (ud_graph->adjacency_matrix)[i][identifier] = 0;
+                (ud_graph->adjacency_matrix)[identifier][i] = 0;
             }
         }
 
@@ -107,11 +107,11 @@ void add_edge(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
 {
 
     // Only adds the edge if an edge does not already exist
-    if (edge_exists(ud_graph, vertex_id_1, vertex_id_2) == FALSE)
+    if (edge_exists(ud_graph, vertex_id_1, vertex_id_2) == 0)
     {
         // Updates the relevant indices in the adjacency matrix to TRUE (1)
-        (ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] = TRUE;
-        (ud_graph->adjacency_matrix)[vertex_id_2][vertex_id_1] = TRUE;
+        (ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] = 1;
+        (ud_graph->adjacency_matrix)[vertex_id_2][vertex_id_1] = 1;
 
         // Increment the counter for the number of edges
         ud_graph->num_edges = ud_graph->num_edges + 1;
@@ -129,11 +129,11 @@ void remove_edge(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
 {
 
     // Removes the edge if it exists
-    if (edge_exists(ud_graph, vertex_id_1, vertex_id_2) == TRUE)
+    if (edge_exists(ud_graph, vertex_id_1, vertex_id_2) == 1)
     {
         // Updates the relevant indices in the adjacency matrix to FALSE (0)
-        (ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] = FALSE;
-        (ud_graph->adjacency_matrix)[vertex_id_2][vertex_id_1] = FALSE;
+        (ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] = 0;
+        (ud_graph->adjacency_matrix)[vertex_id_2][vertex_id_1] = 0;
 
         // Decrement the counter for the number of edges
         ud_graph->num_edges = ud_graph->num_edges - 1;
@@ -150,7 +150,7 @@ void remove_edge(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
 bool edge_exists(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
 {
     // Checks if the specified vertices have an edge between them
-    return ((ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] == TRUE);
+    return ((ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] == 0);
 }
 
 /*!
@@ -185,12 +185,12 @@ void initialize_undirected_graph(undirected_graph *ud_graph, int size_upper_boun
     }
 
     // Resize the main array to the required size
-    ud_graph->adjacency_matrix = (int **)malloc(size_upper_bound * sizeof(int *));
+    ud_graph->adjacency_matrix = (bool **)malloc(size_upper_bound * sizeof(bool *));
 
     // Populate the main array with internal arrays
     for (int j = 0; j < size_upper_bound; j++)
     {
-        (ud_graph->adjacency_matrix)[j] = (int *)malloc(size_upper_bound * sizeof(int));
+        (ud_graph->adjacency_matrix)[j] = (bool *)malloc(size_upper_bound * sizeof(bool));
     }
 
     // Initialize all elements in the adjacency matrix to 0
@@ -221,7 +221,7 @@ void free_ud_graph(undirected_graph *ud_graph)
     {
         for (int k = 0; k < ud_graph->adjacency_size; k++)
         {
-            free((ud_graph->adjacency_matrix)[j][k]);
+            free(&((ud_graph->adjacency_matrix)[j][k]));
         }
     }
 

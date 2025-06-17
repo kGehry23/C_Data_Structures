@@ -21,12 +21,6 @@
 #include <strings.h>
 
 /************************************
- * MACROS AND DEFINES
- ************************************/
-#define TRUE 1
-#define FALSE 0
-
-/************************************
  * COMPILER DIRECTIVES
  ************************************/
 // Added for void* to required type conversions
@@ -64,7 +58,7 @@ typedef struct
     // Pointer to an array which will store pointers to the vertices
     undirected_graph_vertex **vertices;
     // Pointer to 2D array to indicate if two vertices are connected
-    int **adjacency_matrix;
+    bool **adjacency_matrix;
 
 } undirected_graph;
 
