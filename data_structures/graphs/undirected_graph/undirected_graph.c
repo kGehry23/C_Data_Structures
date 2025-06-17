@@ -225,10 +225,4 @@ void free_ud_graph(undirected_graph *ud_graph)
             free(&((ud_graph->adjacency_matrix)[j][k]));
         }
     }
-
-    // Free the remaining memory held by the graph
-    free(ud_graph);
-
-    // Avoid danging pointer
-    ud_graph = NULL;
 }

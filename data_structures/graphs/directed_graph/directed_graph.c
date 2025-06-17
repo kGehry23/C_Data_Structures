@@ -226,10 +226,4 @@ void free_d_graph(directed_graph *d_graph)
             free(&((d_graph->adjacency_matrix)[j][k]));
         }
     }
-
-    // Free the remaining memory held by the graph
-    free(d_graph);
-
-    // Avoid danging pointer
-    d_graph = NULL;
 }
