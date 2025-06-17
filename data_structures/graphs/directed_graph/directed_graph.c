@@ -186,12 +186,12 @@ void initialize_directed_graph(directed_graph *d_graph, int size_upper_bound)
     }
 
     // Resize the main array to the required size
-    d_graph->adjacency_matrix = (int **)malloc(size_upper_bound * sizeof(int *));
+    d_graph->adjacency_matrix = (bool **)malloc(size_upper_bound * sizeof(bool *));
 
     // Populate the main array with internal arrays
     for (int j = 0; j < size_upper_bound; j++)
     {
-        (d_graph->adjacency_matrix)[j] = (int *)malloc(size_upper_bound * sizeof(int));
+        (d_graph->adjacency_matrix)[j] = (bool *)malloc(size_upper_bound * sizeof(bool));
     }
 
     // Initialize all elements in the adjacency matrix to 0
