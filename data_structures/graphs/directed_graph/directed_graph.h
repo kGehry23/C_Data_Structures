@@ -21,12 +21,6 @@
 #include <strings.h>
 
 /************************************
- * MACROS AND DEFINES
- ************************************/
-#define TRUE 1
-#define FALSE 0
-
-/************************************
  * COMPILER DIRECTIVES
  ************************************/
 // Added for void* to required type conversions
@@ -64,7 +58,7 @@ typedef struct
     // Pointer to an array which will store pointers to the vertices
     directed_graph_vertex **vertices;
     // Pointer to 2D array to indicate if two vertices are connected
-    int **adjacency_matrix;
+    bool **adjacency_matrix;
 
 } directed_graph;
 
@@ -138,5 +132,12 @@ int graph_size(directed_graph *ud_graph);
  * @return None
  */
 void initialize_directed_graph(directed_graph *ud_graph, int size_upper_bound);
+
+/*!
+ * @brief Releases the memory held by an directed graph
+ * @param d_graph Pointer to a directed graph
+ * @return None
+ */
+void free_d_graph(directed_graph *d_graph);
 
 #endif // DIRECTED_GRAPH_H

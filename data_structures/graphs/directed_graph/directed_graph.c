@@ -71,10 +71,10 @@ void *remove_vertex(directed_graph *d_graph, int identifier)
         // Sets all the edges that may exist attached to the node to remove to FALSE in the adjacency matrix
         for (int i = 0; i < d_graph->adjacency_size; i++)
         {
-            if ((d_graph->adjacency_matrix)[i][identifier] == TRUE)
+            if ((d_graph->adjacency_matrix)[i][identifier] == 1)
             {
-                (d_graph->adjacency_matrix)[i][identifier] = FALSE;
-                (d_graph->adjacency_matrix)[identifier][i] = FALSE;
+                (d_graph->adjacency_matrix)[i][identifier] = 0;
+                (d_graph->adjacency_matrix)[identifier][i] = 0;
             }
         }
 
@@ -111,7 +111,7 @@ void *return_vertex_value(directed_graph *d_graph, int identifier)
 bool edge_exists(directed_graph *d_graph, int vertex_id_1, int vertex_id_2)
 {
     // Checks if the specified vertices have an edge between them
-    return ((d_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] == TRUE);
+    return ((d_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] == 1);
 }
 
 /*!
@@ -124,10 +124,10 @@ bool edge_exists(directed_graph *d_graph, int vertex_id_1, int vertex_id_2)
 void add_edge(directed_graph *d_graph, int from_vertex_id, int to_vertex_id)
 {
     // Only adds the edge if an edge does not already exist
-    if (edge_exists(d_graph, from_vertex_id, to_vertex_id) == FALSE)
+    if (edge_exists(d_graph, from_vertex_id, to_vertex_id) == 0)
     {
         // Updates the relevant indices in the adjacency matrix to TRUE (1)
-        (d_graph->adjacency_matrix)[from_vertex_id][to_vertex_id] = TRUE;
+        (d_graph->adjacency_matrix)[from_vertex_id][to_vertex_id] = 1;
 
         // Increment the counter for the number of edges
         d_graph->num_edges = d_graph->num_edges + 1;
@@ -144,10 +144,10 @@ void add_edge(directed_graph *d_graph, int from_vertex_id, int to_vertex_id)
 void remove_edge(directed_graph *d_graph, int from_vertex_id, int to_vertex_id)
 {
     // Removes the edge if it exists
-    if (edge_exists(d_graph, from_vertex_id, to_vertex_id) == TRUE)
+    if (edge_exists(d_graph, from_vertex_id, to_vertex_id) == 1)
     {
         // Updates the relevant indices in the adjacency matrix to FALSE (0)
-        (d_graph->adjacency_matrix)[from_vertex_id][to_vertex_id] = FALSE;
+        (d_graph->adjacency_matrix)[from_vertex_id][to_vertex_id] = 0;
 
         // Decrement the counter for the number of edges
         d_graph->num_edges = d_graph->num_edges - 1;
@@ -202,4 +202,34 @@ void initialize_directed_graph(directed_graph *d_graph, int size_upper_bound)
             (d_graph->adjacency_matrix)[k][l] = 0;
         }
     }
+}
+
+/*!
+ * @brief Releases the memory held by an directed graph
+ * @param d_graph Pointer to a directed graph
+ * @return None
+ */
+void free_d_graph(directed_graph *d_graph)
+{
+    // Free the memory held by the list of directed graph vertices
+    for (int i = 0; i < d_graph->adjacency_size; i++)
+    {
+        free(d_graph->vertices[i]);
+        d_graph->vertices[i] = NULL;
+    }
+
+    // Free the memory held by the adjacency matrix
+    for (int j = 0; j < d_graph->adjacency_size; j++)
+    {
+        for (int k = 0; k < d_graph->adjacency_size; k++)
+        {
+            free(&((d_graph->adjacency_matrix)[j][k]));
+        }
+    }
+
+    // Free the remaining memory held by the graph
+    free(d_graph);
+
+    // Avoid danging pointer
+    d_graph = NULL;
 }
