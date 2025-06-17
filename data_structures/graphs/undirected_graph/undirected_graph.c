@@ -202,3 +202,29 @@ void initialize_undirected_graph(undirected_graph *ud_graph, int size_upper_boun
         }
     }
 }
+
+/*!
+ * @brief Releases the memory held by an undirected graph
+ * @param ud_graph Pointer to an undirected graph
+ * @return None
+ */
+void free_ud_graph(undirected_graph *ud_graph)
+{
+    // Free the memory held by the list of undirected graph vertices
+    for (int i = 0; i < ud_graph->adjacency_size; i++)
+    {
+        free(ud_graph->vertices[i]);
+    }
+
+    // Free the memory held by the adjacency matrix
+    for (int j = 0; j < ud_graph->adjacency_size; j++)
+    {
+        for (int k = 0; k < ud_graph->adjacency_size; k++)
+        {
+            free((ud_graph->adjacency_matrix)[j][k]);
+        }
+    }
+
+    // Free the remaining memory held by the graph
+    free(ud_graph);
+}
