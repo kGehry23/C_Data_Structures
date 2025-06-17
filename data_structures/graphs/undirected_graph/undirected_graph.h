@@ -21,12 +21,6 @@
 #include <strings.h>
 
 /************************************
- * MACROS AND DEFINES
- ************************************/
-#define TRUE 1
-#define FALSE 0
-
-/************************************
  * COMPILER DIRECTIVES
  ************************************/
 // Added for void* to required type conversions
@@ -64,7 +58,7 @@ typedef struct
     // Pointer to an array which will store pointers to the vertices
     undirected_graph_vertex **vertices;
     // Pointer to 2D array to indicate if two vertices are connected
-    int **adjacency_matrix;
+    bool **adjacency_matrix;
 
 } undirected_graph;
 
@@ -138,5 +132,12 @@ int graph_size(undirected_graph *ud_graph);
  * @return None
  */
 void initialize_undirected_graph(undirected_graph *ud_graph, int size_upper_bound);
+
+/*!
+ * @brief Releases the memory held by an undirected graph
+ * @param ud_graph Pointer to an undirected graph
+ * @return None
+ */
+void free_ud_graph(undirected_graph *ud_graph);
 
 #endif // UNDIRECTED_GRAPH_H

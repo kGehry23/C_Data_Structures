@@ -60,5 +60,8 @@ int main(void)
     // Displays the number of vertices
     printf("\nNumber of vertices: %d", graph_size(&ud_graph));
 
+    // Free the memory held by the undirected graph
+    free_ud_graph(&ud_graph);
+
     return 0;
 }
