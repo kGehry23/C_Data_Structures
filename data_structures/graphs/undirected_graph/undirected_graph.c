@@ -214,6 +214,7 @@ void free_ud_graph(undirected_graph *ud_graph)
     for (int i = 0; i < ud_graph->adjacency_size; i++)
     {
         free(ud_graph->vertices[i]);
+        ud_graph->vertices[i] = NULL;
     }
 
     // Free the memory held by the adjacency matrix
@@ -227,4 +228,7 @@ void free_ud_graph(undirected_graph *ud_graph)
 
     // Free the remaining memory held by the graph
     free(ud_graph);
+
+    // Avoid danging pointer
+    ud_graph = NULL;
 }
