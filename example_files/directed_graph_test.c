@@ -64,5 +64,8 @@ int main(void)
     // Displays the number of vertices
     printf("\nNumber of vertices: %d", graph_size(&d_graph));
 
+    // Frees the memory held by the directed graph
+    free_d_graph(&d_graph);
+
     return 0;
 }
