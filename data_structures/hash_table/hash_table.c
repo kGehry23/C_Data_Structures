@@ -256,3 +256,32 @@ void initialize_hash_table(hash_table *table, int size, int function_select)
     // Selects the desired hashing function
     hash_function_select(table, function_select);
 }
+
+/*!
+ * @brief Frees the memory held by the hash table.
+ * @param table Pointer to a hash table
+ * @return None
+ */
+void free_hash_table(hash_table *table)
+{
+    for (int i = 0; i < table->num_elements; i++)
+    {
+        // Frees the memory held by the next reference to the current node if one exists
+        free(((table->array)[i]).next);
+        // Avoid dangling pointer
+        ((table->array)[i]).next = NULL;
+
+        // Frees the memory held by the previous reference to the current node if one exists
+        free(((table->array)[i]).previous);
+        // Avoid dangling pointer
+        ((table->array)[i]).previous = NULL;
+
+        // Frees the node itself
+        free(&(table->array[i]));
+    }
+
+    // Free the memory dynamically allocated for the hash table array
+    free(table->array);
+    // Avoid dangling pointer
+    table->array = NULL;
+}
