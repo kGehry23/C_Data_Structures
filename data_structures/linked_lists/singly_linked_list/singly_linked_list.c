@@ -262,6 +262,29 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
 }
 
 /*!
+ * @brief Frees the memory held by a singly linked list struct
+ * @param list Pointer to a singly linked list struct
+ * @return None
+ */
+void free_singly_linked_list(singly_linked_list *list)
+{
+    singly_linked_list_node *node = list->head;
+    singly_linked_list_node *next_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
+
+    do
+    {
+        // cannot free and then access pointer ---->>> memory leak
+        // Can do this recursively but not wise considering the intended use case
+        // Will be lots of dangling pointers if you just free the head and tail nodes.... not viable
+
+        // next_node = node->next;
+        // free(node);
+
+        node = node->next;
+    } while (node != NULL);
+}
+
+/*!
  * @brief Prints the contents of the singly linked list to the terminal. If the type
  *        of element added to the linked list remains constant for a given implementation, this
  *        can be uncommented and used
