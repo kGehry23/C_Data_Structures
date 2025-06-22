@@ -85,5 +85,8 @@ int main(void)
     // Peeks the element at the top of the stack
     printf("\n\nElement at top of stack: %d\n", peek(&stack));
 
+    // Free the memory held by the stack
+    free_array_stack(&stack);
+
     return 0;
 }

@@ -102,4 +102,11 @@ void initialize_array_stack(array_stack *stack, int stack_size);
  */
 void display_stack(array_stack *stack);
 
+/*!
+ * @brief Frees the memory dynamically allocated for the stack
+ * @param stack Pointer to a stack
+ * @return None
+ */
+void free_array_stack(array_stack *stack);
+
 #endif // ARRAY_STACK_H

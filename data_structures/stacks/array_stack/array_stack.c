@@ -132,6 +132,24 @@ void initialize_array_stack(array_stack *stack, int stack_size)
 }
 
 /*!
+ * @brief Frees the memory dynamically allocated for the stack
+ * @param stack Pointer to a stack
+ * @return None
+ */
+void free_array_stack(array_stack *stack)
+{
+
+    for (int i = 0; i < stack->num_elements; i++)
+    {
+        // Free each element as part of the array
+        free(&(stack->array[i]));
+    }
+
+    // Frees the memory held by the stack
+    free(stack);
+}
+
+/*!
  * @brief Prints the contents of the array based stack to the terminal. Can be
  *        uncommented if the type of the element to be stored remains constant.
  * @param stack Pointer to a stack
