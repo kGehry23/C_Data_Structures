@@ -171,8 +171,11 @@ void remove_hash(hash_table *table, void *hash_key)
         // Correctly assigns the next node to the previous node
         previous_node->next = node->next;
         (node->next)->previous = previous_node;
+
         // Releases memory held by the removed node
         free(node);
+        // Avoid dangling pointer
+        node = NULL;
     }
     // Entered if the node to remove is the first at a table position, and there is at least one
     // other node in the chain
@@ -188,6 +191,8 @@ void remove_hash(hash_table *table, void *hash_key)
         // Release memory held by next node of node to remove.
         // Does not release memory allocated for hash table position.
         free(node->next);
+        // Avoid dangling pointer
+        node->next = NULL;
 
         node->next = next_node;
     }
