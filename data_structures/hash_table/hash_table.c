@@ -243,11 +243,13 @@ void initialize_hash_table(hash_table *table, int size, int function_select)
     // Assigns the array pointer to an array of the desired size
     table->array = (hash_node *)malloc(size * sizeof(hash_node));
 
-    // Assigns the next pointer of all hash nodes to null
     for (int i = 0; i < size; i++)
     {
+        // Sets the hash key to NULL
         ((table->array)[i]).key = NULL;
+        // Sets the next pointer of the first node in the hash table position to NULL
         ((table->array)[i]).next = NULL;
+        // Sets the previous pointer of the first node in the hash table position to NULL
         ((table->array)[i]).previous = NULL;
     }
 
