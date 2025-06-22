@@ -216,8 +216,11 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
                 list->tail = previous_node;
                 // Re-assigns the tail node's next pointer to NULL
                 previous_node->next = NULL;
+
                 // Free memory held by removed node
                 free(search_node);
+                // Avoid dangling pointer
+                search_node = NULL;
             }
             // If the node to remove is any other element in the list
             else
@@ -226,7 +229,10 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
                 // Re-assigns the previous node's pointer to point to the node after the node to remove
                 previous_node->next = search_node->next;
                 // Free memory held by removed node
+
                 free(search_node);
+                // Avoid dangling pointer
+                search_node = NULL;
             }
 
             list->list_size--;
@@ -247,6 +253,8 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
         {
             // Free memory held by removed node
             free(search_node);
+            // Avoid dangling pointer
+            search_node = NULL;
 
             return -1;
         }
