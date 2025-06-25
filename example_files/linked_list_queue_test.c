@@ -13,7 +13,7 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
-#include "../data_structures/queues/linked_list_queue.h"
+#include "../data_structures/queues/linked_list_queue/linked_list_queue.h"
 
 /*!
  * @brief Displays the contents of the queue.

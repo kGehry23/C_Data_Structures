@@ -2,24 +2,31 @@
  ********************************************************************************
  * @file    linked_list_stack.h
  * @author  Kai Gehry
- * @date    2025-03-25
+ * @date    2025-06-24
  *
- * @brief   Defines the operations on a linked list stack.
+ * @brief   Defines the structure and operations defined on a linked list stack
  ********************************************************************************
  */
+
+#ifndef LINKED_LIST_STACK_H
+#define LINKED_LIST_STACK_H
 
 /************************************
  * INCLUDES
  ************************************/
 #include <stdio.h>
 #include <stdbool.h>
-#include "../linked_lists/singly_linked_list/singly_linked_list.h"
+#include "../../linked_lists/singly_linked_list/singly_linked_list.h"
 
 /************************************
  * COMPILER DIRECTIVES
  ************************************/
 // Added for void* to required type conversions
 #pragma GCC diagnostic ignored "-Wint-conversion"
+
+/************************************
+ * TYPEDEFS
+ ************************************/
 
 /*!
  * @brief Struct which represents a stack.
@@ -29,15 +36,16 @@ typedef struct
     singly_linked_list list;
 } linked_list_stack;
 
+/************************************
+ * FUNCTION PROTOTYPES
+ ************************************/
+
 /*!
  * @brief Initializes the stack.
  * @param stack Pointer to a linked list stack.
  * @return None
  */
-void initialize_stack(linked_list_stack *stack)
-{
-    initialize_sl_list(&(stack->list));
-}
+void initialize_stack(linked_list_stack *stack);
 
 /*!
  * @brief Adds an element to the top of the stack
@@ -45,81 +53,41 @@ void initialize_stack(linked_list_stack *stack)
  * @param value Element to push onto the stack.
  * @return None
  */
-void push(linked_list_stack *stack, void *value)
-{
-    add_sl_node_to_head(&(stack->list), value);
-}
+void push(linked_list_stack *stack, void *value);
 
 /*!
  * @brief Displays the contents of the stack.
  * @param stack Pointer to a linked list stack.
  * @return The value held by the node at the top of the stack.
  */
-int pop(linked_list_stack *stack)
-{
-    return remove_sl_node(&(stack->list), (stack->list.head)->value);
-}
+int pop(linked_list_stack *stack);
 
 /*!
  * @brief Returns the element at the top of the stack.
  * @param stack Pointer to a linked list stack.
  * @return The value held by the node at the head of the stack.
  */
-void *peek(linked_list_stack *stack)
-{
-    return return_sl_head(&(stack->list));
-}
+void *peek(linked_list_stack *stack);
 
 /*!
  * @brief Returns the size (number of elements) in the stack.
  * @param stack Pointer to a linked list stack.
  * @return An integer value representing the number of elements in the stack.
  */
-int size(linked_list_stack *stack)
-{
-    return sl_list_length(&(stack->list));
-}
+int size(linked_list_stack *stack);
 
 /*!
  * @brief Returns if the stack is empty or not.
  * @param queue Pointer to a linked list stack.
  * @return A boolean value representing if the stack is empty (1) or not empty (0)
  */
-bool is_empty(linked_list_stack *stack)
-{
-    return sl_list_length(&(stack->list)) == 0;
-}
+bool is_empty(linked_list_stack *stack);
 
 /*!
- * @brief Displays the contents of the stack. Can be uncommented if data type
- *        to be added remains constant.
- * @param stack Pointer to a linked list stack.
+ * @brief Displays the contents of the stack
+ * @param stack Pointer to a linked list stack
  * @return None
  */
-// void display_stack(linked_list_stack *stack)
-// {
-//     // If the stack is empty, NULL is printed
-//     if (stack->list.list_size == 0)
-//     {
-//         printf("\nNULL");
-//     }
-//     // If the stack is not empty, the stack is traversed and the elements are printed to the terminal
-//     else
-//     {
-//         singly_linked_list_node *node = stack->list.head;
-//         printf("\n");
-//         printf("\nNULL->");
+void display_stack(linked_list_stack *stack);
 
-//         do
-//         {
-//             printf("%d", node->value);
-//             node = node->next;
-
-//             if (node != NULL)
-//             {
-//                 printf("->");
-//             }
-
-//         } while (node != NULL);
-//     }
-// }
+#endif // LINKED_LIST_STACK_H

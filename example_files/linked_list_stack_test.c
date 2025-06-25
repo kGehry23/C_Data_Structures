@@ -13,7 +13,7 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
-#include "../data_structures/stacks/linked_list_stack.h"
+#include "../data_structures/stacks/linked_list_stack/linked_list_stack.h"
 
 /*!
  * @brief Displays the contents of the stack.

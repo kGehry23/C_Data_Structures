@@ -13,10 +13,10 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
-#include "../data_structures/stacks/dropout_stack.h"
+#include "../data_structures/stacks/dropout_stack/dropout_stack.h"
 
 /*!
- * @brief Displays the contents of the stack.
+ * @brief Displays the contents of the stack.q
  * @param stack Pointer to a dropout stack.
  * @return None
  */
