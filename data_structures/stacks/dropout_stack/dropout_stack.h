@@ -16,7 +16,7 @@
  ************************************/
 #include <stdio.h>
 #include <stdbool.h>
-#include "../linked_lists/singly_linked_list/singly_linked_list.h"
+#include "../../linked_lists/singly_linked_list/singly_linked_list.h"
 
 /************************************
  * COMPILER DIRECTIVES
