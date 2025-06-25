@@ -4,7 +4,7 @@
  * @author  Kai Gehry
  * @date    2025-06-24
  *
- * @brief   Defines the structure and operations defined on a dropout stack
+ * @brief   Defines the structure and operations defined on a linked list stack
  ********************************************************************************
  */
 
