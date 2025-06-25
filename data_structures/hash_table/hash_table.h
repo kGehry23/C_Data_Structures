@@ -123,4 +123,11 @@ void hash_function_select(hash_table *table, int function_select);
  */
 void initialize_hash_table(hash_table *table, int size, int function_select);
 
+/*!
+ * @brief Frees the memory held by the hash table.
+ * @param table Pointer to a hash table
+ * @return None
+ */
+void free_hash_table(hash_table *table);
+
 #endif // HASH_TABLE_H

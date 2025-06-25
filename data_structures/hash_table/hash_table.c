@@ -171,8 +171,11 @@ void remove_hash(hash_table *table, void *hash_key)
         // Correctly assigns the next node to the previous node
         previous_node->next = node->next;
         (node->next)->previous = previous_node;
+
         // Releases memory held by the removed node
         free(node);
+        // Avoid dangling pointer
+        node = NULL;
     }
     // Entered if the node to remove is the first at a table position, and there is at least one
     // other node in the chain
@@ -188,6 +191,8 @@ void remove_hash(hash_table *table, void *hash_key)
         // Release memory held by next node of node to remove.
         // Does not release memory allocated for hash table position.
         free(node->next);
+        // Avoid dangling pointer
+        node->next = NULL;
 
         node->next = next_node;
     }
@@ -243,11 +248,13 @@ void initialize_hash_table(hash_table *table, int size, int function_select)
     // Assigns the array pointer to an array of the desired size
     table->array = (hash_node *)malloc(size * sizeof(hash_node));
 
-    // Assigns the next pointer of all hash nodes to null
     for (int i = 0; i < size; i++)
     {
+        // Sets the hash key to NULL
         ((table->array)[i]).key = NULL;
+        // Sets the next pointer of the first node in the hash table position to NULL
         ((table->array)[i]).next = NULL;
+        // Sets the previous pointer of the first node in the hash table position to NULL
         ((table->array)[i]).previous = NULL;
     }
 
@@ -255,4 +262,33 @@ void initialize_hash_table(hash_table *table, int size, int function_select)
     table->num_elements = 0;
     // Selects the desired hashing function
     hash_function_select(table, function_select);
+}
+
+/*!
+ * @brief Frees the memory held by the hash table.
+ * @param table Pointer to a hash table
+ * @return None
+ */
+void free_hash_table(hash_table *table)
+{
+    for (int i = 0; i < table->num_elements; i++)
+    {
+        // Frees the memory held by the next reference to the current node if one exists
+        free(((table->array)[i]).next);
+        // Avoid dangling pointer
+        ((table->array)[i]).next = NULL;
+
+        // Frees the memory held by the previous reference to the current node if one exists
+        free(((table->array)[i]).previous);
+        // Avoid dangling pointer
+        ((table->array)[i]).previous = NULL;
+
+        // Frees the node itself
+        free(&(table->array[i]));
+    }
+
+    // Free the memory dynamically allocated for the hash table array
+    free(table->array);
+    // Avoid dangling pointer
+    table->array = NULL;
 }

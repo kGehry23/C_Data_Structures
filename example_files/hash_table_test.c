@@ -53,5 +53,8 @@ int main(void)
     // Return the percentage of the table occupied
     printf("\nPercent Occupied: %.2f", percent_occupied(&table));
 
+    // Free the memory held by the hash table
+    free_hash_table(&table);
+
     return 0;
 }

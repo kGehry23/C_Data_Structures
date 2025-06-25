@@ -110,4 +110,11 @@ void insert_sl_node(singly_linked_list *list, int insert_value, void *insert_aft
  */
 void *remove_sl_node(singly_linked_list *list, void *removal_value);
 
+/*!
+ * @brief Frees the memory held by a singly linked list struct
+ * @param list Pointer to a singly linked list struct
+ * @return None
+ */
+void free_singly_linked_list(singly_linked_list *list);
+
 #endif // SINGLY_LINKED_LIST_H

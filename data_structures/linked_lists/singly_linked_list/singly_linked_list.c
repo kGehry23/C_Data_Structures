@@ -216,8 +216,11 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
                 list->tail = previous_node;
                 // Re-assigns the tail node's next pointer to NULL
                 previous_node->next = NULL;
+
                 // Free memory held by removed node
                 free(search_node);
+                // Avoid dangling pointer
+                search_node = NULL;
             }
             // If the node to remove is any other element in the list
             else
@@ -226,7 +229,10 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
                 // Re-assigns the previous node's pointer to point to the node after the node to remove
                 previous_node->next = search_node->next;
                 // Free memory held by removed node
+
                 free(search_node);
+                // Avoid dangling pointer
+                search_node = NULL;
             }
 
             list->list_size--;
@@ -247,10 +253,35 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
         {
             // Free memory held by removed node
             free(search_node);
+            // Avoid dangling pointer
+            search_node = NULL;
 
             return -1;
         }
     } while (search_node != NULL);
+}
+
+/*!
+ * @brief Frees the memory held by a singly linked list struct
+ * @param list Pointer to a singly linked list struct
+ * @return None
+ */
+void free_singly_linked_list(singly_linked_list *list)
+{
+    singly_linked_list_node *node = list->head;
+    singly_linked_list_node *next_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
+
+    do
+    {
+        // cannot free and then access pointer ---->>> memory leak
+        // Can do this recursively but not wise considering the intended use case
+        // Will be lots of dangling pointers if you just free the head and tail nodes.... not viable
+
+        // next_node = node->next;
+        // free(node);
+
+        node = node->next;
+    } while (node != NULL);
 }
 
 /*!
