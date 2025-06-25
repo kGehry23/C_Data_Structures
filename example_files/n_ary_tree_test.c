@@ -17,5 +17,13 @@
 
 int main(void)
 {
+    n_ary_tree tree;
+
+    initialize_n_ary_tree(&tree, 2);
+
+    add_tree_node(&tree, 5);
+
+    printf("\n\nTest");
+
     return 0;
 }

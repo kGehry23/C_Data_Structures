@@ -35,7 +35,7 @@ typedef struct n_ary_node
     // Node identifier
     void *node_identifier;
     // Array of pointers to child nodes
-    struct n_ary_node **child_nodes;
+    singly_linked_list child_nodes;
 
 } n_ary_node;
 

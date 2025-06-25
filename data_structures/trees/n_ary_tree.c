@@ -25,6 +25,8 @@
  */
 void initialize_n_ary_tree(n_ary_tree *tree, int order)
 {
+    tree->tree_size = 0;
+    tree->tree_order = order;
 }
 
 /*!
@@ -35,6 +37,8 @@ void initialize_n_ary_tree(n_ary_tree *tree, int order)
  */
 void add_tree_node(n_ary_tree *tree, void *value)
 {
+    n_ary_node *node = (n_ary_node *)malloc(sizeof(n_ary_node));
+    initialize_sl_list(&(node->child_nodes));
 }
 
 /*!
