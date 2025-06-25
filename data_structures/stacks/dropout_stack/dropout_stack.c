@@ -1,6 +1,6 @@
 /**
  ********************************************************************************
- * @file    dropout_stack.h
+ * @file    dropout_stack.c
  * @author  Kai Gehry
  * @date    2025-04-06
  *
@@ -11,25 +11,11 @@
 /************************************
  * INCLUDES
  ************************************/
-#include <stdio.h>
-#include <stdbool.h>
-#include "../linked_lists/singly_linked_list/singly_linked_list.h"
+#include "dropout_stack.h"
 
 /************************************
- * COMPILER DIRECTIVES
+ * FUNCTION DEFINITIONS
  ************************************/
-// Added for void* to required type conversions
-#pragma GCC diagnostic ignored "-Wint-conversion"
-
-/*!
- * @brief Struct which represents a dropout stack.
- */
-typedef struct
-{
-    // Defines the size limit of the dropout stack
-    int stack_limit;
-    singly_linked_list list;
-} dropout_stack;
 
 /*!
  * @brief Initializes the dropout stack.
