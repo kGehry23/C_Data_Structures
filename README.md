@@ -13,7 +13,7 @@ The data_structures folder includes implementations of:
 
 To compile and run a .c file that uses any of these data structures, the file to compile, as well as the .c file which contains the function definitions of the prototypes can be compiled with gcc as follows:
 
-    gcc file_using_library.c header_definition_file.c -o desired_name_of_executable
+    gcc file_to_compile.c header_definition_file.c -o desired_name_of_executable
 
 For example, if using the singly_linked_list.h header file directly within the project, the following compilation statement would be used:
 
@@ -22,3 +22,13 @@ For example, if using the singly_linked_list.h header file directly within the p
 The following command will run the created executable
 
     .\singly_linked_list
+
+If a data structure relies on another in the library as part of its implementation, the following syntax would be used:
+
+    gcc file_to_compile.c header_definition_file.c additional_structure_definition_file_1.c ... -o desired_name_of_executable
+
+The "..." before -o indicates that the preceding statement may need to be used multiple times if there are multiple data structures from the library used to implement the current structure.
+
+For example, if using the dropout_stack.h header file directly within the project, the following compilation statement would be used as it relies on a singly linked list in its implementation:
+
+    gcc dropout_stack_test.c ../data_structures/stacks/dropout_stack/dropout_stack.c ../data_structures/linked_lists/singly_linked_list/singly_linked_list.c -o dropout_stack_test
