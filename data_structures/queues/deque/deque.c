@@ -109,6 +109,15 @@ bool is_empty(linked_deque *deque)
     return dl_list_length(&(deque->list)) == 0;
 }
 
+/*!
+ * @brief Frees the dynamically allocated memory held by the deque
+ * @param deque Pointer to a deque.
+ * @return None
+ */
+void free_deque(linked_deque *deque)
+{
+}
+
 // /*!
 //  * @brief Displays the contents of the deque. Can be uncommented if
 //  *        data type to be added remains constant.
