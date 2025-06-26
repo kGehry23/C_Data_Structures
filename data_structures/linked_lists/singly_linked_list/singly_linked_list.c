@@ -277,13 +277,13 @@ void free_singly_linked_list(singly_linked_list *list)
     int i = 0;
 
     // Traverse the linked list and add the nodes to the array
-    do
+    while (node != NULL)
     {
         array[i] = node;
         // Update the pointer to the node in the traversal
         node = node->next;
         i++;
-    } while (node != NULL);
+    }
 
     // Free the memory held by the nodes
     for (int j = 0; j < list->list_size; j++)

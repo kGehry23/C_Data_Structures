@@ -89,5 +89,8 @@ int main(void)
     printf("\n\nHead Element: %d", return_dl_head(&dl_list));
     printf("\nTail Element: %d", return_dl_tail(&dl_list));
 
+    // Frees the dynamically allocated memory held by the doubly linked list
+    free_doubly_linked_list(&dl_list);
+
     return 0;
 }

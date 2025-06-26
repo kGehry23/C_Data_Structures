@@ -279,6 +279,46 @@ void *remove_dl_node(doubly_linked_list *list, void *removal_value)
 }
 
 /*!
+ * @brief Frees the memory held by a doubly linked list struct
+ * @param list Pointer to a doubly linked list struct
+ * @return None
+ */
+void free_doubly_linked_list(doubly_linked_list *list)
+{
+	// Node pointer used to keep track of current node in list
+	doubly_linked_list_node *node = node = list->head;
+	// Array of node pointers
+	doubly_linked_list_node *array[list->list_size];
+
+	// Counter to add a node pointer to a position in the array
+	int i = 0;
+
+	// Free the memory held by the pointer to the previous node for the head node
+	free((list->head)->previous);
+
+	// Traverse the linked list and add the nodes to the array
+	while (node != NULL)
+	{
+		array[i] = node;
+		// Update the pointer to the node in the traversal
+		node = node->next;
+		i++;
+	}
+
+	// Free the memory held by the nodes
+	for (int j = 0; j < list->list_size; j++)
+	{
+		// Free the dynamically allocated memory held by the current node
+		free(array[j]);
+		// Avoid dangling pointer
+		array[j] = NULL;
+	}
+
+	// Free the singly doubly linked list struct
+	free(list);
+}
+
+/*!
  * @brief Prints the contents of the doubly linked list to the terminal. If the type
  *        of element added to the linked list remains constant for a given implementation, this
  *        can be uncommented and used
