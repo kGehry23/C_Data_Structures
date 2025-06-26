@@ -95,4 +95,11 @@ bool is_empty(dropout_stack *stack);
  */
 void display_do_stack(dropout_stack *stack);
 
+/*!
+ * @brief Frees the dynamically allocated memory held by the dropout stack
+ * @param stack Pointer to a dropout stack
+ * @return None
+ */
+void free_do_stack(dropout_stack *stack);
+
 #endif // DROPOUT_STACK_H
