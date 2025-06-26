@@ -89,5 +89,8 @@ int main(void)
 
     display_stack(&stack);
 
+    // Free the memory held by the singly linked list stack
+    free_linked_list_stack(&stack);
+
     return 0;
 }

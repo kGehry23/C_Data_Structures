@@ -97,5 +97,9 @@ int main(void)
     printf("\nValue: %d", value2);
     display_queue(&queue2);
 
+    // Free the dynamically allocated memory held by both queues
+    free_linked_list_queue(&queue1);
+    free_linked_list_queue(&queue2);
+
     return 0;
 }

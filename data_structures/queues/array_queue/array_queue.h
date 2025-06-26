@@ -96,10 +96,16 @@ void initialize_array_queue(array_queue *queue, int queue_size);
 
 /*!
  * @brief Prints the relevant contents of the array based queue to the terminal.
- *        Can be uncommented if the element type remains constant.
  * @param list Pointer to a queue.
  * @return None
  */
 void display_queue(array_queue *queue);
+
+/*!
+ * @brief Frees the dynamically allocated memory held by the array-based queue
+ * @param list Pointer to a queue.
+ * @return None
+ */
+void free_array_queue(array_queue *queue);
 
 #endif // ARRAY_QUEUE_H

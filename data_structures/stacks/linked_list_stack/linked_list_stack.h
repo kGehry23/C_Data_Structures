@@ -90,4 +90,11 @@ bool is_empty(linked_list_stack *stack);
  */
 void display_stack(linked_list_stack *stack);
 
+/*!
+ * @brief Frees the dynamically allocated memory held by the linked list stack
+ * @param stack Pointer to a linked list stack
+ * @return None
+ */
+void free_linked_list_stack(linked_list_stack *stack);
+
 #endif // LINKED_LIST_STACK_H

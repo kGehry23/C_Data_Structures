@@ -81,5 +81,8 @@ int main(void)
     // Returns the size of the stack
     printf("\n\nList Size: %d", size(&stack));
 
+    // Frees the dynamically allocated memory held by the stack
+    free_do_stack(&stack);
+
     return 0;
 }

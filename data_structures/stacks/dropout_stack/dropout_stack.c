@@ -87,6 +87,16 @@ bool is_empty(dropout_stack *stack)
     return sl_list_length(&(stack->list)) == 0;
 }
 
+/*!
+ * @brief Frees the dynamically allocated memory held by the dropout stack
+ * @param stack Pointer to a dropout stack
+ * @return None
+ */
+void free_do_stack(dropout_stack *stack)
+{
+    free_singly_linked_list(&(stack->list));
+}
+
 // /*!
 //  * @brief Displays the contents of the stack. Can be uncommented if the data type to be
 //           stored remains constant.

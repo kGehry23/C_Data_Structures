@@ -96,10 +96,16 @@ void initialize_circular_queue(circular_queue *circ_queue, int queue_size);
 
 /*!
  * @brief Prints the relevant contents of the circular queue to the terminal.
- *        Can be uncommented if the element type remains constant.
  * @param list Pointer to a circular queue.
  * @return None
  */
 void display_circular_queue(circular_queue *queue);
+
+/*!
+ * @brief Frees the dynamically allocated memory held by the circular queue
+ * @param list Pointer to a circular queue.
+ * @return None
+ */
+void free_circular_queue(circular_queue *queue);
 
 #endif // CIRCULAR_QUEUE_H

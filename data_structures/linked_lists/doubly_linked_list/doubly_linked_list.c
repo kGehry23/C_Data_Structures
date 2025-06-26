@@ -239,19 +239,25 @@ void *remove_dl_node(doubly_linked_list *list, void *removal_value)
 				// Re-assign the pointer to the tail element
 				list->tail = search_node->previous;
 				// Re-assigns the previous node's next pointer
-				search_node->previous->next = NULL;
+				(search_node)->previous->next = NULL;
+
 				// Free memory held by removed node
 				free(search_node);
+				// Avoid dangling pointer
+				search_node = NULL;
 			}
 			// If the node to remove is any other element in the list
 			else
 			{
 				// Re-assigns the next node's previous pointer
-				search_node->next->previous = previous_node;
+				(search_node->next)->previous = previous_node;
 				// Re-assigns the previous node's next pointer
 				previous_node->next = search_node->next;
+
 				// Free memory held by removed node
 				free(search_node);
+				// Avoid dangling pointer
+				search_node = NULL;
 			}
 
 			list->list_size--;
@@ -272,10 +278,52 @@ void *remove_dl_node(doubly_linked_list *list, void *removal_value)
 		{
 			// Free memory held by removed node
 			free(search_node);
+			// Avoid dangling pointer
+			search_node = NULL;
 
 			return -1;
 		}
 	} while (search_node != NULL);
+}
+
+/*!
+ * @brief Frees the memory held by a doubly linked list struct
+ * @param list Pointer to a doubly linked list struct
+ * @return None
+ */
+void free_doubly_linked_list(doubly_linked_list *list)
+{
+	// Node pointer used to keep track of current node in list
+	doubly_linked_list_node *node = node = list->head;
+	// Array of node pointers
+	doubly_linked_list_node *array[list->list_size];
+
+	// Counter to add a node pointer to a position in the array
+	int i = 0;
+
+	// Free the memory held by the pointer to the previous node for the head node
+	free((list->head)->previous);
+
+	// Traverse the linked list and add the nodes to the array
+	while (node != NULL)
+	{
+		array[i] = node;
+		// Update the pointer to the node in the traversal
+		node = node->next;
+		i++;
+	}
+
+	// Free the memory held by the nodes
+	for (int j = 0; j < list->list_size; j++)
+	{
+		// Free the dynamically allocated memory held by the current node
+		free(array[j]);
+		// Avoid dangling pointer
+		array[j] = NULL;
+	}
+
+	// Free the singly doubly linked list struct
+	free(list);
 }
 
 /*!

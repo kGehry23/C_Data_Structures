@@ -119,4 +119,18 @@ void insert_dl_node(doubly_linked_list *list, int insert_value, void *insert_aft
  */
 void *remove_dl_node(doubly_linked_list *list, void *removal_value);
 
+/*!
+ * @brief Prints the contents of the doubly linked list to the terminal
+ * @param list Pointer to a doubly linked list struct.
+ * @return None
+ */
+void display_dl_list(doubly_linked_list *list);
+
+/*!
+ * @brief Frees the memory held by a doubly linked list struct
+ * @param list Pointer to a doubly linked list struct
+ * @return None
+ */
+void free_doubly_linked_list(doubly_linked_list *list);
+
 #endif // DOUBLY_LINKED_LIST_H
