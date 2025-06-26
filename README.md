@@ -17,7 +17,7 @@ To compile and run a .c file that uses any of these data structures, the file to
 
 For example, if using the singly_linked_list.h header file directly within the project, the following compilation statement would be used:
 
-    gcc singly_linked_list_test.c ..\data_structures\linked_lists\singly_linked_list\singly_linked_list.c -o singly_linked_list
+    gcc singly_linked_list_test.c ../data_structures/linked_lists/singly_linked_list/singly_linked_list.c -o singly_linked_list
 
 The following command will run the created executable
 
