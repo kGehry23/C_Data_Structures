@@ -78,6 +78,16 @@ bool is_empty(linked_list_queue *queue)
     return sl_list_length(&(queue->list)) == 0;
 }
 
+/*!
+ * @brief Frees the dynamically allocated memory held by the queue
+ * @param queue Pointer to a linked list queue.
+ * @return None
+ */
+void free_linked_list_queue(linked_list_queue *queue)
+{
+    free_singly_linked_list(&(queue->list));
+}
+
 // /*!
 //  * @brief Displays the contents of the queue.
 //  * @param queue Pointer to a linked list queue.
