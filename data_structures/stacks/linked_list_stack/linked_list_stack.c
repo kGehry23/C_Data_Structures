@@ -79,6 +79,16 @@ bool is_empty(linked_list_stack *stack)
 }
 
 /*!
+ * @brief Frees the dynamically allocated memory held by the linked list stack
+ * @param stack Pointer to a linked list stack
+ * @return None
+ */
+void free_linked_list_stack(linked_list_stack *stack)
+{
+    free_singly_linked_list(&(stack->list));
+}
+
+/*!
  * @brief Displays the contents of the stack. Can be uncommented if data type
  *        to be added remains constant.
  * @param stack Pointer to a linked list stack.
