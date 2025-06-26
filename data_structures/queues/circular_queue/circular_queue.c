@@ -60,8 +60,11 @@ void *dequeue(circular_queue *circ_queue)
         // void pointer to store the value of the dequeued element
         void *removed_element = (circ_queue->array)[circ_queue->front_index];
 
-        // Assigns the value at the position of the removed element to null
+        // Frees the memory held by the dequeued element
+        free((circ_queue->array)[circ_queue->front_index]);
+        //  Assigns the value at the position of the removed element to null
         (circ_queue->array)[circ_queue->front_index] = NULL;
+
         // Updates the front index
         circ_queue->front_index = (circ_queue->front_index + 1) % circ_queue->size;
 
@@ -125,6 +128,23 @@ void initialize_circular_queue(circular_queue *circ_queue, int queue_size)
 
     //  Create an array of the specified size to hold the queue elements
     circ_queue->array = (void *)malloc(queue_size * sizeof(void *));
+}
+
+/*!
+ * @brief Frees the dynamically allocated memory held by the circular queue
+ * @param list Pointer to a circular queue.
+ * @return None
+ */
+void free_circular_queue(circular_queue *queue)
+{
+    // Frees the memory held by each element of the array holding the queue items
+    for (int i = 0; i < queue->num_elements; i++)
+    {
+        free(&(queue->array[i]));
+    }
+
+    // Frees the struct
+    free(queue->array);
 }
 
 /*!

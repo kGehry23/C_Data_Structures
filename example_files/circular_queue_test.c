@@ -132,5 +132,8 @@ int main(void)
     printf("Front Index: %d", circ_queue.front_index);
     printf("\nEnd Index: %d\n", circ_queue.end_index);
 
+    // Frees the dynamically allocated memory held by the circular queue
+    free_circular_queue(&circ_queue);
+
     return 0;
 }
