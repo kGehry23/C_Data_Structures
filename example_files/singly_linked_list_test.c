@@ -96,5 +96,11 @@ int main(void)
     printf("\nTail Element: %d", return_sl_tail(&list2));
     printf("\nHead Element: %d", return_sl_head(&list2));
 
+    // Frees the dynamically allocated memory held by list1
+    free_singly_linked_list(&list1);
+
+    // Frees the dynamically allocated memory held by list2
+    free_singly_linked_list(&list2);
+
     return 0;
 }
