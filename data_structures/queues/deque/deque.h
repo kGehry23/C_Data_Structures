@@ -15,7 +15,7 @@
  * INCLUDES
  ************************************/
 #include <stdbool.h>
-#include "../data_structures/linked_lists/doubly_linked_list/doubly_linked_list.c"
+#include "../../linked_lists/doubly_linked_list/doubly_linked_list.h"
 
 /************************************
  * COMPILER DIRECTIVES
@@ -105,11 +105,17 @@ int size(linked_deque *deque);
 bool is_empty(linked_deque *deque);
 
 /*!
- * @brief Displays the contents of the deque. Can be uncommented if
- *        data type to be added remains constant.
+ * @brief Displays the contents of the deque.
  * @param deque Pointer to a deque.
  * @return None
  */
 void display_deque(linked_deque *deque);
+
+/*!
+ * @brief Frees the dynamically allocated memory held by the deque
+ * @param deque Pointer to a deque.
+ * @return None
+ */
+void free_deque(linked_deque *deque);
 
 #endif // DEQUE_H

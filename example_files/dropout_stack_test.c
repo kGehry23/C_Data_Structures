@@ -13,10 +13,10 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
-#include "../data_structures/stacks/dropout_stack.h"
+#include "../data_structures/stacks/dropout_stack/dropout_stack.h"
 
 /*!
- * @brief Displays the contents of the stack.
+ * @brief Displays the contents of the stack.q
  * @param stack Pointer to a dropout stack.
  * @return None
  */
@@ -80,6 +80,9 @@ int main(void)
 
     // Returns the size of the stack
     printf("\n\nList Size: %d", size(&stack));
+
+    // Frees the dynamically allocated memory held by the stack
+    free_do_stack(&stack);
 
     return 0;
 }

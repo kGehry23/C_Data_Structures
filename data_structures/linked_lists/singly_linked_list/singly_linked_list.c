@@ -268,20 +268,34 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
  */
 void free_singly_linked_list(singly_linked_list *list)
 {
-    singly_linked_list_node *node = list->head;
-    singly_linked_list_node *next_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
+    // Node pointer used to keep track of current node in list
+    singly_linked_list_node *node = node = list->head;
+    // Array of node pointers
+    singly_linked_list_node *array[list->list_size];
 
-    do
+    // Counter to add a node pointer to a position in the array
+    int i = 0;
+
+    // Traverse the linked list and add the nodes to the array
+    while (node != NULL)
     {
-        // cannot free and then access pointer ---->>> memory leak
-        // Can do this recursively but not wise considering the intended use case
-        // Will be lots of dangling pointers if you just free the head and tail nodes.... not viable
-
-        // next_node = node->next;
-        // free(node);
-
+        array[i] = node;
+        // Update the pointer to the node in the traversal
         node = node->next;
-    } while (node != NULL);
+        i++;
+    }
+
+    // Free the memory held by the nodes
+    for (int j = 0; j < list->list_size; j++)
+    {
+        // Free the dynamically allocated memory held by the current node
+        free(array[j]);
+        // Avoid dangling pointer
+        array[j] = NULL;
+    }
+
+    // Free the singly linked list struct
+    free(list);
 }
 
 /*!

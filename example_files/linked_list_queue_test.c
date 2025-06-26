@@ -13,7 +13,7 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
-#include "../data_structures/queues/linked_list_queue.h"
+#include "../data_structures/queues/linked_list_queue/linked_list_queue.h"
 
 /*!
  * @brief Displays the contents of the queue.
@@ -96,6 +96,10 @@ int main(void)
     int value2 = dequeue(&queue2);
     printf("\nValue: %d", value2);
     display_queue(&queue2);
+
+    // Free the dynamically allocated memory held by both queues
+    free_linked_list_queue(&queue1);
+    free_linked_list_queue(&queue2);
 
     return 0;
 }

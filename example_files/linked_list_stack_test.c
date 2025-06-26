@@ -13,7 +13,7 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
-#include "../data_structures/stacks/linked_list_stack.h"
+#include "../data_structures/stacks/linked_list_stack/linked_list_stack.h"
 
 /*!
  * @brief Displays the contents of the stack.
@@ -88,6 +88,9 @@ int main(void)
     printf("\nTop of stack: %d", peek(&stack));
 
     display_stack(&stack);
+
+    // Free the memory held by the singly linked list stack
+    free_linked_list_stack(&stack);
 
     return 0;
 }

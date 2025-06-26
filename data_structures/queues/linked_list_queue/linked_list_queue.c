@@ -1,6 +1,6 @@
 /**
  ********************************************************************************
- * @file    linked_list_queue.h
+ * @file    linked_list_queue.c
  * @author  Kai Gehry
  * @date    2025-03-26
  *
@@ -11,23 +11,11 @@
 /************************************
  * INCLUDES
  ************************************/
-#include <stdio.h>
-#include <stdbool.h>
-#include "../linked_lists/singly_linked_list/singly_linked_list.h"
+#include "linked_list_queue.h"
 
 /************************************
- * COMPILER DIRECTIVES
+ * FUNCTION DEFINITIONS
  ************************************/
-// Added for void* to required type conversions
-#pragma GCC diagnostic ignored "-Wint-conversion"
-
-/*!
- * @brief Struct which represents a queue.
- */
-typedef struct
-{
-    singly_linked_list list;
-} linked_list_queue;
 
 /*!
  * @brief Initializes the queue.
@@ -88,6 +76,16 @@ int size(linked_list_queue *queue)
 bool is_empty(linked_list_queue *queue)
 {
     return sl_list_length(&(queue->list)) == 0;
+}
+
+/*!
+ * @brief Frees the dynamically allocated memory held by the queue
+ * @param queue Pointer to a linked list queue.
+ * @return None
+ */
+void free_linked_list_queue(linked_list_queue *queue)
+{
+    free_singly_linked_list(&(queue->list));
 }
 
 // /*!

@@ -81,5 +81,8 @@ int main(void)
     // Returns if the deque is empty or not
     printf("\nEmpty: %d", is_empty(&deque));
 
+    // Frees the dynamically allocated memory held by the deque
+    free_deque(&deque);
+
     return 0;
 }

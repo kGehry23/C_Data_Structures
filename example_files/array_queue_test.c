@@ -111,5 +111,8 @@ int main(void)
     // Returns the number of elements in the queue
     printf("\nNumber of elements in queue: %d\n\n", size(&queue));
 
+    // Free the dynamically allocated memory held by the queue
+    free_array_queue(&queue);
+
     return 0;
 }
