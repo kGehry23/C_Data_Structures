@@ -116,6 +116,7 @@ bool is_empty(linked_deque *deque)
  */
 void free_deque(linked_deque *deque)
 {
+    free_doubly_linked_list(&(deque->list));
 }
 
 // /*!

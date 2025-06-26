@@ -239,19 +239,25 @@ void *remove_dl_node(doubly_linked_list *list, void *removal_value)
 				// Re-assign the pointer to the tail element
 				list->tail = search_node->previous;
 				// Re-assigns the previous node's next pointer
-				search_node->previous->next = NULL;
+				(search_node)->previous->next = NULL;
+
 				// Free memory held by removed node
 				free(search_node);
+				// Avoid dangling pointer
+				search_node = NULL;
 			}
 			// If the node to remove is any other element in the list
 			else
 			{
 				// Re-assigns the next node's previous pointer
-				search_node->next->previous = previous_node;
+				(search_node->next)->previous = previous_node;
 				// Re-assigns the previous node's next pointer
 				previous_node->next = search_node->next;
+
 				// Free memory held by removed node
 				free(search_node);
+				// Avoid dangling pointer
+				search_node = NULL;
 			}
 
 			list->list_size--;
@@ -272,6 +278,8 @@ void *remove_dl_node(doubly_linked_list *list, void *removal_value)
 		{
 			// Free memory held by removed node
 			free(search_node);
+			// Avoid dangling pointer
+			search_node = NULL;
 
 			return -1;
 		}
