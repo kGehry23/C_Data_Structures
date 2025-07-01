@@ -16,6 +16,7 @@
  ************************************/
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
 #include "../linked_lists/singly_linked_list/singly_linked_list.h"
 
@@ -33,7 +34,7 @@ typedef struct n_ary_node
     // Value held by the node
     void *node_value;
     // Node identifier
-    void *node_identifier;
+    char *node_identifier;
     // Pointer to a parent node
     struct n_ary_node *parent;
     // Array of pointers to child nodes
@@ -70,10 +71,12 @@ void initialize_n_ary_tree(n_ary_tree *tree, int order);
 /*!
  * @brief Adds a node to the tree
  * @param tree Pointer to a tree
+ * @param parent_identifier Identifier of the parent node
+ * @param node_id Identifier for a node
  * @param value Value held by the node
  * @return None
  */
-void add_tree_node(n_ary_tree *tree, void *value);
+void add_tree_node(n_ary_tree *tree, char *parent_identifier, char *node_id, void *value);
 
 /*!
  * @brief Adds a node to the tree
@@ -81,7 +84,7 @@ void add_tree_node(n_ary_tree *tree, void *value);
  * @param identifier Node identifier
  * @return Returns the value held by the node
  */
-void *remove_tree_node(n_ary_tree *tree, void *identifier);
+void *remove_tree_node(n_ary_tree *tree, char *identifier);
 
 /*!
  * @brief Returns a pointer to a n-ary node
@@ -89,7 +92,7 @@ void *remove_tree_node(n_ary_tree *tree, void *identifier);
  * @param identifier Node identifier
  * @return A pointer to an n-ary node
  */
-n_ary_node *find_n_ary_node(n_ary_tree *tree, void *identifier);
+n_ary_node *find_n_ary_node(n_ary_tree *tree, char *identifier);
 
 /*!
  * @brief Returns the value held by the specified node
@@ -97,7 +100,14 @@ n_ary_node *find_n_ary_node(n_ary_tree *tree, void *identifier);
  * @param identifier Node identifier
  * @return The value held by the specified node
  */
-void *get_node_value(n_ary_tree *tree, void *identifier);
+void *get_node_value(n_ary_tree *tree, char *identifier);
+
+/*!
+ * @brief Returns the value held by the root node
+ * @param tree Pointer to a tree
+ * @return The value held by the root node
+ */
+void *get_root_node(n_ary_tree *tree);
 
 /*!
  * @brief Returns the number of nodes in the tree

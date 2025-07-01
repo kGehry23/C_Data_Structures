@@ -27,18 +27,37 @@ void initialize_n_ary_tree(n_ary_tree *tree, int order)
 {
     tree->tree_size = 0;
     tree->tree_order = order;
+    tree->root = NULL;
 }
 
 /*!
  * @brief Adds a node to the tree
  * @param tree Pointer to a tree
+ * @param parent_identifier Identifier of the parent node
+ * @param node_id Identifier for a node
  * @param value Value held by the node
  * @return None
  */
-void add_tree_node(n_ary_tree *tree, void *value)
+void add_tree_node(n_ary_tree *tree, char *parent_identifier, char *node_id, void *value)
 {
+
+    // Create a new node pointer
     n_ary_node *node = (n_ary_node *)malloc(sizeof(n_ary_node));
+
+    // Set the node id of the new node
+    node->node_identifier = node_id;
+    // Set the value held by the new node
+    node->node_value = value;
+    // Set the maximum number of children for the node
+    node->max_children = tree->tree_order;
+    // Initialize the singly linked list of child nodes
     initialize_sl_list(&(node->child_nodes));
+
+    // Set the root node if there are no other nodes in the tree
+    if (parent_identifier == NULL && tree->root == NULL)
+    {
+        tree->root = node;
+    }
 }
 
 /*!
@@ -47,7 +66,7 @@ void add_tree_node(n_ary_tree *tree, void *value)
  * @param identifier Node identifier
  * @return Returns the value held by the node
  */
-void *remove_tree_node(n_ary_tree *tree, void *identifier)
+void *remove_tree_node(n_ary_tree *tree, char *identifier)
 {
     return NULL;
 }
@@ -58,7 +77,7 @@ void *remove_tree_node(n_ary_tree *tree, void *identifier)
  * @param identifier Node identifier
  * @return A pointer to an n-ary node
  */
-n_ary_node *find_n_ary_node(n_ary_tree *tree, void *identifier)
+n_ary_node *find_n_ary_node(n_ary_tree *tree, char *identifier)
 {
     return NULL;
 }
@@ -69,9 +88,19 @@ n_ary_node *find_n_ary_node(n_ary_tree *tree, void *identifier)
  * @param identifier Node identifier
  * @return The value held by the specified node
  */
-void *get_node_value(n_ary_tree *tree, void *identifier)
+void *get_node_value(n_ary_tree *tree, char *identifier)
 {
     return NULL;
+}
+
+/*!
+ * @brief Returns the value held by the root node
+ * @param tree Pointer to a tree
+ * @return The value held by the root node
+ */
+void *get_root_node(n_ary_tree *tree)
+{
+    return (tree->root)->node_value;
 }
 
 /*!
