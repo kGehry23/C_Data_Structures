@@ -140,4 +140,20 @@ void initialize_directed_graph(directed_graph *ud_graph, int size_upper_bound);
  */
 void free_d_graph(directed_graph *d_graph);
 
+/*!
+ * @brief Prints the result of the depth first traversal to the terminal
+ * @param d_graph Pointer to a directed graph
+ * @param start Pointer to the node to begin the traversal at
+ * @return None
+ */
+void d_graph_depth_first(directed_graph *d_graph, directed_graph_vertex *start);
+
+/*!
+ * @brief Prints the result of the breadth first traversal to the terminal
+ * @param d_graph Pointer to a directed graph
+ * @param start Pointer to the node to begin the traversal at
+ * @return None
+ */
+void d_graph_breadth_first(directed_graph *d_graph, directed_graph_vertex *start);
+
 #endif // DIRECTED_GRAPH_H
