@@ -42,13 +42,13 @@ int main(void)
     initialize_undirected_graph(&ud_graph, 10);
 
     // Adds vertices to the graph
-    add_vertex(&ud_graph, RESOURCE_A, 1);
-    add_vertex(&ud_graph, RESOURCE_B, 2);
-    add_vertex(&ud_graph, RESOURCE_C, 3);
-    add_vertex(&ud_graph, RESOURCE_D, 4);
-    add_vertex(&ud_graph, RESOURCE_E, 5);
-    add_vertex(&ud_graph, RESOURCE_F, 6);
-    add_vertex(&ud_graph, RESOURCE_G, 7);
+    add_vertex(&ud_graph, "A", RESOURCE_A, 1);
+    add_vertex(&ud_graph, "B", RESOURCE_B, 2);
+    add_vertex(&ud_graph, "C", RESOURCE_C, 3);
+    add_vertex(&ud_graph, "D", RESOURCE_D, 4);
+    add_vertex(&ud_graph, "E", RESOURCE_E, 5);
+    add_vertex(&ud_graph, "F", RESOURCE_F, 6);
+    add_vertex(&ud_graph, "G", RESOURCE_G, 7);
 
     // Adds an edge
     add_edge(&ud_graph, RESOURCE_D, RESOURCE_A);
@@ -68,7 +68,7 @@ int main(void)
     add_edge(&ud_graph, RESOURCE_F, RESOURCE_B);
 
     // Perform a breadth first traversal beginning at resource D
-    printf("\nNumber of elements: : %d", ud_graph_breadth_first(&ud_graph, RESOURCE_D));
+    printf("\nNumber of elements: %d", ud_graph_breadth_first(&ud_graph, RESOURCE_D));
 
     // Free the memory held by the undirected graph
     free_ud_graph(&ud_graph);

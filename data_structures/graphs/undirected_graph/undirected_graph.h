@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <strings.h>
+#include <string.h>
 #include "../../queues/array_queue/array_queue.h"
 
 /************************************
@@ -40,6 +40,8 @@ typedef struct
     void *value;
     // Vertex identifier
     int identifier;
+    // String identifier
+    char *vertex_name;
     // Stores the index of the vertex in the adjacency matrix
     int adj_index;
     // Boolean indicating if the vertex has been visited during a traversal
@@ -76,7 +78,7 @@ typedef struct
  * @param vertex_value Value stored by the vertex
  * @return None
  */
-void add_vertex(undirected_graph *ud_graph, int identifier, void *vertex_value);
+void add_vertex(undirected_graph *ud_graph, char *name, int identifier, void *vertex_value);
 
 /*!
  * @brief Removes and returns the value associated with the specified vertex

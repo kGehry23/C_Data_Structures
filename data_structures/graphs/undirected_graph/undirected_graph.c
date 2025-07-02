@@ -24,7 +24,7 @@
  * @param vertex_value Value stored by the vertex
  * @return None
  */
-void add_vertex(undirected_graph *ud_graph, int identifier, void *vertex_value)
+void add_vertex(undirected_graph *ud_graph, char *name, int identifier, void *vertex_value)
 {
     // Adds the vertex if a vertex has not already been allocated to the specified position in the vertex list
     if (ud_graph->vertices[identifier] == NULL)
@@ -36,6 +36,7 @@ void add_vertex(undirected_graph *ud_graph, int identifier, void *vertex_value)
           Assign the specified identifier, value stored by the new node, and an associated index into the adjacency
           matrix.
         */
+        new_vertex->vertex_name = name;
         new_vertex->identifier = identifier;
         new_vertex->value = vertex_value;
         new_vertex->adj_index = identifier;
@@ -304,7 +305,7 @@ int ud_graph_breadth_first(undirected_graph *ud_graph, int start_id)
 
         if (k >= 0 && k < result_list_size)
         {
-            printf(" %d ", result_list[k]);
+            printf(" %s ", ((ud_graph->vertices)[result_list[k]])->vertex_name);
         }
 
         if (k == result_list_size - 1)
