@@ -150,7 +150,7 @@ void remove_edge(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
 bool edge_exists(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
 {
     // Checks if the specified vertices have an edge between them
-    return ((ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] == 0);
+    return ((ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] == 1);
 }
 
 /*!
@@ -225,4 +225,96 @@ void free_ud_graph(undirected_graph *ud_graph)
             free(&((ud_graph->adjacency_matrix)[j][k]));
         }
     }
+}
+
+/*!
+ * @brief Prints the result of the depth first traversal to the terminal
+ * @param d_graph Pointer to an undirected graph
+ * @param start Pointer to the node to begin the traversal at
+ * @return None
+ */
+void ud_graph_depth_first(undirected_graph *d_graph, int start)
+{
+}
+
+/*!
+ * @brief Prints the result of the breadth first traversal to the terminal
+ * @param ud_graph Pointer to an undirected graph
+ * @param start_id Id of the vertex to start at
+ * @return An integer representing the number of vertices in the breadth first traversal
+ */
+int ud_graph_breadth_first(undirected_graph *ud_graph, int start_id)
+{
+    array_queue traversal_queue;
+    // Initialize the traversal queue
+    initialize_array_queue(&traversal_queue, ud_graph->num_vertices);
+
+    // Initialize the result list
+    int result_list[ud_graph->num_vertices];
+
+    // Counter used to track the size of the result list
+    int result_list_size = 0;
+    // Current vertex id
+    int current_id = start_id;
+
+    // While there are elements in the traversal queue, continue the traversal
+    do
+    {
+        // Check for vertices attached to the current vertex
+        for (int j = 0; j < ud_graph->adjacency_size; j++)
+        {
+
+            // If a vertex is attached to the current vertex and the vertex has not been visited, those vertices
+            // are enqueued onto the traversal queue
+            if ((ud_graph->adjacency_matrix)[current_id][j] == 1 && (ud_graph->vertices[j])->visited == 0)
+            {
+                enqueue(&traversal_queue, (ud_graph->vertices[j])->identifier);
+                // Any enqueued vertices are marked as visited
+                (ud_graph->vertices[j])->visited = 1;
+            }
+        }
+
+        // If the result list is empty, add the starting identifier to the result list
+        if (result_list_size == 0)
+        {
+            result_list[result_list_size] = (ud_graph->vertices[current_id])->identifier;
+            // Set the visited boolean to 1
+            (ud_graph->vertices[current_id])->visited = 1;
+        }
+        else
+        {
+            // Dequeues an element off of the traversal queue and adds it to the result list
+            result_list[result_list_size] = dequeue(&traversal_queue);
+        }
+
+        // Increment the size of the result list
+        result_list_size++;
+        // Update the current vertex id
+        current_id = first(&traversal_queue);
+
+    } while (traversal_queue.num_elements != 0);
+
+    // Prints the result of the breadth first search to the terminal
+    for (int k = 0; k < result_list_size; k++)
+    {
+        if (k == 0)
+        {
+            printf("[");
+        }
+
+        if (k >= 0 && k < result_list_size)
+        {
+            printf(" %d ", result_list[k]);
+        }
+
+        if (k == result_list_size - 1)
+        {
+            printf("]");
+        }
+    }
+
+    // Free the dynamically allocated memory allocated for the traversal queue
+    free_array_queue(&traversal_queue);
+
+    return result_list_size;
 }

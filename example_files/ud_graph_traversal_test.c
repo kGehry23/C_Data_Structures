@@ -1,0 +1,77 @@
+/**
+ ********************************************************************************
+ * @file    ud_graph_traversal_test.c
+ * @author  Kai Gehry
+ * @date    2025-06-08
+ *
+ * @brief   Tests the output of the breadth first traversal function defined
+ *          in the undirected_graph.h file. Example graph tested is that shown
+ *          in:
+ *
+ *          example_files/depth_first_example.png
+ ********************************************************************************
+ */
+
+/************************************
+ * INCLUDES
+ ************************************/
+#include <stdio.h>
+#include <strings.h>
+#include "../data_structures/graphs/undirected_graph/undirected_graph.h"
+
+/************************************
+ * PRIVATE MACROS AND DEFINES
+ ************************************/
+// Unique identifiers for each vertex
+#define RESOURCE_A 0
+#define RESOURCE_B 1
+#define RESOURCE_C 2
+#define RESOURCE_D 3
+#define RESOURCE_E 4
+#define RESOURCE_F 5
+#define RESOURCE_G 6
+
+/*!
+ * @brief main function used to test the functionality of the undirected_graph header file.
+ */
+int main(void)
+{
+    undirected_graph ud_graph;
+
+    // Initializes the undirected graph
+    initialize_undirected_graph(&ud_graph, 10);
+
+    // Adds vertices to the graph
+    add_vertex(&ud_graph, RESOURCE_A, 1);
+    add_vertex(&ud_graph, RESOURCE_B, 2);
+    add_vertex(&ud_graph, RESOURCE_C, 3);
+    add_vertex(&ud_graph, RESOURCE_D, 4);
+    add_vertex(&ud_graph, RESOURCE_E, 5);
+    add_vertex(&ud_graph, RESOURCE_F, 6);
+    add_vertex(&ud_graph, RESOURCE_G, 7);
+
+    // Adds an edge
+    add_edge(&ud_graph, RESOURCE_D, RESOURCE_A);
+    // Adds an edge
+    add_edge(&ud_graph, RESOURCE_A, RESOURCE_E);
+    // Adds an edge
+    add_edge(&ud_graph, RESOURCE_A, RESOURCE_C);
+    // Adds an edge
+    add_edge(&ud_graph, RESOURCE_E, RESOURCE_C);
+    // Adds an edge
+    add_edge(&ud_graph, RESOURCE_C, RESOURCE_G);
+    // Adds an edge
+    add_edge(&ud_graph, RESOURCE_C, RESOURCE_B);
+    // Adds an edge
+    add_edge(&ud_graph, RESOURCE_C, RESOURCE_F);
+    // Adds an edge
+    add_edge(&ud_graph, RESOURCE_F, RESOURCE_B);
+
+    // Perform a breadth first traversal beginning at resource D
+    printf("\n\nNumber of elements: : %d", ud_graph_breadth_first(&ud_graph, RESOURCE_D));
+
+    // Free the memory held by the undirected graph
+    free_ud_graph(&ud_graph);
+
+    return 0;
+}

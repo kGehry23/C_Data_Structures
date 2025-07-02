@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <strings.h>
+#include "../../queues/array_queue/array_queue.h"
 
 /************************************
  * COMPILER DIRECTIVES
@@ -41,6 +42,8 @@ typedef struct
     void *identifier;
     // Stores the index of the vertex in the adjacency matrix
     int adj_index;
+    // Boolean indicating if the vertex has been visited during a traversal
+    bool visited;
 
 } undirected_graph_vertex;
 
@@ -139,5 +142,21 @@ void initialize_undirected_graph(undirected_graph *ud_graph, int size_upper_boun
  * @return None
  */
 void free_ud_graph(undirected_graph *ud_graph);
+
+/*!
+ * @brief Prints the result of the depth first traversal to the terminal
+ * @param d_graph Pointer to an undirected graph
+ * @param start Pointer to the node to begin the traversal at
+ * @return None
+ */
+void ud_graph_depth_first(undirected_graph *d_graph, int start);
+
+/*!
+ * @brief Prints the result of the breadth first traversal to the terminal
+ * @param ud_graph Pointer to an undirected graph
+ * @param start_id Id of the vertex to start at
+ * @return An integer representing the number of vertices in the breadth first traversal
+ */
+int ud_graph_breadth_first(undirected_graph *ud_graph, int start_id);
 
 #endif // UNDIRECTED_GRAPH_H

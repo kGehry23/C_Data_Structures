@@ -237,19 +237,4 @@ void free_d_graph(directed_graph *d_graph)
  */
 void d_graph_breadth_first(directed_graph *d_graph, int start_id)
 {
-    array_queue traversal_queue;
-    initialize_array_queue(&traversal_queue, d_graph->num_vertices);
-
-    int result_list[d_graph->num_vertices];
-
-    int i = 0;
-    int current_id = start_id;
-
-    do
-    {
-        if (i == 0)
-        {
-        }
-
-    } while (traversal_queue.num_elements != 0);
 }
