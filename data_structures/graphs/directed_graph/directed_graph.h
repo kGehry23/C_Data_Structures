@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <strings.h>
+#include "../../data_structures/queues/array_queue/array_queue.h"
 
 /************************************
  * COMPILER DIRECTIVES
@@ -41,6 +42,8 @@ typedef struct
     void *identifier;
     // Stores the index of the vertex in the adjacency matrix
     int adj_index;
+    // Boolean indicating if the vertex has been visited during a traversal
+    bool visited;
 
 } directed_graph_vertex;
 
@@ -151,9 +154,9 @@ void d_graph_depth_first(directed_graph *d_graph, directed_graph_vertex *start);
 /*!
  * @brief Prints the result of the breadth first traversal to the terminal
  * @param d_graph Pointer to a directed graph
- * @param start Pointer to the node to begin the traversal at
+ * @param start_id Id of the vertex to start at
  * @return None
  */
-void d_graph_breadth_first(directed_graph *d_graph, directed_graph_vertex *start);
+void d_graph_breadth_first(directed_graph *d_graph, int start_id);
 
 #endif // DIRECTED_GRAPH_H

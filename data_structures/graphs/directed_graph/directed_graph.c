@@ -39,6 +39,7 @@ void add_vertex(directed_graph *d_graph, int identifier, void *vertex_value)
         new_vertex->identifier = identifier;
         new_vertex->value = vertex_value;
         new_vertex->adj_index = identifier;
+        new_vertex->visited = 0;
 
         // Add vertex to the graph
         d_graph->vertices[identifier] = new_vertex;
@@ -226,4 +227,29 @@ void free_d_graph(directed_graph *d_graph)
             free(&((d_graph->adjacency_matrix)[j][k]));
         }
     }
+}
+
+/*!
+ * @brief Prints the result of the breadth first traversal to the terminal
+ * @param d_graph Pointer to a directed graph
+ * @param start_id Id of the vertex to start at
+ * @return None
+ */
+void d_graph_breadth_first(directed_graph *d_graph, int start_id)
+{
+    array_queue traversal_queue;
+    initialize_array_queue(&traversal_queue, d_graph->num_vertices);
+
+    int result_list[d_graph->num_vertices];
+
+    int i = 0;
+    int current_id = start_id;
+
+    do
+    {
+        if (i == 0)
+        {
+        }
+
+    } while (traversal_queue.num_elements != 0);
 }
