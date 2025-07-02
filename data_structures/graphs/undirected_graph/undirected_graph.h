@@ -39,7 +39,7 @@ typedef struct
     // Value held by the node
     void *value;
     // Vertex identifier
-    void *identifier;
+    int identifier;
     // Stores the index of the vertex in the adjacency matrix
     int adj_index;
     // Boolean indicating if the vertex has been visited during a traversal
