@@ -157,8 +157,16 @@ void ud_graph_depth_first(undirected_graph *d_graph, int start);
  * @brief Prints the result of the breadth first traversal to the terminal
  * @param ud_graph Pointer to an undirected graph
  * @param start_id Id of the vertex to start at
+ * @param print_flag A boolean indicating whether or not to print the result to the terminal
  * @return An integer representing the number of vertices in the breadth first traversal
  */
-int ud_graph_breadth_first(undirected_graph *ud_graph, int start_id);
+int ud_graph_breadth_first(undirected_graph *ud_graph, int start_id, bool print_flag);
+
+/*!
+ * @brief Checks if the graph is connected
+ * @param ud_graph Pointer to an undirected graph
+ * @return A boolean representing if the graph is connected or not
+ */
+bool ud_is_connected(undirected_graph *ud_graph);
 
 #endif // UNDIRECTED_GRAPH_H

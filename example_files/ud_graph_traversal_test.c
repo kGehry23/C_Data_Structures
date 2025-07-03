@@ -67,8 +67,12 @@ int main(void)
     // Adds an edge
     add_edge(&ud_graph, RESOURCE_F, RESOURCE_B);
 
-    // Perform a breadth first traversal beginning at resource D
-    printf("\nNumber of elements: %d", ud_graph_breadth_first(&ud_graph, RESOURCE_D));
+    printf("\nIs connected: %d", ud_is_connected(&ud_graph));
+
+    // Perform a breadth first traversal beginning at vertex D
+    printf("\nNumber of elements: %d", ud_graph_breadth_first(&ud_graph, RESOURCE_D, 1));
+    printf("\nNumber of elements: %d", ud_graph_breadth_first(&ud_graph, RESOURCE_A, 1));
+    printf("\nNumber of elements: %d", ud_graph_breadth_first(&ud_graph, RESOURCE_B, 1));
 
     // Free the memory held by the undirected graph
     free_ud_graph(&ud_graph);

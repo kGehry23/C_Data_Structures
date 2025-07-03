@@ -40,6 +40,7 @@ void add_vertex(undirected_graph *ud_graph, char *name, int identifier, void *ve
         new_vertex->identifier = identifier;
         new_vertex->value = vertex_value;
         new_vertex->adj_index = identifier;
+        new_vertex->visited = 0;
 
         // Add vertex to the graph
         ud_graph->vertices[identifier] = new_vertex;
@@ -242,9 +243,10 @@ void ud_graph_depth_first(undirected_graph *d_graph, int start)
  * @brief Prints the result of the breadth first traversal to the terminal
  * @param ud_graph Pointer to an undirected graph
  * @param start_id Id of the vertex to start at
+ * @param print_flag A boolean indicating whether or not to print the result to the terminal
  * @return An integer representing the number of vertices in the breadth first traversal
  */
-int ud_graph_breadth_first(undirected_graph *ud_graph, int start_id)
+int ud_graph_breadth_first(undirected_graph *ud_graph, int start_id, bool print_flag)
 {
     array_queue traversal_queue;
     // Initialize the traversal queue
@@ -282,7 +284,7 @@ int ud_graph_breadth_first(undirected_graph *ud_graph, int start_id)
             // Set the visited boolean to 1
             (ud_graph->vertices[current_id])->visited = 1;
         }
-        else
+        if (result_list_size > 0)
         {
             // Dequeues an element off of the traversal queue and adds it to the result list
             result_list[result_list_size] = dequeue(&traversal_queue);
@@ -298,19 +300,25 @@ int ud_graph_breadth_first(undirected_graph *ud_graph, int start_id)
     // Prints the result of the breadth first search to the terminal
     for (int k = 0; k < result_list_size; k++)
     {
-        if (k == 0)
-        {
-            printf("[");
-        }
 
-        if (k >= 0 && k < result_list_size)
-        {
-            printf(" %s ", ((ud_graph->vertices)[result_list[k]])->vertex_name);
-        }
+        ((ud_graph->vertices)[k])->visited = 0;
 
-        if (k == result_list_size - 1)
+        if (print_flag == 1)
         {
-            printf("]");
+            if (k == 0)
+            {
+                printf("\n\n[");
+            }
+
+            if (k >= 0 && k < result_list_size)
+            {
+                printf(" %s ", ((ud_graph->vertices)[result_list[k]])->vertex_name);
+            }
+
+            if (k == result_list_size - 1)
+            {
+                printf("]");
+            }
         }
     }
 
@@ -318,4 +326,30 @@ int ud_graph_breadth_first(undirected_graph *ud_graph, int start_id)
     free_array_queue(&traversal_queue);
 
     return result_list_size;
+}
+
+/*!
+ * @brief Determines if the graph is connected
+ * @param ud_graph Pointer to an undirected graph
+ * @return A boolean representing if the graph is connected or not
+ */
+bool ud_is_connected(undirected_graph *ud_graph)
+{
+    // Counter variable used to hold the number of elements in a given breadth first traversal
+    int current_count = 0;
+    // Counter used to track how many of the traversals have the same number of
+    // elements as vertices in the graph
+    int connected_counter = 0;
+
+    for (int i = 0; i < ud_graph->num_vertices; i++)
+    {
+        current_count = ud_graph_breadth_first(ud_graph, i, 0);
+
+        if (current_count == ud_graph->num_vertices)
+        {
+            connected_counter = connected_counter + 1;
+        }
+    }
+
+    return connected_counter == ud_graph->num_vertices;
 }
