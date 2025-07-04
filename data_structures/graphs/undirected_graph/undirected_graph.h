@@ -20,6 +20,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include "../../queues/array_queue/array_queue.h"
+#include "../../stacks/array_stack/array_stack.h"
 
 /************************************
  * COMPILER DIRECTIVES
@@ -149,9 +150,10 @@ void free_ud_graph(undirected_graph *ud_graph);
  * @brief Prints the result of the depth first traversal to the terminal
  * @param d_graph Pointer to an undirected graph
  * @param start Pointer to the node to begin the traversal at
- * @return None
+ * @param print_flag A boolean indicating whether or not to print the result to the terminal
+ * @return An integer representing the number of vertices in the depth first traversal
  */
-void ud_graph_depth_first(undirected_graph *d_graph, int start);
+int ud_graph_depth_first(undirected_graph *d_graph, int start, bool print_flag);
 
 /*!
  * @brief Prints the result of the breadth first traversal to the terminal
