@@ -453,7 +453,7 @@ bool ud_is_connected(undirected_graph *ud_graph)
 }
 
 /*!
- * @brief Checks if the graph contains a cycle
+ * @brief Checks if the graph contains a cycle by running depth first traversal on the graph
  * @param ud_graph Pointer to an undirected graph
  * @return A boolean representing if the graph contains a cycle or not
  */
@@ -522,6 +522,7 @@ bool ud_contains_cycle(undirected_graph *ud_graph)
 
         if (adjacent_not_visited == 0)
         {
+            // If an adjacent node to the current node has already been visited, a cycle exists
             break;
         }
 
@@ -529,12 +530,15 @@ bool ud_contains_cycle(undirected_graph *ud_graph)
         adjacent_not_visited = 0;
     }
 
+    // Free the dynamically allocated memory for the stack
     free_array_stack(&traversal_stack);
 
+    // If a cycle exists
     if (traversal_stack.num_elements != 0 && adjacent_not_visited == 0)
     {
         return 1;
     }
+    // If a cycle does not exist
     else
     {
         return 0;
