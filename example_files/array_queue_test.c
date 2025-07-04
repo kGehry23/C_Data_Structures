@@ -96,7 +96,7 @@ int main(void)
     printf("\nEnd Index: %d\n", queue.end_index);
 
     // Returns the number of elements in the queue
-    printf("\nNumber of elements in queue: %d\n", size(&queue));
+    printf("\nNumber of elements in queue: %d\n", queue_size(&queue));
 
     // Add elements where a shift is required
     enqueue(&queue, 9);
@@ -109,7 +109,7 @@ int main(void)
     printf("\nEnd Index: %d\n", queue.end_index);
 
     // Returns the number of elements in the queue
-    printf("\nNumber of elements in queue: %d\n\n", size(&queue));
+    printf("\nNumber of elements in queue: %d\n\n", queue_size(&queue));
 
     // Free the dynamically allocated memory held by the queue
     free_array_queue(&queue);

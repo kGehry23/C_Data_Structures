@@ -99,7 +99,7 @@ void *peek(array_stack *stack)
  * @param stack Pointer to a stack.
  * @return An integer value representing the number of elements in the stack.
  */
-int size(array_stack *stack)
+int stack_size(array_stack *stack)
 {
     return (stack->num_elements);
 }
@@ -109,7 +109,7 @@ int size(array_stack *stack)
  * @param queue Pointer to a stack.
  * @return A boolean value representing if the stack is empty (1) or not empty (0)
  */
-bool is_empty(array_stack *stack)
+bool stack_is_empty(array_stack *stack)
 {
     return (stack->num_elements) == 0;
 }
@@ -127,6 +127,8 @@ void initialize_array_stack(array_stack *stack, int stack_size)
     stack->top_index = 0;
     // Initialize stack pointer to 0
     stack->stack_pointer = 0;
+    // Initialize the number of elements to 0
+    stack->num_elements = 0;
     //  Create an array of the specified size
     stack->array = (void *)malloc(stack_size * sizeof(void *));
 }
@@ -146,7 +148,7 @@ void free_array_stack(array_stack *stack)
     }
 
     // Frees the memory held by the stack
-    free(stack);
+    free(stack->array);
 }
 
 /*!
@@ -155,10 +157,10 @@ void free_array_stack(array_stack *stack)
  * @param stack Pointer to a stack
  * @return None
  */
-// void display_stack(array_stack *stack)
-// {
-//     for (int i = (stack->size - 1); i >= 0; i--)
-//     {
-//         printf("\n%d", (stack->array)[i]);
-//     }
-// }
+void display_stack(array_stack *stack)
+{
+    for (int i = (stack->size - 1); i >= 0; i--)
+    {
+        printf("\n%d", (stack->array)[i]);
+    }
+}
