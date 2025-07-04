@@ -59,6 +59,8 @@ int main(void)
     add_edge(&ud_graph, RESOURCE_C, RESOURCE_B);
     add_edge(&ud_graph, RESOURCE_C, RESOURCE_F);
     add_edge(&ud_graph, RESOURCE_F, RESOURCE_B);
+
+    // Checks if graph is connected
     printf("\nIs connected: %d", ud_is_connected(&ud_graph));
 
     printf("\n\nBreadth First Traversals: \n");
