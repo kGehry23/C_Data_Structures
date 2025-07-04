@@ -62,20 +62,21 @@ int main(void)
 
     // Checks if graph is connected
     printf("\nIs connected: %d", ud_is_connected(&ud_graph));
+    printf("\nContains Cycle: %d", ud_contains_cycle(&ud_graph));
 
-    printf("\n\nBreadth First Traversals: \n");
+    // printf("\n\nBreadth First Traversals: \n");
 
     // Perform breadth first traversals
-    printf("\nNumber of elements: %d", ud_graph_breadth_first(&ud_graph, RESOURCE_D, 1));
     printf("\nNumber of elements: %d", ud_graph_breadth_first(&ud_graph, RESOURCE_A, 1));
-    printf("\nNumber of elements: %d", ud_graph_breadth_first(&ud_graph, RESOURCE_B, 1));
+    printf("\nNumber of elements: %d", ud_graph_breadth_first(&ud_graph, RESOURCE_C, 1));
+    printf("\nNumber of elements: %d", ud_graph_breadth_first(&ud_graph, RESOURCE_E, 1));
 
     printf("\n\n\nDepth First Traversals: \n");
 
     // Perform depth first traversals
-    printf("\n\nNumber of elements: %d", ud_graph_depth_first(&ud_graph, RESOURCE_D, 1));
-    printf("\nNumber of elements: %d", ud_graph_depth_first(&ud_graph, RESOURCE_A, 1));
-    printf("\nNumber of elements: %d", ud_graph_depth_first(&ud_graph, RESOURCE_B, 1));
+    printf("\n\nNumber of elements: %d", ud_graph_depth_first(&ud_graph, RESOURCE_A, 1));
+    printf("\nNumber of elements: %d", ud_graph_depth_first(&ud_graph, RESOURCE_C, 1));
+    printf("\nNumber of elements: %d", ud_graph_depth_first(&ud_graph, RESOURCE_E, 1));
 
     // Free the memory held by the undirected graph
     free_ud_graph(&ud_graph);

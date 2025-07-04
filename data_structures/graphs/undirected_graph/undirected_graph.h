@@ -171,4 +171,11 @@ int ud_graph_breadth_first(undirected_graph *ud_graph, int start_id, bool print_
  */
 bool ud_is_connected(undirected_graph *ud_graph);
 
+/*!
+ * @brief Checks if the graph contains a cycle
+ * @param ud_graph Pointer to an undirected graph
+ * @return A boolean representing if the graph contains a cycle or not
+ */
+bool ud_contains_cycle(undirected_graph *ud_graph);
+
 #endif // UNDIRECTED_GRAPH_H
