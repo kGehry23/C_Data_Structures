@@ -5,7 +5,7 @@
  * @author  Kai Gehry
  * @date    2025-06-08
  *
- * @brief   Defines the functionality of the operations defined in the
+ * @brief   Tests the functionality of the operations defined in the
  *          directed graph header file.
  ********************************************************************************
  */

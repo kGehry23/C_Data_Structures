@@ -77,14 +77,14 @@ void *peek(array_stack *stack);
  * @param stack Pointer to a stack.
  * @return An integer value representing the number of elements in the stack.
  */
-int size(array_stack *stack);
+int stack_size(array_stack *stack);
 
 /*!
  * @brief Returns if the stack is empty or not.
  * @param queue Pointer to a stack.
  * @return A boolean value representing if the stack is empty (1) or not empty (0)
  */
-bool is_empty(array_stack *stack);
+bool stack_is_empty(array_stack *stack);
 
 /*!
  * @brief Initializes the stack.

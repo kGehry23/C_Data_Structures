@@ -18,7 +18,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <strings.h>
+#include <string.h>
+#include "../../queues/array_queue/array_queue.h"
+#include "../../stacks/array_stack/array_stack.h"
 
 /************************************
  * COMPILER DIRECTIVES
@@ -38,9 +40,13 @@ typedef struct
     // Value held by the node
     void *value;
     // Vertex identifier
-    void *identifier;
+    int identifier;
+    // String identifier
+    char *vertex_name;
     // Stores the index of the vertex in the adjacency matrix
     int adj_index;
+    // Boolean indicating if the vertex has been visited during a traversal
+    bool visited;
 
 } undirected_graph_vertex;
 
@@ -73,7 +79,7 @@ typedef struct
  * @param vertex_value Value stored by the vertex
  * @return None
  */
-void add_vertex(undirected_graph *ud_graph, int identifier, void *vertex_value);
+void add_vertex(undirected_graph *ud_graph, char *name, int identifier, void *vertex_value);
 
 /*!
  * @brief Removes and returns the value associated with the specified vertex
@@ -139,5 +145,37 @@ void initialize_undirected_graph(undirected_graph *ud_graph, int size_upper_boun
  * @return None
  */
 void free_ud_graph(undirected_graph *ud_graph);
+
+/*!
+ * @brief Prints the result of the depth first traversal to the terminal
+ * @param d_graph Pointer to an undirected graph
+ * @param start Pointer to the node to begin the traversal at
+ * @param print_flag A boolean indicating whether or not to print the result to the terminal
+ * @return An integer representing the number of vertices in the depth first traversal
+ */
+int ud_graph_depth_first(undirected_graph *ud_graph, int start, bool print_flag);
+
+/*!
+ * @brief Prints the result of the breadth first traversal to the terminal
+ * @param ud_graph Pointer to an undirected graph
+ * @param start_id Id of the vertex to start at
+ * @param print_flag A boolean indicating whether or not to print the result to the terminal
+ * @return An integer representing the number of vertices in the breadth first traversal
+ */
+int ud_graph_breadth_first(undirected_graph *ud_graph, int start_id, bool print_flag);
+
+/*!
+ * @brief Checks if the graph is connected
+ * @param ud_graph Pointer to an undirected graph
+ * @return A boolean representing if the graph is connected or not
+ */
+bool ud_is_connected(undirected_graph *ud_graph);
+
+/*!
+ * @brief Checks if the graph contains a cycle
+ * @param ud_graph Pointer to an undirected graph
+ * @return A boolean representing if the graph contains a cycle or not
+ */
+bool ud_contains_cycle(undirected_graph *ud_graph);
 
 #endif // UNDIRECTED_GRAPH_H

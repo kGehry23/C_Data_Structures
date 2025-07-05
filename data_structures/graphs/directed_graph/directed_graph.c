@@ -24,7 +24,7 @@
  * @param vertex_value Value stored by the vertex
  * @return None
  */
-void add_vertex(directed_graph *d_graph, int identifier, void *vertex_value)
+void add_vertex(directed_graph *d_graph, char *name, int identifier, void *vertex_value)
 {
     // Adds the vertex if a vertex has not already been allocated to the specified position in the vertex list
     if (d_graph->vertices[identifier] == NULL)
@@ -32,13 +32,12 @@ void add_vertex(directed_graph *d_graph, int identifier, void *vertex_value)
         // Allocate memory for a new directed graph vertex
         directed_graph_vertex *new_vertex = (directed_graph_vertex *)malloc(sizeof(directed_graph_vertex));
 
-        /*
-          Assign the specified identifier, value stored by the new node, and an associated index into the adjacency
-          matrix.
-        */
+        // Initializes all variables associated with a vertex
+        new_vertex->vertex_name = name;
         new_vertex->identifier = identifier;
         new_vertex->value = vertex_value;
         new_vertex->adj_index = identifier;
+        new_vertex->visited = 0;
 
         // Add vertex to the graph
         d_graph->vertices[identifier] = new_vertex;
@@ -74,7 +73,6 @@ void *remove_vertex(directed_graph *d_graph, int identifier)
             if ((d_graph->adjacency_matrix)[i][identifier] == 1)
             {
                 (d_graph->adjacency_matrix)[i][identifier] = 0;
-                (d_graph->adjacency_matrix)[identifier][i] = 0;
             }
         }
 
@@ -136,7 +134,7 @@ void add_edge(directed_graph *d_graph, int from_vertex_id, int to_vertex_id)
 
 /*!
  * @brief Removes an edge between two vertices in the directed graph
- * @param ud_graph Pointer to a directed graph
+ * @param d_graph Pointer to a directed graph
  * @param from_vertex_id Identifier of the first from which the edge is directed from.
  * @param to_vertex_id Identifier of the vertex to which the edge goes.
  * @return None
@@ -156,6 +154,7 @@ void remove_edge(directed_graph *d_graph, int from_vertex_id, int to_vertex_id)
 
 /*!
  * @brief Returns the number of vertices in the graph
+ * @param d_graph Pointer to a directed graph
  * @return An integer representing the number of vertices in the graph
  */
 int graph_size(directed_graph *d_graph)
@@ -165,7 +164,7 @@ int graph_size(directed_graph *d_graph)
 
 /*!
  * @brief Initializes a directed graph
- * @param ud_graph Pointer to a directed graph
+ * @param d_graph Pointer to a directed graph
  * @param size_upper_bound Row and column dimension of the adjacency matrix
  * @return None
  */
@@ -225,5 +224,321 @@ void free_d_graph(directed_graph *d_graph)
         {
             free(&((d_graph->adjacency_matrix)[j][k]));
         }
+    }
+}
+
+/*!
+ * @brief Prints the result of the depth first traversal to the terminal
+ *
+ *        Adapted from Java Foundations, 5th Ed.
+ *
+ * @param d_graph Pointer to an directed graph
+ * @param start Pointer to the node to begin the traversal at
+ * @param print_flag A boolean indicating whether or not to print the result to the terminal
+ * @return An integer representing the number of vertices in the depth first traversal
+ */
+int d_graph_depth_first(directed_graph *d_graph, int start_id, bool print_flag)
+{
+    array_stack traversal_stack;
+    // Initialize the traversal queue
+    initialize_array_stack(&traversal_stack, d_graph->num_vertices);
+
+    // Initialize the result list
+    int result_list[d_graph->num_vertices];
+
+    // Counter used to track the size of the result list
+    int result_list_size = 0;
+    // Current vertex id
+    int current_id = start_id;
+    // Boolean which indicates if all adjacent vertices to a vertex have been visited
+    bool adjacent_not_visited = 0;
+
+    // Reset the visited booleans for all vertices to false
+    for (int i = 0; i < d_graph->num_vertices; i++)
+    {
+        (d_graph->vertices)[i]->visited = 0;
+    }
+
+    // Element corresponding to start id is added to the stack
+    push(&traversal_stack, (d_graph->vertices[current_id])->identifier);
+    // Result list is updated with first element in traversal
+    result_list[result_list_size] = (d_graph->vertices[current_id])->identifier;
+    result_list_size++;
+    // Vertex marked as visited
+    (d_graph->vertices[current_id])->visited = 1;
+
+    // While there are elements in the traversal stack, continue the traversal
+    while (traversal_stack.num_elements != 0)
+    {
+        // Check the vertices attached to the current vertex and mark as not visited if they have not been reached
+        for (int j = 0; j < d_graph->num_vertices && adjacent_not_visited == 0; j++)
+        {
+            // If adjacent add vertex to stack and to result list
+            if ((d_graph->adjacency_matrix)[current_id][j] == 1 && (d_graph->vertices[j])->visited == 0)
+            {
+                // Push adjacent vertex onto traversal stack
+                push(&traversal_stack, (d_graph->vertices[j])->identifier);
+                // Update result list
+                result_list[result_list_size] = (d_graph->vertices[j])->identifier;
+                result_list_size++;
+                // Mark the vertex as visited
+                (d_graph->vertices[j])->visited = 1;
+
+                // Indicate that all adjacent vertices to the vertex have not been reached
+                // as of this iteration
+                adjacent_not_visited = 1;
+            }
+        }
+
+        // If there are elements in the result list and all adjacent vertices have been visited
+        if (result_list_size > 0 && adjacent_not_visited == 0)
+        {
+            // Pops an element off of the traversal stack
+            pop(&traversal_stack);
+        }
+
+        // Update the current vertex id. Peek at the appropriate element's index to continue the traversal
+        current_id = peek(&traversal_stack);
+
+        // Reset the adjacent node visited boolean for the next vertex
+        adjacent_not_visited = 0;
+    }
+
+    // Prints the result of the breadth first search to the terminal
+    for (int k = 0; k < result_list_size; k++)
+    {
+        if (print_flag == 1)
+        {
+            if (k == 0)
+            {
+                printf("\n\n[");
+            }
+
+            if (k >= 0 && k < result_list_size)
+            {
+                printf(" %s ", ((d_graph->vertices)[result_list[k]])->vertex_name);
+            }
+
+            if (k == result_list_size - 1)
+            {
+                printf("]");
+            }
+        }
+    }
+
+    // Free the dynamically allocated memory allocated for the traversal queue
+    free_array_stack(&traversal_stack);
+
+    return result_list_size;
+}
+
+/*!
+ * @brief Prints the result of the breadth first traversal to the terminal
+ * @param d_graph Pointer to a directed graph
+ * @param start_id Id of the vertex to start at
+ * @param print_flag A boolean indicating whether or not to print the result to the terminal
+ * @return An integer representing the number of vertices in the breadth first traversal
+ */
+int d_graph_breadth_first(directed_graph *d_graph, int start_id, bool print_flag)
+{
+    array_queue traversal_queue;
+    // Initialize the traversal queue
+    initialize_array_queue(&traversal_queue, d_graph->num_vertices);
+
+    // Initialize the result list
+    int result_list[d_graph->num_vertices];
+
+    // Counter used to track the size of the result list
+    int result_list_size = 0;
+    // Current vertex id
+    int current_id = start_id;
+
+    // Reset the visited booleans for all vertices to false
+    for (int i = 0; i < d_graph->num_vertices; i++)
+    {
+        (d_graph->vertices)[i]->visited = 0;
+    }
+
+    // While there are elements in the traversal queue, continue the traversal
+    do
+    {
+        // Check for vertices attached to the current vertex
+        for (int j = 0; j < d_graph->num_vertices; j++)
+        {
+
+            // If a vertex is attached to the current vertex and the vertex has not been visited, those vertices
+            // are enqueued onto the traversal queue
+            if ((d_graph->adjacency_matrix)[current_id][j] == 1 && (d_graph->vertices[j])->visited == 0)
+            {
+                enqueue(&traversal_queue, (d_graph->vertices[j])->identifier);
+                // Any enqueued vertices are marked as visited
+                (d_graph->vertices[j])->visited = 1;
+            }
+        }
+
+        // If the result list is empty, add the starting identifier to the result list
+        if (result_list_size == 0)
+        {
+            result_list[result_list_size] = (d_graph->vertices[current_id])->identifier;
+            // Set the visited boolean to 1
+            (d_graph->vertices[current_id])->visited = 1;
+        }
+        if (result_list_size > 0)
+        {
+            // Dequeues an element off of the traversal queue and adds it to the result list
+            result_list[result_list_size] = dequeue(&traversal_queue);
+        }
+
+        // Increment the size of the result list
+        result_list_size++;
+        // Update the current vertex id
+        current_id = first(&traversal_queue);
+
+    } while (traversal_queue.num_elements != 0);
+
+    // Prints the result of the breadth first search to the terminal
+    for (int k = 0; k < result_list_size; k++)
+    {
+        if (print_flag == 1)
+        {
+            if (k == 0)
+            {
+                printf("\n\n[");
+            }
+
+            if (k >= 0 && k < result_list_size)
+            {
+                printf(" %s ", ((d_graph->vertices)[result_list[k]])->vertex_name);
+            }
+
+            if (k == result_list_size - 1)
+            {
+                printf("]");
+            }
+        }
+    }
+
+    // Free the dynamically allocated memory allocated for the traversal queue
+    free_array_queue(&traversal_queue);
+
+    return result_list_size;
+}
+
+/*!
+ * @brief Checks if the graph is connected
+ * @param d_graph Pointer to a directed graph
+ * @return A boolean representing if the graph is connected or not
+ */
+bool d_is_connected(directed_graph *d_graph)
+{
+    // Counter variable used to hold the number of elements in a given breadth first traversal
+    int current_count = 0;
+    // Counter used to track how many of the traversals have the same number of
+    // elements as vertices in the graph
+    int connected_counter = 0;
+
+    for (int i = 0; i < d_graph->num_vertices; i++)
+    {
+        current_count = d_graph_breadth_first(d_graph, i, 0);
+
+        if (current_count == d_graph->num_vertices)
+        {
+            connected_counter = connected_counter + 1;
+        }
+    }
+
+    return connected_counter == d_graph->num_vertices;
+}
+
+/*!
+ * @brief Checks if the graph contains a cycle
+ * @param d_graph Pointer to a directed graph
+ * @return A boolean representing if the graph contains a cycle or not
+ */
+bool d_contains_cycle(directed_graph *d_graph)
+{
+    array_stack traversal_stack;
+    // Initialize the traversal queue
+    initialize_array_stack(&traversal_stack, d_graph->num_vertices);
+
+    // Initialize the result list
+    int result_list[d_graph->num_vertices];
+
+    // Counter used to track the size of the result list
+    int result_list_size = 0;
+    // Current vertex id
+    int current_id = 0;
+    // Boolean which indicates if all adjacent vertices to a vertex have been visited
+    bool adjacent_not_visited = 0;
+
+    // Reset the visited booleans for all vertices to false
+    for (int i = 0; i < d_graph->num_vertices; i++)
+    {
+        (d_graph->vertices)[i]->visited = 0;
+    }
+
+    // Element corresponding to start id is added to the stack
+    push(&traversal_stack, (d_graph->vertices[current_id])->identifier);
+    // Result list is updated with first element in traversal
+    result_list[result_list_size] = (d_graph->vertices[current_id])->identifier;
+    result_list_size++;
+    // Vertex marked as visited
+    (d_graph->vertices[current_id])->visited = 1;
+
+    // While there are elements in the traversal stack, continue the traversal
+    while (traversal_stack.num_elements != 0)
+    {
+        // Check the vertices attached to the current vertex and mark as not visited if they have not been reached
+        for (int j = 0; j < d_graph->num_vertices && adjacent_not_visited == 0; j++)
+        {
+            // If adjacent add vertex to stack and to result list
+            if ((d_graph->adjacency_matrix)[current_id][j] == 1 && (d_graph->vertices[j])->visited == 0)
+            {
+                // Push adjacent vertex onto traversal stack
+                push(&traversal_stack, (d_graph->vertices[j])->identifier);
+                // Update result list
+                result_list[result_list_size] = (d_graph->vertices[j])->identifier;
+                result_list_size++;
+                // Mark the vertex as visited
+                (d_graph->vertices[j])->visited = 1;
+
+                // Indicate that all adjacent vertices to the vertex have not been reached
+                // as of this iteration
+                adjacent_not_visited = 1;
+            }
+        }
+
+        // If there are elements in the result list and all adjacent vertices have been visited
+        if (result_list_size > 0 && adjacent_not_visited == 0)
+        {
+            // Pops an element off of the traversal stack
+            pop(&traversal_stack);
+        }
+
+        // Update the current vertex id. Peek at the appropriate element's index to continue the traversal
+        current_id = peek(&traversal_stack);
+
+        if (adjacent_not_visited == 0)
+        {
+            // If an adjacent node to the current node has already been visited, a cycle exists
+            break;
+        }
+
+        // Reset the adjacent node visited boolean for the next vertex
+        adjacent_not_visited = 0;
+    }
+
+    // Free the dynamically allocated memory for the stack
+    free_array_stack(&traversal_stack);
+
+    // If a cycle exists
+    if (traversal_stack.num_elements != 0 && adjacent_not_visited == 0)
+    {
+        return 1;
+    }
+    // If a cycle does not exist
+    else
+    {
+        return 0;
     }
 }
