@@ -35,9 +35,9 @@ int main(void)
     initialize_undirected_graph(&ud_graph, 5);
 
     // Adds vertices to the graph
-    add_vertex(&ud_graph, RESOURCE_A, 1);
-    add_vertex(&ud_graph, RESOURCE_B, 2);
-    add_vertex(&ud_graph, RESOURCE_C, 3);
+    add_vertex(&ud_graph, "A", RESOURCE_A, 1);
+    add_vertex(&ud_graph, "B", RESOURCE_B, 2);
+    add_vertex(&ud_graph, "C", RESOURCE_C, 3);
 
     // Adds an edge
     add_edge(&ud_graph, RESOURCE_A, RESOURCE_B);

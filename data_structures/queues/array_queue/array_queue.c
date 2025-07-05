@@ -126,7 +126,7 @@ void *first(array_queue *queue)
  * @param queue Pointer to a queue.
  * @return An integer value representing the number of elements in the queue.
  */
-int size(array_queue *queue)
+int queue_size(array_queue *queue)
 {
     return (queue->num_elements);
 }
@@ -136,7 +136,7 @@ int size(array_queue *queue)
  * @param queue Pointer to a queue.
  * @return A boolean value representing if the queue is empty (1) or not empty (0).
  */
-bool is_empty(array_queue *queue)
+bool queue_is_empty(array_queue *queue)
 {
     return (queue->num_elements) == 0;
 }
