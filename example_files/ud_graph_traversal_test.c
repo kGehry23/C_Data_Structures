@@ -2,13 +2,11 @@
  ********************************************************************************
  * @file    ud_graph_traversal_test.c
  * @author  Kai Gehry
- * @date    2025-06-08
+ * @date    2025-07-04
  *
- * @brief   Tests the output of the breadth first traversal function defined
- *          in the undirected_graph.h file. Example graph tested is that shown
- *          in:
+ * @brief   Tests the output of the traversal algorithms as well as connectivity
+ *          and existence of cycles defined in the undirected_graph header file.
  *
- *          example_files/depth_first_example.png
  ********************************************************************************
  */
 

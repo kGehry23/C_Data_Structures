@@ -18,8 +18,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <strings.h>
-#include "../../data_structures/queues/array_queue/array_queue.h"
+#include <string.h>
+#include "../../queues/array_queue/array_queue.h"
+#include "../../stacks/array_stack/array_stack.h"
 
 /************************************
  * COMPILER DIRECTIVES
@@ -40,6 +41,8 @@ typedef struct
     void *value;
     // Vertex identifier
     void *identifier;
+    // String identifier
+    char *vertex_name;
     // Stores the index of the vertex in the adjacency matrix
     int adj_index;
     // Boolean indicating if the vertex has been visited during a traversal
@@ -76,7 +79,7 @@ typedef struct
  * @param vertex_value Value stored by the vertex
  * @return None
  */
-void add_vertex(directed_graph *ud_graph, int identifier, void *vertex_value);
+void add_vertex(directed_graph *d_graph, char *name, int identifier, void *vertex_value);
 
 /*!
  * @brief Removes and returns the value associated with the specified vertex
@@ -85,7 +88,7 @@ void add_vertex(directed_graph *ud_graph, int identifier, void *vertex_value);
  * @param identifier Value to identify the vertex by
  * @return None
  */
-void *remove_vertex(directed_graph *ud_graph, int identifier);
+void *remove_vertex(directed_graph *d_graph, int identifier);
 
 /*!
  * @brief Returns the value stored by the specified vertex.
@@ -93,7 +96,7 @@ void *remove_vertex(directed_graph *ud_graph, int identifier);
  * @param identifier Value to identify the vertex by
  * @return The value stored by the specified vertex
  */
-void *return_vertex_value(directed_graph *ud_graph, int identifier);
+void *return_vertex_value(directed_graph *d_graph, int identifier);
 
 /*!
  * @brief Adds an edge between two vertices in the directed graph
@@ -102,7 +105,7 @@ void *return_vertex_value(directed_graph *ud_graph, int identifier);
  * @param vertex_id_2 Identifier of the second vertex
  * @return None
  */
-void add_edge(directed_graph *ud_graph, int vertex_id_1, int vertex_id_2);
+void add_edge(directed_graph *d_graph, int vertex_id_1, int vertex_id_2);
 
 /*!
  * @brief Removes an edge between two vertices in the directed graph
@@ -111,7 +114,7 @@ void add_edge(directed_graph *ud_graph, int vertex_id_1, int vertex_id_2);
  * @param vertex_id_2 Identifier of the second vertex
  * @return None
  */
-void remove_edge(directed_graph *ud_graph, int vertex_id_1, int vertex_id_2);
+void remove_edge(directed_graph *d_graph, int vertex_id_1, int vertex_id_2);
 
 /*!
  * @brief Checks if there is an edge between two vertices
@@ -120,13 +123,13 @@ void remove_edge(directed_graph *ud_graph, int vertex_id_1, int vertex_id_2);
  * @param vertex_id_2 Identifier of the second vertex
  * @return A boolean value indicating if an edge exists between the specified vertices
  */
-bool edge_exists(directed_graph *ud_graph, int vertex_id_1, int vertex_id_2);
+bool edge_exists(directed_graph *d_graph, int vertex_id_1, int vertex_id_2);
 
 /*!
  * @brief Returns the number of vertices in the graph
  * @return An integer representing the number of vertices in the graph
  */
-int graph_size(directed_graph *ud_graph);
+int graph_size(directed_graph *d_graph);
 
 /*!
  * @brief Initializes an directed graph
@@ -134,7 +137,7 @@ int graph_size(directed_graph *ud_graph);
  * @param size_upper_bound Row and column dimension of the adjacency matrix
  * @return None
  */
-void initialize_directed_graph(directed_graph *ud_graph, int size_upper_bound);
+void initialize_directed_graph(directed_graph *d_graph, int size_upper_bound);
 
 /*!
  * @brief Releases the memory held by an directed graph
@@ -145,18 +148,37 @@ void free_d_graph(directed_graph *d_graph);
 
 /*!
  * @brief Prints the result of the depth first traversal to the terminal
+ *
+ *        Adapted from Java Foundations, 5th Ed.
+ *
  * @param d_graph Pointer to a directed graph
  * @param start Pointer to the node to begin the traversal at
- * @return None
+ * @param print_flag A boolean indicating whether or not to print the result to the terminal
+ * @return An integer representing the number of vertices in the depth first traversal
  */
-void d_graph_depth_first(directed_graph *d_graph, directed_graph_vertex *start);
+int d_graph_depth_first(directed_graph *d_graph, int start_id, bool print_flag);
 
 /*!
  * @brief Prints the result of the breadth first traversal to the terminal
  * @param d_graph Pointer to a directed graph
  * @param start_id Id of the vertex to start at
- * @return None
+ * @param print_flag A boolean indicating whether or not to print the result to the terminal
+ * @return An integer representing the number of vertices in the breadth first traversal
  */
-void d_graph_breadth_first(directed_graph *d_graph, int start_id);
+int d_graph_breadth_first(directed_graph *d_graph, int start_id, bool print_flag);
+
+/*!
+ * @brief Checks if the graph is connected
+ * @param d_graph Pointer to a directed graph
+ * @return A boolean representing if the graph is connected or not
+ */
+bool d_is_connected(directed_graph *d_graph);
+
+/*!
+ * @brief Checks if the graph contains a cycle
+ * @param d_graph Pointer to a directed graph
+ * @return A boolean representing if the graph contains a cycle or not
+ */
+bool d_contains_cycle(directed_graph *d_graph);
 
 #endif // DIRECTED_GRAPH_H

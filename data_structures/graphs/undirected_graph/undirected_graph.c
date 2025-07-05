@@ -32,10 +32,7 @@ void add_vertex(undirected_graph *ud_graph, char *name, int identifier, void *ve
         // Allocate memory for a new undirected graph vertex
         undirected_graph_vertex *new_vertex = (undirected_graph_vertex *)malloc(sizeof(undirected_graph_vertex));
 
-        /*
-          Assign the specified identifier, value stored by the new node, and an associated index into the adjacency
-          matrix.
-        */
+        // Initializes all variables associated with a vertex
         new_vertex->vertex_name = name;
         new_vertex->identifier = identifier;
         new_vertex->value = vertex_value;
@@ -157,6 +154,7 @@ bool edge_exists(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
 
 /*!
  * @brief Returns the number of vertices in the graph
+ * @param ud_graph Pointer to an undirected graph
  * @return An integer representing the number of vertices in the graph
  */
 int graph_size(undirected_graph *ud_graph)
