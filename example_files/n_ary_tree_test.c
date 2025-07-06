@@ -21,11 +21,11 @@ int main(void)
 
     initialize_n_ary_tree(&tree, 2);
 
-    add_tree_node(&tree, NULL, "Root", 5);
-    add_tree_node(&tree, "Root", "Child", 10);
+    // add_tree_node(&tree, NULL, "Root", 5);
+    // add_tree_node(&tree, "Root", "Child", 10);
 
-    printf("\n\nRoot Value: %d", get_root_node(&tree));
-    printf("\n\nRoot id: %s", (tree.root)->node_identifier);
+    // printf("\n\nRoot Value: %d", get_root_node(&tree));
+    // printf("\n\nRoot id: %s", (tree.root)->node_identifier);
 
     return 0;
 }

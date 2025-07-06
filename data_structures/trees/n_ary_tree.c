@@ -58,6 +58,12 @@ void add_tree_node(n_ary_tree *tree, char *parent_identifier, char *node_id, voi
     {
         tree->root = node;
     }
+    else
+    {
+        n_ary_node *parent = (&tree, parent_identifier);
+
+        add_sl_node_to_tail(&(parent->child_nodes), node);
+    }
 }
 
 /*!
@@ -72,14 +78,24 @@ void *remove_tree_node(n_ary_tree *tree, char *identifier)
 }
 
 /*!
- * @brief Returns a pointer to a n-ary node
+ * @brief Returns a pointer to an n-ary node
  * @param tree Pointer to a tree
  * @param identifier Node identifier
  * @return A pointer to an n-ary node
  */
 n_ary_node *find_n_ary_node(n_ary_tree *tree, char *identifier)
 {
-    return NULL;
+    // Begin search from root node
+    n_ary_node *current = tree->root;
+
+    if (current->node_identifier)
+    {
+        return current;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 /*!
