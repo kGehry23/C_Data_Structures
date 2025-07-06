@@ -44,8 +44,11 @@ typedef struct singly_linked_list_node
  */
 typedef struct singly_linked_list
 {
+    // Pointer to the element at the head of the list
     singly_linked_list_node *head;
+    // Pointer to the element at the tail of the list
     singly_linked_list_node *tail;
+    // Number of elements in the list
     int list_size;
 } singly_linked_list;
 

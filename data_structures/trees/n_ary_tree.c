@@ -60,7 +60,7 @@ void add_tree_node(n_ary_tree *tree, char *parent_identifier, char *node_id, voi
     }
     else
     {
-        n_ary_node *parent = (&tree, parent_identifier);
+        n_ary_node *parent = find_n_ary_node(tree, parent_identifier);
 
         add_sl_node_to_tail(&(parent->child_nodes), node);
     }
@@ -85,9 +85,15 @@ void *remove_tree_node(n_ary_tree *tree, char *identifier)
  */
 n_ary_node *find_n_ary_node(n_ary_tree *tree, char *identifier)
 {
-    // Begin search from root node
+
     n_ary_node *current = tree->root;
 
+    /*
+        In the worst case, this search should have O(n) complexity and in
+        the best case O(1).
+     */
+
+    // Begin search from root node n_ary_node *current = tree->root;
     if (current->node_identifier)
     {
         return current;
