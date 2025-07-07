@@ -1,0 +1,109 @@
+#include <assert.h>
+#include "../data_structures/linked_lists/singly_linked_list/singly_linked_list.h"
+
+/*!
+ * @brief Tests initialization of a singly linked list
+ * @param list  Pointer to the singly linked list
+ * @return  None
+ */
+void init_test(singly_linked_list *list)
+{
+    initialize_sl_list(list);
+
+    // Checks that that the size of the list has been initialized to 0
+    assert(list->list_size == 0);
+
+    // Frees the list once the test is complete
+    free_singly_linked_list(list);
+}
+
+/*!
+ * @brief Tests a return of the length function when the list is empty
+ * @param list  Pointer to the singly linked list
+ * @return  None
+ */
+void empty_list_test(singly_linked_list *list)
+{
+    assert(sl_list_length(list) == 0);
+}
+
+/*!
+ * @brief Tests a return of the head element on an empty list
+ * @param list  Pointer to the singly linked list
+ * @return  None
+ */
+void empty_head_test(singly_linked_list *list)
+{
+    assert(return_sl_head(list) == NULL);
+}
+
+/*!
+ * @brief Tests a return of the tail element on an empty list
+ * @param list  Pointer to the singly linked list
+ * @return  None
+ */
+void empty_tail_test(singly_linked_list *list)
+{
+    assert(return_sl_tail(list) == NULL);
+}
+
+// remove from empty head test here
+
+/*!
+ * @brief Tests adding a node to the head of the list when empty
+ * @param list  Pointer to the singly linked list
+ * @return  None
+ */
+void add_node_h_empty_test(singly_linked_list *list)
+{
+    add_sl_node_to_head(list, 5);
+
+    assert((list->head)->value == 5);
+    assert((list->head)->next == NULL);
+    // Check that the pointers to the head and tail elements are identical
+    assert((list->head) == (list->tail));
+}
+
+// remove from head test here
+
+/*!
+ * @brief Tests adding a node to the tail of the list when empty
+ * @param list  Pointer to the singly linked list
+ * @return  None
+ */
+void add_node_t_empty_test(singly_linked_list *list)
+{
+    add_sl_node_to_tail(list, 5);
+
+    assert((list->head)->value == 5);
+    assert((list->head)->next == NULL);
+    // Check that the pointers to the head and tail elements are identical
+    assert((list->head) == (list->tail));
+}
+
+// remove from tail test here
+
+int main(void)
+{
+    singly_linked_list list;
+
+    // Tests initialization of a singly linked list
+    init_test(&list);
+
+    initialize_sl_list(&list);
+
+    // Checks the return for an empty list's length
+    empty_list_test(&list);
+    // Checks the return for accessing an empty list's tail
+    empty_tail_test(&list);
+    // Checks the return for accessing an empty list's head
+    empty_head_test(&list);
+
+    // Checks the result of adding a node to the head of the list
+    add_node_h_empty_test(&list);
+
+    // Prints if no errors have occurred
+    printf("All tests passed.");
+
+    return 0;
+}
