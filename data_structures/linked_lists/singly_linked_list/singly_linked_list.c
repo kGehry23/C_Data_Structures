@@ -18,13 +18,15 @@
  ************************************/
 
 /*!
- * @brief Initializes a singly linked list type by setting its list_size variable to 0.
+ * @brief Initializes a singly linked list
  * @param list  Pointer to the singly linked list being initalized.
  * @return  None
  */
 void initialize_sl_list(singly_linked_list *list)
 {
     list->list_size = 0;
+    list->head = NULL;
+    list->tail = NULL;
 }
 
 /*!
@@ -204,11 +206,15 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
             {
                 // Search node is assigned to the following node
                 removed_element = search_node->value;
-                // Reassigns the node to the node's next node
-                search_node = search_node->next;
-                // The value and pointer of the head node are re-assigned
-                (list->head)->value = search_node->value;
-                (list->head)->next = search_node->next;
+
+                if (search_node->next != NULL)
+                {
+                    // Reassigns the node to the node's next node
+                    search_node = search_node->next;
+                    // The value and pointer of the head node are re-assigned
+                    (list->head)->value = search_node->value;
+                    (list->head)->next = search_node->next;
+                }
             }
             else if (search_node == list->tail)
             {
@@ -216,11 +222,6 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
                 list->tail = previous_node;
                 // Re-assigns the tail node's next pointer to NULL
                 previous_node->next = NULL;
-
-                // Free memory held by removed node
-                free(search_node);
-                // Avoid dangling pointer
-                search_node = NULL;
             }
             // If the node to remove is any other element in the list
             else
@@ -228,35 +229,35 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
                 removed_element = search_node->value;
                 // Re-assigns the previous node's pointer to point to the node after the node to remove
                 previous_node->next = search_node->next;
-                // Free memory held by removed node
-
-                free(search_node);
-                // Avoid dangling pointer
-                search_node = NULL;
             }
+
+            // Free memory held by node to remove
+            free(search_node);
+            // Avoid dangling pointer
+            search_node = NULL;
 
             list->list_size--;
             return removed_element;
         }
-
-        // If the current node is not the head node, the pointer to the previous element is re-assigned
-        if (search_node->value != (list->head)->value)
+        else if (search_node->value != removal_value && sl_list_length(list) != 0)
         {
-            previous_node = previous_node->next;
+            // If the current node is not the head node, the pointer to the previous element is re-assigned
+            if (search_node->value != (list->head)->value)
+            {
+                previous_node = previous_node->next;
+            }
+            // The current node is updated to the next node in the list
+            search_node = search_node->next;
         }
 
-        // The current node is updated to the next node in the list
-        search_node = search_node->next;
-
-        // If the node is not found or there are no elements in the list, -1 is returned
-        if (search_node == NULL || list->list_size == 0)
+        else
         {
             // Free memory held by removed node
             free(search_node);
             // Avoid dangling pointer
             search_node = NULL;
 
-            return -1;
+            return NULL;
         }
     } while (search_node != NULL);
 }
@@ -269,7 +270,7 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
 void free_singly_linked_list(singly_linked_list *list)
 {
     // Node pointer used to keep track of current node in list
-    singly_linked_list_node *node = node = list->head;
+    singly_linked_list_node *node = list->head;
     // Array of node pointers
     singly_linked_list_node *array[list->list_size];
 
@@ -296,6 +297,8 @@ void free_singly_linked_list(singly_linked_list *list)
 
     // Free the singly linked list struct
     free(list);
+    // Avoids dangling pointer
+    list = NULL;
 }
 
 /*!
