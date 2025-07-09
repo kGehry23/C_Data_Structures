@@ -326,7 +326,7 @@ void remove_all_add_again_test()
  * @param list  Pointer to the singly linked list
  * @return  None
  */
-void remove_middle()
+void remove_middle_test()
 {
     singly_linked_list list;
 
@@ -372,7 +372,7 @@ int main(void)
     add_remove_multiple_test();
     add_remove_all_test();
     remove_all_add_again_test();
-    remove_middle();
+    remove_middle_test();
 
     // Prints only if all tests pass
     printf("All tests passed.");
