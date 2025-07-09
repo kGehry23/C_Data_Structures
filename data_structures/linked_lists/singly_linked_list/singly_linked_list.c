@@ -50,7 +50,6 @@ void *return_sl_tail(singly_linked_list *list)
  */
 void *return_sl_head(singly_linked_list *list)
 {
-    // Returns -1 is the list is empty
     if (list->list_size == 0)
         return NULL;
     else
@@ -151,7 +150,7 @@ void insert_sl_node(singly_linked_list *list, int insert_value, void *insert_aft
 {
     // Pointer for the node to be inserted
     singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
-    // Pointer used to hold a reference to the tail node in the list traversal
+    // Pointer used to hold a reference to the current node in the list traversal
     singly_linked_list_node *search_node = list->head;
 
     do
@@ -194,7 +193,7 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
     // Pointer used to keep a reference to the previous node in the traversal
     singly_linked_list_node *previous_node = list->head;
     // Integer to hold value of removed node
-    int removed_element;
+    void *removed_element;
 
     do
     {
