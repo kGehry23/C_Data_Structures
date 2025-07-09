@@ -43,7 +43,7 @@ void init_test()
  * @param list  Pointer to the singly linked list
  * @return  None
  */
-void free_empty()
+void free_empty_test()
 {
     singly_linked_list list;
 
@@ -224,7 +224,7 @@ void add_multiple_test()
  * @param list  Pointer to the singly linked list
  * @return  None
  */
-void add_remove_multiple_test()
+void add_remove_multiple_test(void *val1, void *val2, void *val3, void *val4)
 {
     singly_linked_list list;
 
@@ -232,24 +232,24 @@ void add_remove_multiple_test()
     initialize_sl_list(&list);
 
     // Add elements to the head
-    add_sl_node_to_head(&list, 1);
-    add_sl_node_to_head(&list, 2);
+    add_sl_node_to_head(&list, val1);
+    add_sl_node_to_head(&list, val2);
 
     // Adds elements to the tail
-    add_sl_node_to_tail(&list, 3);
-    add_sl_node_to_tail(&list, 4);
+    add_sl_node_to_tail(&list, val3);
+    add_sl_node_to_tail(&list, val4);
 
     // Removes the node at the head of the list
-    remove_sl_node(&list, 1);
+    remove_sl_node(&list, val1);
     // Removes the node at the tail of the list
-    remove_sl_node(&list, 4);
+    remove_sl_node(&list, val4);
 
     // Checks that the number of elements in the list is correct
     assert(list.list_size == 2);
     // Checks that the value of the node at the head of the list is correct
-    assert((list.head)->value == 2);
+    assert((list.head)->value == val2);
     // Checks that the value of the node at the tail of the list is correct
-    assert((list.tail)->value == 3);
+    assert((list.tail)->value == val3);
 
     // Frees the dynamically allocated memory as part of the list
     free_singly_linked_list(&list);
@@ -351,12 +351,67 @@ void remove_middle_test()
 }
 
 /*!
+ * @brief Tests an insert between two elements in the list
+ * @param list  Pointer to the singly linked list
+ * @return  None
+ */
+void insert_test()
+{
+    singly_linked_list list;
+
+    // Initialize the list
+    initialize_sl_list(&list);
+
+    add_sl_node_to_head(&list, 1);
+    add_sl_node_to_tail(&list, 3);
+
+    // Removes the element at the middle of the list
+    insert_sl_node(&list, 2, 1);
+
+    // Checks that the number of elements in the list is correct
+    assert(list.list_size == 3);
+    // Checks that the value held by the node at the head of the list is correct
+    assert((list.head)->value == 1);
+    // Checks that the element inserted after has the correct updated next node
+    assert(((list.head)->next)->value == 2);
+    // Checks that the newly inserted node has the correct next reference
+    assert((list.head)->next->next->value == 3);
+}
+
+/*!
+ * @brief Checks if the size function returns the correct result
+ * @param list  Pointer to the singly linked list
+ * @return  None
+ */
+void size_test()
+{
+    singly_linked_list list;
+
+    // Initialize the list
+    initialize_sl_list(&list);
+
+    // Add elements to the head
+    add_sl_node_to_head(&list, 1);
+    add_sl_node_to_head(&list, 2);
+
+    // Adds elements to the tail
+    add_sl_node_to_tail(&list, 3);
+    add_sl_node_to_tail(&list, 4);
+
+    // Checks the sl_list_length function returns the correct size
+    assert(list.list_size == sl_list_length(&list));
+    assert(sl_list_length(&list) == 4);
+
+    // Frees the dynamically allocated memory as part of the list
+    free_singly_linked_list(&list);
+}
+/*!
  * @brief Runs the above tests
  */
 int main(void)
 {
     init_test();
-    free_empty();
+    free_empty_test();
 
     empty_list_test();
     empty_head_test();
@@ -369,10 +424,31 @@ int main(void)
     remove_non_existent_test();
 
     add_multiple_test();
-    add_remove_multiple_test();
+
+    // Test with integers
+    add_remove_multiple_test(1, 2, 3, 4);
+    // Test with longs
+    add_remove_multiple_test(1000, 2000, 3000, 4000);
+    // Test with chars
+    add_remove_multiple_test('a', 'b', 'c', 'd');
+    // Test with strings
+    add_remove_multiple_test("Test1", "Test2", "Test3", "Test4");
+
+    // Need to touch on this....
+    double t1 = 1.0;
+    float t2 = 2.0;
+
+    // Test with doubles
+    add_remove_multiple_test(&t1, &t1, &t1, &t1);
+    // Test with floats
+    add_remove_multiple_test(&t2, &t2, &t2, &t2);
+
     add_remove_all_test();
     remove_all_add_again_test();
     remove_middle_test();
+
+    insert_test();
+    size_test();
 
     // Prints only if all tests pass
     printf("All tests passed.");
