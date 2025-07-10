@@ -405,6 +405,7 @@ void size_test()
     // Frees the dynamically allocated memory as part of the list
     free_singly_linked_list(&list);
 }
+
 /*!
  * @brief Runs the above tests
  */

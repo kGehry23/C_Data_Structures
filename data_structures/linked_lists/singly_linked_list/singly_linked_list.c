@@ -36,7 +36,7 @@ void initialize_sl_list(singly_linked_list *list)
  */
 void *return_sl_tail(singly_linked_list *list)
 {
-    // Returns -1 if the list is empty
+    // Returns NULL if the list is empty
     if (list->list_size == 0)
         return NULL;
     else
@@ -50,6 +50,7 @@ void *return_sl_tail(singly_linked_list *list)
  */
 void *return_sl_head(singly_linked_list *list)
 {
+    // Returns NULL if the list is empty
     if (list->list_size == 0)
         return NULL;
     else
