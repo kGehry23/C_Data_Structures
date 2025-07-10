@@ -434,14 +434,23 @@ int main(void)
     // Test with strings
     add_remove_multiple_test("Test1", "Test2", "Test3", "Test4");
 
-    // Need to touch on this....
-    double t1 = 1.0;
-    float t2 = 2.0;
+    // Test double values
+    double d1 = 1.0;
+    double d2 = 2.0;
+    double d3 = 3.0;
+    double d4 = 4.0;
 
     // Test with doubles
-    add_remove_multiple_test(&t1, &t1, &t1, &t1);
+    add_remove_multiple_test(&d1, &d2, &d3, &d4);
+
+    // Test float values
+    float f1 = 1.10;
+    float f2 = 2.10;
+    float f3 = 3.10;
+    float f4 = 4.10;
+
     // Test with floats
-    add_remove_multiple_test(&t2, &t2, &t2, &t2);
+    add_remove_multiple_test(&f1, &f2, &f3, &f4);
 
     add_remove_all_test();
     remove_all_add_again_test();
