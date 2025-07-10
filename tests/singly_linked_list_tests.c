@@ -101,7 +101,47 @@ void empty_tail_test()
     assert(return_sl_tail(&list) == NULL);
 }
 
-// remove from empty head test here
+/*!
+ * @brief Tests a return of the head element
+ * @param list  Pointer to the doubly linked list
+ * @return  None
+ */
+void return_head_test()
+{
+    singly_linked_list list;
+
+    // Initialize the list
+    initialize_sl_list(&list);
+
+    add_sl_node_to_tail(&list, 1);
+    add_sl_node_to_tail(&list, 2);
+
+    assert(return_sl_head(&list) == 1);
+
+    // Frees the dynamically allocated memory as part of the list
+    free_singly_linked_list(&list);
+}
+
+/*!
+ * @brief Tests a return of the tail element
+ * @param list  Pointer to the doubly linked list
+ * @return  None
+ */
+void return_tail_test()
+{
+    singly_linked_list list;
+
+    // Initialize the list
+    initialize_sl_list(&list);
+
+    add_sl_node_to_tail(&list, 1);
+    add_sl_node_to_tail(&list, 2);
+
+    assert(return_sl_tail(&list) == 2);
+
+    // Frees the dynamically allocated memory as part of the list
+    free_singly_linked_list(&list);
+}
 
 /*!
  * @brief Tests adding a node to the head of the list when empty
@@ -417,6 +457,9 @@ int main(void)
     empty_list_test();
     empty_head_test();
     empty_tail_test();
+
+    return_head_test();
+    return_tail_test();
 
     add_node_h_empty_test();
     add_node_t_empty_test();
