@@ -118,6 +118,11 @@ void *dequeue(array_queue *queue)
  */
 void *first(array_queue *queue)
 {
+    if (queue_size(queue) == 0)
+    {
+        return NULL;
+    }
+
     return (queue->array)[queue->front_index];
 }
 
@@ -157,7 +162,7 @@ void initialize_array_queue(array_queue *queue, int queue_size)
     queue->num_elements = 0;
 
     //  Create an array of the specified size
-    queue->array = (void *)malloc(queue_size * sizeof(void *));
+    queue->array = malloc(queue_size * sizeof(void *));
 }
 
 /*!
@@ -167,14 +172,15 @@ void initialize_array_queue(array_queue *queue, int queue_size)
  */
 void free_array_queue(array_queue *queue)
 {
+
     // Frees the memory held by each element of the array holding the queue items
-    for (int i = 0; i < queue->num_elements; i++)
+    for (int i = queue->num_elements - 1; i >= 0; i--)
     {
         free(&(queue->array[i]));
     }
 
-    // Frees the struct
-    free(queue->array);
+    // Avoid dangling pointer
+    queue->array = NULL;
 }
 
 /*!
