@@ -333,7 +333,7 @@ int main(void)
     remove_re_add_test('A', 'B', 'C', 'D', 'E');
     remove_re_add_test("Test1", "Test2", "Test3", "Test4", "Test5");
 
-    // double d5 = 5.0;
+    double d5 = 5.0;
     // remove_re_add_test(&d1, &d2, &d3, &d4, &d5); //->failed
 
     float f5 = 5.0f;
@@ -350,6 +350,7 @@ int main(void)
     add_beyond_capacity_test('A', 'B', 'C', 'D', 'E');
     add_beyond_capacity_test("Test1", "Test2", "Test3", "Test4", "Test5");
     add_beyond_capacity_test(&f1, &f2, &f3, &f4, &f5);
+    add_beyond_capacity_test(&d1, &d2, &d3, &d4, &d5);
 
     printf("\nAll tests passed.");
 
