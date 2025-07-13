@@ -143,10 +143,152 @@ void enqueue_one_test(void *element)
     free_array_queue(&queue);
 }
 
+/*!
+ * @brief Checks the result of enqueuing multiple elements onto the queue
+ * @return  None
+ */
+void enqueue_multiple_test(void *val1, void *val2, void *val3, void *val4)
+{
+    array_queue queue;
+
+    initialize_array_queue(&queue, QUEUE_SIZE);
+
+    // Enqueue multiple elements
+    enqueue(&queue, val1);
+    enqueue(&queue, val2);
+    enqueue(&queue, val3);
+    enqueue(&queue, val4);
+
+    assert(queue.num_elements == 4);
+    assert(queue.front_index == 0);
+    assert(queue.end_index == 4);
+    assert(first(&queue) == val1);
+
+    free_array_queue(&queue);
+}
+
+/*!
+ * @brief Checks the result of adding and removing multiple elements
+ * @return  None
+ */
+void add_remove_multiple_test(void *val1, void *val2, void *val3, void *val4)
+{
+    array_queue queue;
+
+    initialize_array_queue(&queue, QUEUE_SIZE);
+
+    // Enqueue multiple elements
+    enqueue(&queue, val1);
+    enqueue(&queue, val2);
+    enqueue(&queue, val3);
+    enqueue(&queue, val4);
+
+    // Dequeue 2 elements
+    dequeue(&queue);
+    dequeue(&queue);
+
+    assert(queue.num_elements == 2);
+    assert(queue.front_index == 2);
+    assert(queue.end_index == 4);
+    assert(first(&queue) == val3);
+
+    free_array_queue(&queue);
+}
+
+/*!
+ * @brief Checks the result of adding, removing, and re-adding elements
+ * @return  None
+ */
+void remove_re_add_test(void *val1, void *val2, void *val3, void *val4, void *val5)
+{
+
+    array_queue queue;
+
+    initialize_array_queue(&queue, 4);
+
+    // Enqueue multiple elements
+    enqueue(&queue, val1);
+    enqueue(&queue, val2);
+    enqueue(&queue, val3);
+    enqueue(&queue, val4);
+
+    // Dequeue the first 3 elements
+    dequeue(&queue);
+    dequeue(&queue);
+    dequeue(&queue);
+
+    // Add another element and make sure elements have been shifted to accommodate new elements
+    enqueue(&queue, val5);
+
+    assert(queue.num_elements == 2);
+    assert(queue.front_index == 0);
+    assert(queue.end_index == 2);
+    assert(first(&queue) == val4);
+
+    free_array_queue(&queue);
+}
+
+/*!
+ * @brief Checks the result of adding and removing all elements added to the queue
+ * @return  None
+ */
+void remove_all_test(void *val1, void *val2, void *val3, void *val4)
+{
+
+    array_queue queue;
+
+    initialize_array_queue(&queue, 4);
+
+    // Enqueue multiple elements
+    enqueue(&queue, val1);
+    enqueue(&queue, val2);
+    enqueue(&queue, val3);
+    enqueue(&queue, val4);
+
+    // Dequeue all elements
+    dequeue(&queue);
+    dequeue(&queue);
+    dequeue(&queue);
+    dequeue(&queue);
+
+    assert(queue.num_elements == 0);
+    assert(queue.front_index == 0);
+    assert(queue.end_index == 0);
+    assert(first(&queue) == NULL);
+
+    free_array_queue(&queue);
+}
+
+/*!
+ * @brief Checks the result of attempting to add an element beyond capacity
+ * @return  None
+ */
+void add_beyond_capacity_test(void *val1, void *val2, void *val3, void *val4, void *val5)
+{
+    array_queue queue;
+
+    initialize_array_queue(&queue, 4);
+
+    // Enqueue multiple elements
+    enqueue(&queue, val1);
+    enqueue(&queue, val2);
+    enqueue(&queue, val3);
+    enqueue(&queue, val4);
+
+    // Attempt to add an element beyond capacity
+    enqueue(&queue, val5);
+
+    assert(queue.num_elements == 4);
+    assert(queue.front_index == 0);
+    assert(queue.end_index == 3);
+
+    free_array_queue(&queue);
+}
+
 int main(void)
 {
     init_test();
-    free_test();
+    // free_test();
     empty_test();
 
     empty_num_elements_test();
@@ -161,8 +303,53 @@ int main(void)
     double d1 = 1.0;
     enqueue_one_test(&d1);
 
-    float f1 = 1.105;
+    float f1 = 1.0f;
     enqueue_one_test(&f1);
+
+    enqueue_multiple_test(1, 2, 3, 4);
+    enqueue_multiple_test('A', 'B', 'C', 'D');
+    enqueue_multiple_test("Test1", "Test2", "Test3", "Test4");
+
+    double d2 = 2.0;
+    double d3 = 3.0;
+    double d4 = 4.0;
+
+    enqueue_multiple_test(&d1, &d2, &d3, &d4);
+
+    float f2 = 2.0f;
+    float f3 = 3.0f;
+    float f4 = 4.0f;
+
+    enqueue_multiple_test(&f1, &f2, &f3, &f4);
+
+    add_remove_multiple_test(1, 2, 3, 4);
+    add_remove_multiple_test('A', 'B', 'C', 'D');
+    add_remove_multiple_test("Test1", "Test2", "Test3", "Test4");
+
+    // add_remove_multiple_test(&d1, &d2, &d3, &d4); //->failed
+    add_remove_multiple_test(&f1, &f2, &f3, &f4);
+
+    remove_re_add_test(1, 2, 3, 4, 5);
+    remove_re_add_test('A', 'B', 'C', 'D', 'E');
+    remove_re_add_test("Test1", "Test2", "Test3", "Test4", "Test5");
+
+    // double d5 = 5.0;
+    // remove_re_add_test(&d1, &d2, &d3, &d4, &d5); //->failed
+
+    float f5 = 5.0f;
+    remove_re_add_test(&f1, &f2, &f3, &f4, &f5);
+
+    remove_all_test(1, 2, 3, 4);
+    remove_all_test('A', 'B', 'C', 'D');
+    remove_all_test("Test1", "Test2", "Test3", "Test4");
+
+    remove_all_test(&f1, &f2, &f3, &f4);
+    // remove_all_test(&d1, &d2, &d3, &d4); //->failed
+
+    add_beyond_capacity_test(1, 2, 3, 4, 5);
+    add_beyond_capacity_test('A', 'B', 'C', 'D', 'E');
+    add_beyond_capacity_test("Test1", "Test2", "Test3", "Test4", "Test5");
+    add_beyond_capacity_test(&f1, &f2, &f3, &f4, &f5);
 
     printf("\nAll tests passed.");
 

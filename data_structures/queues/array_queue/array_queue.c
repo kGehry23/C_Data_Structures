@@ -96,7 +96,13 @@ void *dequeue(array_queue *queue)
         (queue->array)[queue->front_index] = NULL;
 
         // Updates the front index
-        queue->front_index = queue->front_index + 1;
+        queue->front_index = (queue->front_index + 1) % queue->size;
+
+        // If all elements have been removed, the end index is set to 0
+        if (queue->front_index == 0)
+        {
+            queue->end_index = queue->front_index;
+        }
 
         // Decrements the number of elements
         queue->num_elements = queue->num_elements - 1;
@@ -179,8 +185,8 @@ void free_array_queue(array_queue *queue)
         free(&(queue->array[i]));
     }
 
-    // Avoid dangling pointer
-    queue->array = NULL;
+    // free(queue);
+    // queue = NULL;
 }
 
 /*!
