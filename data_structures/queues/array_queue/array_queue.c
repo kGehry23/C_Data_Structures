@@ -184,9 +184,8 @@ void free_array_queue(array_queue *queue)
     {
         free(&(queue->array[i]));
     }
-
-    // free(queue);
-    // queue = NULL;
+    // Avoid dangling pointer
+    queue->array = NULL;
 }
 
 /*!

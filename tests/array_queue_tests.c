@@ -288,7 +288,7 @@ void add_beyond_capacity_test(void *val1, void *val2, void *val3, void *val4, vo
 int main(void)
 {
     init_test();
-    // free_test();
+    free_test();
     empty_test();
 
     empty_num_elements_test();
