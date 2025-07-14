@@ -330,10 +330,11 @@ void free_doubly_linked_list(doubly_linked_list *list)
 			array[j] = NULL;
 		}
 
-		// Free the singly doubly linked list struct
-		free(list);
-		// Avoid dangling pointer
-		list = NULL;
+		free(list->head);
+		list->head = NULL;
+
+		free(list->tail);
+		list->tail = NULL;
 	}
 }
 

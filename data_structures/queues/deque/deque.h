@@ -68,27 +68,28 @@ void enqueue_tail(linked_deque *deque, void *value);
  * @param deque Pointer to a deque.
  * @return Removes and returns the item at the head of the deque
  */
-int dequeue_head(linked_deque *deque);
+void *dequeue_head(linked_deque *deque);
 
 /*!
  * @brief Removes an item from the tail of the deque and returns its value.
  * @param deque Pointer to a deque.
  * @return Removes and returns the item at the tail of the deque
  */
-int dequeue_tail(linked_deque *deque);
+void *dequeue_tail(linked_deque *deque);
+
 /*!
  * @brief Returns the element at the front of the deque.
  * @param deque Pointer to a deque.
  * @return A value representing the value stored by the node at the head of deque.
  */
-int front(linked_deque *deque);
+void *front(linked_deque *deque);
 
 /*!
  * @brief Returns the element at the back of the deque.
  * @param deque Pointer to a deque.
  * @return A value representing the value stored by the node at the back of deque.
  */
-int back(linked_deque *deque);
+void *back(linked_deque *deque);
 
 /*!
  * @brief Returns the size (number of elements) in the deque.

@@ -24,7 +24,7 @@
  */
 void initialize_deque(linked_deque *deque)
 {
-    deque->list.list_size = 0;
+    initialize_dl_list(&(deque->list));
 }
 
 /*!
@@ -54,8 +54,13 @@ void enqueue_tail(linked_deque *deque, void *value)
  * @param deque Pointer to a deque.
  * @return Removes and returns the item at the head of the deque
  */
-int dequeue_head(linked_deque *deque)
+void *dequeue_head(linked_deque *deque)
 {
+    if (size(deque) == 0)
+    {
+        return NULL;
+    }
+
     return remove_dl_node(&(deque->list), ((deque->list).head)->value);
 }
 
@@ -64,8 +69,13 @@ int dequeue_head(linked_deque *deque)
  * @param deque Pointer to a deque.
  * @return Removes and returns the item at the tail of the deque
  */
-int dequeue_tail(linked_deque *deque)
+void *dequeue_tail(linked_deque *deque)
 {
+    if (size(deque) == 0)
+    {
+        return NULL;
+    }
+
     return remove_dl_node(&(deque->list), ((deque->list).tail)->value);
 }
 
@@ -74,8 +84,13 @@ int dequeue_tail(linked_deque *deque)
  * @param deque Pointer to a deque.
  * @return A value representing the value stored by the node at the head of deque.
  */
-int front(linked_deque *deque)
+void *front(linked_deque *deque)
 {
+    if (size(deque) == 0)
+    {
+        return NULL;
+    }
+
     return return_dl_head(&(deque->list));
 }
 
@@ -84,7 +99,7 @@ int front(linked_deque *deque)
  * @param deque Pointer to a deque.
  * @return A value representing the value stored by the node at the back of deque.
  */
-int back(linked_deque *deque)
+void *back(linked_deque *deque)
 {
     return return_dl_tail(&(deque->list));
 }
@@ -106,7 +121,7 @@ int size(linked_deque *deque)
  */
 bool is_empty(linked_deque *deque)
 {
-    return dl_list_length(&(deque->list)) == 0;
+    return (dl_list_length(&(deque->list)) == 0);
 }
 
 /*!
