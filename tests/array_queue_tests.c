@@ -107,7 +107,7 @@ void first_on_empty_test()
 }
 
 /*!
- * @brief Checks the dequeuing when the queue is empty
+ * @brief Checks the result of dequeuing when the queue is empty
  * @return  None
  */
 void dequeue_on_empty_test()
