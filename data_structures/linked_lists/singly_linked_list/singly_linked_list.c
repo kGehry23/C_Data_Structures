@@ -262,6 +262,8 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
         }
 
     } while (search_node != NULL);
+
+    return search_node;
 }
 
 /*!
