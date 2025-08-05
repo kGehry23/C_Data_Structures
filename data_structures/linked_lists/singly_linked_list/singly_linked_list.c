@@ -204,6 +204,9 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
             // If the node is the head element, the head element is re-assigned
             if (search_node == (list->head))
             {
+                // Search node is assigned to the following node
+                removed_element = search_node->value;
+
                 if (search_node->next != NULL)
                 {
                     // Reassigns the node to the node's next node
@@ -215,6 +218,8 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
             }
             else if (search_node == list->tail)
             {
+                // Search node is assigned to the following node
+                removed_element = search_node->value;
                 // Re-assign the pointer to the tail element
                 list->tail = previous_node;
                 // Re-assigns the tail node's next pointer to NULL
@@ -223,12 +228,11 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
             // If the node to remove is any other element in the list
             else
             {
+                // Search node is assigned to the following node
+                removed_element = search_node->value;
                 // Re-assigns the previous node's pointer to point to the node after the node to remove
                 previous_node->next = search_node->next;
             }
-
-            // Search node is assigned to the following node
-            removed_element = search_node->value;
 
             // Free memory held by node to remove
             free(search_node);
@@ -246,6 +250,11 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
 
                 free(list->tail);
                 list->tail = NULL;
+            }
+            // Correct head and tail pointers to point to the same element if only one element is in the list
+            else if (list->list_size == 1)
+            {
+                list->tail = list->head;
             }
 
             return removed_element;
