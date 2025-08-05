@@ -219,16 +219,46 @@ void remove_re_add_test(void *val1, void *val2, void *val3, void *val4, void *va
     free_linked_list_queue(&queue);
 }
 
-int main(void)
+/*!
+ * @brief Checks the result of adding and removing all elements added to the queue
+ * @return  None
+ */
+void remove_all_test(void *val1, void *val2, void *val3, void *val4)
 {
 
+    linked_list_queue queue;
+
+    initialize_queue(&queue);
+
+    // Enqueue multiple elements
+    enqueue(&queue, val1);
+    enqueue(&queue, val2);
+    enqueue(&queue, val3);
+    enqueue(&queue, val4);
+
+    // Dequeue all elements
+    dequeue(&queue);
+    dequeue(&queue);
+    dequeue(&queue);
+    dequeue(&queue);
+
+    assert(size(&queue) == 0);
+    assert(queue.list.head == NULL);
+    assert(queue.list.tail == NULL);
+    assert(first(&queue) == NULL);
+
+    free_linked_list_queue(&queue);
+}
+
+int main(void)
+{
     init_test();
     free_empty_test();
 
     empty_list_test();
     empty_test();
     empty_head_test();
-    // dequeue_on_empty_test(); // failed
+    dequeue_on_empty_test(); // failed
 
     enqueue_one_test();
     enqueue_multiple_test(1, 2, 3, 4);
@@ -256,6 +286,20 @@ int main(void)
     add_remove_multiple_test(&d1, &d2, &d3, &d4);
 
     remove_re_add_test(1, 2, 3, 4, 5);
+    remove_re_add_test('a', 'b', 'c', 'd', 'e');
+    remove_re_add_test("Test1", "Test2", "Test3", "Test4", "Test5");
+
+    float f5 = 5.0f;
+    remove_re_add_test(&f1, &f2, &f3, &f4, &f5);
+
+    double d5 = 5.0;
+    remove_re_add_test(&d1, &d2, &d3, &d4, &d5);
+
+    remove_all_test(1, 2, 3, 4);
+    remove_all_test('a', 'b', 'c', 'd');
+    remove_all_test("Test1", "Test2", "Test3", "Test4");
+    remove_all_test(&f1, &f2, &f3, &f4);
+    remove_all_test(&d1, &d2, &d3, &d4);
 
     printf("\nAll tests passed.");
 

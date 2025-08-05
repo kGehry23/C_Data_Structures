@@ -45,6 +45,13 @@ void enqueue(linked_list_queue *queue, void *value)
  */
 void *dequeue(linked_list_queue *queue)
 {
+    // Avoids attempting to access the "value" field of a linked list node which has been
+    // initialized to NULL
+    if (queue->list.head == NULL)
+    {
+        return NULL;
+    }
+
     return remove_sl_node(&(queue->list), ((queue->list).head)->value);
 }
 
