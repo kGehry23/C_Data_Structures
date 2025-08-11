@@ -43,9 +43,17 @@ void push(linked_list_stack *stack, void *value)
  * @param stack Pointer to a linked list stack.
  * @return The value held by the node at the top of the stack.
  */
-int pop(linked_list_stack *stack)
+void *pop(linked_list_stack *stack)
 {
-    return remove_sl_node(&(stack->list), (stack->list.head)->value);
+    // Avoid access of NULL pointer to head pointer
+    if (stack->list.list_size == 0)
+    {
+        return NULL;
+    }
+    else
+    {
+        return remove_sl_node(&(stack->list), (stack->list.head)->value);
+    }
 }
 
 /*!
