@@ -308,7 +308,7 @@ int main(void)
     empty_test();
 
     peek_on_empty_test();
-    // pop_on_empty_test(); //Segmentation fault. Solved in previous tests, come back to solve this.
+    pop_on_empty_test();
     push_one_test();
 
     push_limit_test(1, 2, 3, 4);

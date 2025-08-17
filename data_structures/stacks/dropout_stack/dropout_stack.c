@@ -52,9 +52,17 @@ void push(dropout_stack *stack, void *value)
  * @param stack Pointer to a dropout stack.
  * @return The value held by the node at the top of the stack.
  */
-int pop(dropout_stack *stack)
+void *pop(dropout_stack *stack)
 {
-    return remove_sl_node(&(stack->list), (stack->list.head)->value);
+    // Avoid access of NULL pointer to head pointer
+    if (stack->list.list_size == 0)
+    {
+        return NULL;
+    }
+    else
+    {
+        return remove_sl_node(&(stack->list), (stack->list.head)->value);
+    }
 }
 
 /*!
@@ -62,7 +70,7 @@ int pop(dropout_stack *stack)
  * @param stack Pointer to a dropout stack.
  * @return The value held by the node at the head of the stack.
  */
-int peek(dropout_stack *stack)
+void *peek(dropout_stack *stack)
 {
     return return_sl_head(&(stack->list));
 }
