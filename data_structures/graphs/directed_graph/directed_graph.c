@@ -198,7 +198,7 @@ void initialize_directed_graph(directed_graph *d_graph, int size_upper_bound)
     {
         for (int l = 0; l < size_upper_bound; l++)
         {
-            (d_graph->adjacency_matrix)[k][l] = 0;
+            (d_graph->adjacency_matrix)[k][l] = false;
         }
     }
 }
