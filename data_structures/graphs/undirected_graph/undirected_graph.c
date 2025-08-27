@@ -74,6 +74,7 @@ void *remove_vertex(undirected_graph *ud_graph, int identifier)
             {
                 (ud_graph->adjacency_matrix)[i][identifier] = 0;
                 (ud_graph->adjacency_matrix)[identifier][i] = 0;
+                ud_graph->num_edges--;
             }
         }
 
