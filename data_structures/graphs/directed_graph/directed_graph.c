@@ -57,7 +57,7 @@ void add_vertex(directed_graph *d_graph, char *name, int identifier, void *verte
 void *remove_vertex(directed_graph *d_graph, int identifier)
 {
     // Removes the vertex if it is in the graph
-    if (d_graph->vertices[identifier] != NULL)
+    if ((d_graph->vertices[identifier]->vertex_name) != NULL)
     {
         // Pointer to the vertex to be removed
         void *removed_vertex_value = (d_graph->vertices[identifier])->value;
@@ -70,9 +70,15 @@ void *remove_vertex(directed_graph *d_graph, int identifier)
         // Sets all the edges that may exist attached to the node to remove to FALSE in the adjacency matrix
         for (int i = 0; i < d_graph->adjacency_size; i++)
         {
-            if ((d_graph->adjacency_matrix)[i][identifier] == 1)
+            if (edge_exists(d_graph, i, identifier) == true)
             {
-                (d_graph->adjacency_matrix)[i][identifier] = 0;
+                (d_graph->adjacency_matrix)[i][identifier] = false;
+                d_graph->num_edges--;
+            }
+            else if (edge_exists(d_graph, identifier, i) == true)
+            {
+                (d_graph->adjacency_matrix)[identifier][i] = false;
+                d_graph->num_edges--;
             }
         }
 

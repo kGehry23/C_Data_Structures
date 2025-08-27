@@ -36,9 +36,9 @@ int main(void)
     initialize_directed_graph(&d_graph, 5);
 
     // Adds vertices to the graph
-    add_vertex(&d_graph, RESOURCE_A, 1);
-    add_vertex(&d_graph, RESOURCE_B, 2);
-    add_vertex(&d_graph, RESOURCE_C, 3);
+    add_vertex(&d_graph, "A", RESOURCE_A, 1);
+    add_vertex(&d_graph, "B", RESOURCE_B, 2);
+    add_vertex(&d_graph, "C", RESOURCE_C, 3);
 
     // Adds an edge
     add_edge(&d_graph, RESOURCE_A, RESOURCE_B);
