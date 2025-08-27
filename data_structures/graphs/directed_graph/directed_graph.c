@@ -480,6 +480,11 @@ bool d_contains_cycle(directed_graph *d_graph)
     // Reset the visited booleans for all vertices to false
     for (int i = 0; i < d_graph->num_vertices; i++)
     {
+
+        if (d_graph->vertices[i]->vertex_name == NULL)
+        {
+            continue;
+        }
         (d_graph->vertices)[i]->visited = 0;
     }
 

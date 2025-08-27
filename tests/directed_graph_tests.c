@@ -320,6 +320,107 @@ void remove_vertex_test()
     free_d_graph(&digraph);
 }
 
+/*!
+ * @brief Check that a graph is not connected
+ * @return  None
+ */
+void check_is_not_connected()
+{
+    directed_graph digraph;
+
+    initialize_directed_graph(&digraph, ADJ_SIZE);
+
+    add_vertex(&digraph, "A", 0, 1);
+    add_vertex(&digraph, "B", 1, 2);
+    add_vertex(&digraph, "C", 2, 3);
+
+    // Adds an edge between A and B
+    add_edge(&digraph, 0, 1);
+
+    assert(d_is_connected(&digraph) == false);
+
+    free_d_graph(&digraph);
+}
+
+/*!
+ * @brief Check that a graph is connected
+ * @return  None
+ */
+void check_is_connected()
+{
+    directed_graph digraph;
+
+    initialize_directed_graph(&digraph, ADJ_SIZE);
+
+    add_vertex(&digraph, "A", 0, 1);
+    add_vertex(&digraph, "B", 1, 2);
+    add_vertex(&digraph, "C", 2, 3);
+
+    add_edge(&digraph, 0, 1);
+    add_edge(&digraph, 1, 0);
+    add_edge(&digraph, 1, 2);
+    add_edge(&digraph, 2, 1);
+    add_edge(&digraph, 2, 0);
+    add_edge(&digraph, 0, 2);
+
+    assert(d_is_connected(&digraph) == true);
+
+    free_d_graph(&digraph);
+}
+
+/*!
+ * @brief Check that a graph does not contain a cycle
+ * @return  None
+ */
+void check_not_contains_cycle()
+{
+    directed_graph digraph;
+
+    initialize_directed_graph(&digraph, ADJ_SIZE);
+
+    add_vertex(&digraph, "A", 0, 1);
+    add_vertex(&digraph, "B", 1, 2);
+    add_vertex(&digraph, "C", 2, 3);
+
+    // Adds an edge between A and B, B and C, and C and A
+    add_edge(&digraph, 0, 1);
+    add_edge(&digraph, 1, 2);
+
+    // Checks that a cycle does not exists
+    assert(d_contains_cycle(&digraph) == false);
+
+    free_d_graph(&digraph);
+}
+
+/*!
+ * @brief Check that a graph contains a cycle
+ * @return  None
+ */
+void check_contains_cycle()
+{
+    directed_graph digraph;
+
+    initialize_directed_graph(&digraph, ADJ_SIZE);
+
+    add_vertex(&digraph, "A", 0, 1);
+    add_vertex(&digraph, "B", 1, 2);
+    add_vertex(&digraph, "C", 2, 3);
+
+    // Adds an edge between A and B, B and C, and C and A
+    add_edge(&digraph, 0, 1);
+    add_edge(&digraph, 1, 2);
+    add_edge(&digraph, 2, 0);
+
+    // Checks that a cycle exists
+    assert(d_contains_cycle(&digraph) == true);
+
+    free_d_graph(&digraph);
+}
+
+/*!
+ * @brief Tests the removal of a vertex from the the graph
+ * @return  None
+ */
 int main(void)
 {
     init_test();
@@ -333,6 +434,12 @@ int main(void)
 
     remove_edges_test();
     remove_vertex_test(); // segmentation fault occurs when cycle check is called. Need to fix this
+
+    check_is_not_connected();
+    check_is_connected();
+
+    // check_not_contains_cycle();
+    check_contains_cycle();
 
     printf("\nAll tests passed.");
 
