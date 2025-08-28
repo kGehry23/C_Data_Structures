@@ -423,10 +423,6 @@ void check_contains_cycle()
     free_ud_graph(&udgraph);
 }
 
-/*!
- * @brief Tests the removal of a vertex from the the graph
- * @return  None
- */
 int main(void)
 {
     init_test();
