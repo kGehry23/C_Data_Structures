@@ -31,6 +31,8 @@
 void initialize_dl_list(doubly_linked_list *list)
 {
 	list->list_size = 0;
+	list->head = NULL;
+	list->tail = NULL;
 }
 
 /*!
@@ -40,9 +42,9 @@ void initialize_dl_list(doubly_linked_list *list)
  */
 void *return_dl_tail(doubly_linked_list *list)
 {
-	// Returns -1 if the list is empty
+	// Returns NULL if the list is empty
 	if (list->list_size == 0)
-		return -1;
+		return NULL;
 	else
 		return (list->tail)->value;
 }
@@ -54,9 +56,9 @@ void *return_dl_tail(doubly_linked_list *list)
  */
 void *return_dl_head(doubly_linked_list *list)
 {
-	// Returns -1 is the list is empty
+	// Returns NULL is the list is empty
 	if (list->list_size == 0)
-		return -1;
+		return NULL;
 	else
 		return (list->head)->value;
 }
@@ -188,6 +190,10 @@ void insert_dl_node(doubly_linked_list *list, int insert_value, void *insert_aft
 			new_node->next = search_node->next;
 			// Sets the previous reference of the new node
 			new_node->previous = search_node;
+
+			// Sets the previous pointer for the node after the newly inserted value node to the newly inserted node
+			(search_node->next)->previous = new_node;
+
 			// Updates the next reference of the node which was inserted after
 			search_node->next = new_node;
 
@@ -215,36 +221,31 @@ void *remove_dl_node(doubly_linked_list *list, void *removal_value)
 	// Pointer used to keep a reference to the previous node in the traversal
 	doubly_linked_list_node *previous_node = list->head;
 	// Integer to hold value of removed node
-	int removed_element;
+	void *removed_element;
 
 	do
 	{
 		// Logic for if the node to remove is found
 		if (search_node->value == removal_value)
 		{
-			removed_element = search_node->value;
-
 			// If the node is the head element, the head element is re-assigned
 			if (search_node == list->head)
 			{
-				// search node is assigned to the following node
-				search_node = search_node->next;
-				// The value and pointer of the head node are re-assigned
-				(list->head)->value = search_node->value;
-				(list->head)->next = search_node->next;
-				(list->head)->previous = NULL;
+				if (search_node->next != NULL)
+				{
+					// search node is assigned to the following node
+					search_node = search_node->next;
+					// The value and pointer of the head node are re-assigned
+					(list->head)->value = search_node->value;
+					(list->head)->next = search_node->next;
+				}
 			}
 			else if (search_node == list->tail)
 			{
 				// Re-assign the pointer to the tail element
-				list->tail = search_node->previous;
+				list->tail = previous_node;
 				// Re-assigns the previous node's next pointer
-				(search_node)->previous->next = NULL;
-
-				// Free memory held by removed node
-				free(search_node);
-				// Avoid dangling pointer
-				search_node = NULL;
+				previous_node->next = NULL;
 			}
 			// If the node to remove is any other element in the list
 			else
@@ -253,36 +254,42 @@ void *remove_dl_node(doubly_linked_list *list, void *removal_value)
 				(search_node->next)->previous = previous_node;
 				// Re-assigns the previous node's next pointer
 				previous_node->next = search_node->next;
-
-				// Free memory held by removed node
-				free(search_node);
-				// Avoid dangling pointer
-				search_node = NULL;
 			}
 
-			list->list_size--;
-			return removed_element;
-		}
+			removed_element = search_node->value;
 
-		// If the current node is not the head node, the pointer to the previous element is re-assigned
-		if (search_node->value != (list->head)->value)
-		{
-			previous_node = previous_node->next;
-		}
-
-		// The current node is updated to the next node in the list
-		search_node = search_node->next;
-
-		// If the node is not found or there are no elements in the list, -1 is returned
-		if (search_node == NULL || list->list_size == 0)
-		{
 			// Free memory held by removed node
 			free(search_node);
 			// Avoid dangling pointer
 			search_node = NULL;
 
-			return -1;
+			list->list_size--;
+
+			// If there are no elements in the list, free the memory held by the head and tail pointers
+			if (list->list_size == 0)
+			{
+				free(list->head);
+				// Avoid dangling pointer
+				list->head = NULL;
+
+				free(list->tail);
+				list->tail = NULL;
+			}
+
+			return removed_element;
 		}
+
+		else if (search_node->value != removal_value && dl_list_length(list) != 0)
+		{
+			// If the current node is not the head node, the pointer to the previous element is re-assigned
+			if (search_node->value != (list->head)->value)
+			{
+				previous_node = previous_node->next;
+			}
+			// The current node is updated to the next node in the list
+			search_node = search_node->next;
+		}
+
 	} while (search_node != NULL);
 }
 
@@ -293,37 +300,42 @@ void *remove_dl_node(doubly_linked_list *list, void *removal_value)
  */
 void free_doubly_linked_list(doubly_linked_list *list)
 {
-	// Node pointer used to keep track of current node in list
-	doubly_linked_list_node *node = node = list->head;
-	// Array of node pointers
-	doubly_linked_list_node *array[list->list_size];
 
-	// Counter to add a node pointer to a position in the array
-	int i = 0;
-
-	// Free the memory held by the pointer to the previous node for the head node
-	free((list->head)->previous);
-
-	// Traverse the linked list and add the nodes to the array
-	while (node != NULL)
+	// Freeing only valid if there are elements in the list
+	if (list->list_size != 0)
 	{
-		array[i] = node;
-		// Update the pointer to the node in the traversal
-		node = node->next;
-		i++;
-	}
+		// Node pointer used to keep track of current node in list
+		doubly_linked_list_node *node = node = list->head;
+		// Array of node pointers
+		doubly_linked_list_node *array[list->list_size];
 
-	// Free the memory held by the nodes
-	for (int j = 0; j < list->list_size; j++)
-	{
-		// Free the dynamically allocated memory held by the current node
-		free(array[j]);
-		// Avoid dangling pointer
-		array[j] = NULL;
-	}
+		// Counter to add a node pointer to a position in the array
+		int i = 0;
 
-	// Free the singly doubly linked list struct
-	free(list);
+		// Traverse the linked list and add the nodes to the array
+		while (node != NULL)
+		{
+			array[i] = node;
+			// Update the pointer to the node in the traversal
+			node = node->next;
+			i++;
+		}
+
+		// Free the memory held by the nodes
+		for (int j = 0; j < list->list_size; j++)
+		{
+			// Free the dynamically allocated memory held by the current node
+			free(array[j]);
+			// Avoid dangling pointer
+			array[j] = NULL;
+		}
+
+		free(list->head);
+		list->head = NULL;
+
+		free(list->tail);
+		list->tail = NULL;
+	}
 }
 
 /*!

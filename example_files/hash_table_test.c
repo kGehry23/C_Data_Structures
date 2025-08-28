@@ -28,7 +28,6 @@ int main(void)
     // Add key value pairs
     put(&table, 756473, 4);
     put(&table, 756472, 3);
-    put(&table, 756471, 2);
     put(&table, 756478, 1);
     put(&table, 657435, 7);
 

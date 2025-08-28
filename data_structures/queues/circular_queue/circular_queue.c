@@ -88,6 +88,11 @@ void *dequeue(circular_queue *circ_queue)
  */
 void *first(circular_queue *circ_queue)
 {
+    if (size(circ_queue) == 0)
+    {
+        return NULL;
+    }
+
     return (circ_queue->array)[circ_queue->front_index];
 }
 
@@ -108,7 +113,7 @@ int size(circular_queue *circ_queue)
  */
 bool is_empty(circular_queue *circ_queue)
 {
-    return (circ_queue->num_elements) == 0;
+    return ((circ_queue->num_elements) == 0);
 }
 
 /*!
@@ -137,14 +142,9 @@ void initialize_circular_queue(circular_queue *circ_queue, int queue_size)
  */
 void free_circular_queue(circular_queue *queue)
 {
-    // Frees the memory held by each element of the array holding the queue items
-    for (int i = 0; i < queue->num_elements; i++)
-    {
-        free(&(queue->array[i]));
-    }
-
-    // Frees the struct
     free(queue->array);
+    // Avoid dangling pointer
+    queue->array = NULL;
 }
 
 /*!

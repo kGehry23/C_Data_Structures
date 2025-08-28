@@ -18,13 +18,15 @@
  ************************************/
 
 /*!
- * @brief Initializes a singly linked list type by setting its list_size variable to 0.
+ * @brief Initializes a singly linked list
  * @param list  Pointer to the singly linked list being initalized.
  * @return  None
  */
 void initialize_sl_list(singly_linked_list *list)
 {
     list->list_size = 0;
+    list->head = NULL;
+    list->tail = NULL;
 }
 
 /*!
@@ -34,9 +36,9 @@ void initialize_sl_list(singly_linked_list *list)
  */
 void *return_sl_tail(singly_linked_list *list)
 {
-    // Returns -1 if the list is empty
+    // Returns NULL if the list is empty
     if (list->list_size == 0)
-        return -1;
+        return NULL;
     else
         return (list->tail)->value;
 }
@@ -48,9 +50,9 @@ void *return_sl_tail(singly_linked_list *list)
  */
 void *return_sl_head(singly_linked_list *list)
 {
-    // Returns -1 is the list is empty
+    // Returns NULL if the list is empty
     if (list->list_size == 0)
-        return -1;
+        return NULL;
     else
         return (list->head)->value;
 }
@@ -149,7 +151,7 @@ void insert_sl_node(singly_linked_list *list, int insert_value, void *insert_aft
 {
     // Pointer for the node to be inserted
     singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
-    // Pointer used to hold a reference to the tail node in the list traversal
+    // Pointer used to hold a reference to the current node in the list traversal
     singly_linked_list_node *search_node = list->head;
 
     do
@@ -187,12 +189,19 @@ void insert_sl_node(singly_linked_list *list, int insert_value, void *insert_aft
  */
 void *remove_sl_node(singly_linked_list *list, void *removal_value)
 {
+    // If there are no elements in the list
+    if (sl_list_length(list) == 0)
+    {
+        printf("\nError");
+        return NULL;
+    }
+
     // Place holder node used to hold the nodes as the list is traversed
     singly_linked_list_node *search_node = list->head;
     // Pointer used to keep a reference to the previous node in the traversal
     singly_linked_list_node *previous_node = list->head;
     // Integer to hold value of removed node
-    int removed_element;
+    void *removed_element;
 
     do
     {
@@ -204,98 +213,115 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
             {
                 // Search node is assigned to the following node
                 removed_element = search_node->value;
-                // Reassigns the node to the node's next node
-                search_node = search_node->next;
-                // The value and pointer of the head node are re-assigned
-                (list->head)->value = search_node->value;
-                (list->head)->next = search_node->next;
+
+                if (search_node->next != NULL)
+                {
+                    // Reassigns the node to the node's next node
+                    search_node = search_node->next;
+                    // The value and pointer of the head node are re-assigned
+                    (list->head)->value = search_node->value;
+                    (list->head)->next = search_node->next;
+                }
             }
             else if (search_node == list->tail)
             {
+                // Search node is assigned to the following node
+                removed_element = search_node->value;
                 // Re-assign the pointer to the tail element
                 list->tail = previous_node;
                 // Re-assigns the tail node's next pointer to NULL
                 previous_node->next = NULL;
-
-                // Free memory held by removed node
-                free(search_node);
-                // Avoid dangling pointer
-                search_node = NULL;
             }
             // If the node to remove is any other element in the list
             else
             {
+                // Search node is assigned to the following node
                 removed_element = search_node->value;
                 // Re-assigns the previous node's pointer to point to the node after the node to remove
                 previous_node->next = search_node->next;
-                // Free memory held by removed node
-
-                free(search_node);
-                // Avoid dangling pointer
-                search_node = NULL;
             }
 
-            list->list_size--;
-            return removed_element;
-        }
-
-        // If the current node is not the head node, the pointer to the previous element is re-assigned
-        if (search_node->value != (list->head)->value)
-        {
-            previous_node = previous_node->next;
-        }
-
-        // The current node is updated to the next node in the list
-        search_node = search_node->next;
-
-        // If the node is not found or there are no elements in the list, -1 is returned
-        if (search_node == NULL || list->list_size == 0)
-        {
-            // Free memory held by removed node
+            // Free memory held by node to remove
             free(search_node);
             // Avoid dangling pointer
             search_node = NULL;
 
-            return -1;
+            list->list_size--;
+
+            // If there are no elements in the list, free the memory held by the head and tail pointers
+            if (list->list_size == 0)
+            {
+                free(list->head);
+                // Avoid dangling pointer
+                list->head = NULL;
+
+                free(list->tail);
+                list->tail = NULL;
+            }
+            // Correct head and tail pointers to point to the same element if only one element is in the list
+            else if (list->list_size == 1)
+            {
+                list->tail = list->head;
+            }
+
+            return removed_element;
         }
+        else if (search_node->value != removal_value && sl_list_length(list) != 0)
+        {
+            // If the current node is not the head node, the pointer to the previous element is re-assigned
+            if (search_node->value != (list->head)->value)
+            {
+                previous_node = previous_node->next;
+            }
+            // The current node is updated to the next node in the list
+            search_node = search_node->next;
+        }
+
     } while (search_node != NULL);
+
+    return search_node;
 }
 
 /*!
  * @brief Frees the memory held by a singly linked list struct
  * @param list Pointer to a singly linked list struct
- * @return None
+ * @return A boolean indicating whether or not any dynamically allocated memory has been freed
  */
 void free_singly_linked_list(singly_linked_list *list)
 {
-    // Node pointer used to keep track of current node in list
-    singly_linked_list_node *node = node = list->head;
-    // Array of node pointers
-    singly_linked_list_node *array[list->list_size];
-
-    // Counter to add a node pointer to a position in the array
-    int i = 0;
-
-    // Traverse the linked list and add the nodes to the array
-    while (node != NULL)
+    // Freeing only valid if there are elements in the list
+    if (list->list_size != 0)
     {
-        array[i] = node;
-        // Update the pointer to the node in the traversal
-        node = node->next;
-        i++;
-    }
+        // Node pointer used to keep track of current node in list
+        singly_linked_list_node *node = list->head;
+        // Array of node pointers
+        singly_linked_list_node *array[list->list_size];
 
-    // Free the memory held by the nodes
-    for (int j = 0; j < list->list_size; j++)
-    {
-        // Free the dynamically allocated memory held by the current node
-        free(array[j]);
+        // Counter to add a node pointer to a position in the array
+        int i = 0;
+
+        // Traverse the linked list and add the nodes to the array
+        while (node != NULL)
+        {
+            array[i] = node;
+            // Update the pointer to the node in the traversal
+            node = node->next;
+            i++;
+        }
+
+        // Free the memory held by the nodes
+        for (int j = 0; j < list->list_size; j++)
+        {
+            // Free the dynamically allocated memory held by the current node
+            free(array[j]);
+            // Avoid dangling pointer
+            array[j] = NULL;
+        }
+
+        free(list);
         // Avoid dangling pointer
-        array[j] = NULL;
+        list = NULL;
     }
-
-    // Free the singly linked list struct
-    free(list);
 }
 
 /*!

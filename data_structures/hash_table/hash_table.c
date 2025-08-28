@@ -42,7 +42,7 @@ void put(hash_table *table, void *hash_key, void *hash_value)
     // Calculate the index to store the element at
     int index = (table->hash_function)(table, hash_key);
     // Boolean used to track if a collision has occurred.
-    bool collision = 0;
+    bool collision = false;
 
     // Entered if only one element is hashed to a given location
     if (((table->array)[index]).key == NULL)
@@ -63,7 +63,7 @@ void put(hash_table *table, void *hash_key, void *hash_value)
         hash_node *previous_node = (hash_node *)malloc(sizeof(hash_node));
 
         // Indicates a collision has occurred
-        collision = 1;
+        collision = true;
 
         // Traverse the hash table entry until the next reference is NULL.
         // Artifact of collisions
@@ -90,7 +90,7 @@ void put(hash_table *table, void *hash_key, void *hash_value)
     }
 
     // If a collision did not occur, the counter for the number of elements is incremented
-    if (collision == 0)
+    if (collision == false)
     {
         table->num_elements++;
     }

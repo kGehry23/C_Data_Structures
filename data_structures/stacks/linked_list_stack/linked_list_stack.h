@@ -60,7 +60,7 @@ void push(linked_list_stack *stack, void *value);
  * @param stack Pointer to a linked list stack.
  * @return The value held by the node at the top of the stack.
  */
-int pop(linked_list_stack *stack);
+void *pop(linked_list_stack *stack);
 
 /*!
  * @brief Returns the element at the top of the stack.

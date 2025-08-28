@@ -131,6 +131,12 @@ void initialize_array_stack(array_stack *stack, int stack_size)
     stack->num_elements = 0;
     //  Create an array of the specified size
     stack->array = (void *)malloc(stack_size * sizeof(void *));
+
+    // Set all elements in the stack to NULL
+    for (int i = 0; i < stack->size; i++)
+    {
+        stack->array[i] = NULL;
+    }
 }
 
 /*!
@@ -149,6 +155,8 @@ void free_array_stack(array_stack *stack)
 
     // Frees the memory held by the stack
     free(stack->array);
+    // Avoid dangling pointer
+    stack->array = NULL;
 }
 
 /*!
