@@ -93,17 +93,12 @@ void add_dl_node_to_head(doubly_linked_list *list, void *insert_value)
 	}
 	else
 	{
-		doubly_linked_list_node *new_head = (doubly_linked_list_node *)malloc(sizeof(doubly_linked_list_node));
-
 		new_node->value = (list->head)->value;
 		new_node->next = (list->head)->next;
+		new_node->previous = (list->head);
 
-		new_head->value = insert_value;
-		new_head->next = new_node;
-		new_head->previous = NULL;
-		new_node->previous = new_head;
-
-		(list->head) = new_head;
+		(list->head)->value = insert_value;
+		(list->head)->next = new_node;
 
 		// Tail pointer is appropriately reassigned if nodes are only
 		// added to the head of the list
@@ -299,7 +294,7 @@ void free_doubly_linked_list(doubly_linked_list *list)
 	if (list->list_size != 0)
 	{
 		// Node pointer used to keep track of current node in list
-		doubly_linked_list_node *node = node = list->head;
+		doubly_linked_list_node *node = list->head;
 		// Array of node pointers
 		doubly_linked_list_node *array[list->list_size];
 
@@ -323,12 +318,6 @@ void free_doubly_linked_list(doubly_linked_list *list)
 			// Avoid dangling pointer
 			array[j] = NULL;
 		}
-
-		free(list->head);
-		list->head = NULL;
-
-		free(list->tail);
-		list->tail = NULL;
 	}
 }
 
