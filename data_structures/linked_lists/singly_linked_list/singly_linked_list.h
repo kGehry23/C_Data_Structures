@@ -41,9 +41,9 @@ typedef struct singly_linked_list_node
 } singly_linked_list_node;
 
 /*!
- * @brief   Struct representing a singly linked list.
+ * @brief Struct representing a singly linked list.
  */
-typedef struct singly_linked_list
+typedef struct
 {
     singly_linked_list_node *head;
     singly_linked_list_node *tail;
