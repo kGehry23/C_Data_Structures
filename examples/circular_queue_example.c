@@ -1,6 +1,6 @@
 /**
  ********************************************************************************
- * @file    circular_queue_test.c
+ * @file    circular_queue_example.c
  * @author  Kai Gehry
  * @date    2025-06-07
  *

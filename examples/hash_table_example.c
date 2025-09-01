@@ -1,6 +1,6 @@
 /**
  ********************************************************************************
- * @file    hash_table.h
+ * @file    hash_table_example.c
  * @author  Kai Gehry
  * @date    2025-05-30
  *

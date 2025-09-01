@@ -20,12 +20,6 @@
 #include <stdbool.h>
 
 /************************************
- * COMPILER DIRECTIVES
- ************************************/
-// Added for void* to required type conversions
-#pragma GCC diagnostic ignored "-Wint-conversion"
-
-/************************************
  * FUNCTION PROTOTYPES
  ************************************/
 
@@ -41,9 +35,9 @@ typedef struct singly_linked_list_node
 } singly_linked_list_node;
 
 /*!
- * @brief   Struct representing a singly linked list.
+ * @brief Struct representing a singly linked list.
  */
-typedef struct singly_linked_list
+typedef struct
 {
     singly_linked_list_node *head;
     singly_linked_list_node *tail;
@@ -98,7 +92,7 @@ void add_sl_node_to_tail(singly_linked_list *list, void *insert_value);
  * @brief Adds a node to a position after a specified node.
  * @param list Pointer to a singly linked list struct.
  * @param insert_value Value to insert into the list.
- * @param insert_after_value The value of the element to insert an element after.
+ * @param insert_after_value The value of the element to insert after.
  * @return None
  */
 void insert_sl_node(singly_linked_list *list, int insert_value, void *insert_after_value);

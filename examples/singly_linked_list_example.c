@@ -1,6 +1,6 @@
 /**
  ********************************************************************************
- * @file    singly_linked_list_test.c
+ * @file    singly_linked_list_example.c
  * @author  Kai Gehry
  * @date    2025-03-25
  *
@@ -62,7 +62,7 @@ int main(void)
     add_sl_node_to_head(&list1, 4);
     add_sl_node_to_head(&list1, 2);
     add_sl_node_to_head(&list1, 3);
-    add_sl_node_to_head(&list1, 5);
+    add_sl_node_to_tail(&list1, 5);
 
     // Returns the head and tail elements
     printf("\nHead Element: %d", return_sl_head(&list1));

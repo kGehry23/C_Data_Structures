@@ -1,6 +1,6 @@
 /**
  ********************************************************************************
- * @file    d_graph_traversal_test.c
+ * @file    d_graph_traversal_example.c
  * @author  Kai Gehry
  * @date    2025-07-04
  *

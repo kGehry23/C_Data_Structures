@@ -1,6 +1,6 @@
 /**
  ********************************************************************************
- * @file    linked_list_stack_test.c
+ * @file    linked_list_stack_example.c
  * @author  Kai Gehry
  * @date    2025-03-25
  *

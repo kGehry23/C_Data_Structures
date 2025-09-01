@@ -1,6 +1,6 @@
 /**
  ********************************************************************************
- * @file    undirected_graph_test.c
+ * @file    undirected_graph_example.c
  * @author  Kai Gehry
  * @date    2025-06-08
  *

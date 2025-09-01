@@ -78,7 +78,7 @@ void add_sl_node_to_head(singly_linked_list *list, void *insert_value)
     // Linked list node pointer which represents the new node to be added
     singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
 
-    // Defines the head of the linked list
+    // Defines the head of the linked list, if no nodes are on the stack
     if (list->list_size == 0)
     {
         // Sets the value and next pointer of the head node
@@ -117,22 +117,22 @@ void add_sl_node_to_tail(singly_linked_list *list, void *insert_value)
     // Linked list node pointer which represents the new node to be added
     singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
 
-    if (list->list_size != 0)
+    // Defines the head of the linked list, , if no nodes are on the stack
+    if (list->list_size == 0)
+    {
+        list->head = new_node;
+        (list->head)->value = insert_value;
+        (list->head)->next = NULL;
+
+        list->tail = new_node;
+    }
+    else
     {
         // Sets the value of the new node
         new_node->value = insert_value;
         // Points to the node which will now be at the end of the list
         new_node->next = NULL;
         (list->tail)->next = new_node;
-
-        list->tail = new_node;
-    }
-    // Defines the head of the linked list
-    if (list->list_size == 0)
-    {
-        list->head = new_node;
-        (list->head)->value = insert_value;
-        (list->head)->next = NULL;
 
         list->tail = new_node;
     }
@@ -179,6 +179,12 @@ void insert_sl_node(singly_linked_list *list, int insert_value, void *insert_aft
             search_node = search_node->next;
         }
     } while (search_node != NULL);
+
+    // Will only print if the node to insert after is invalid
+    if (search_node == NULL)
+    {
+        printf("\nNode to insert after not found.");
+    }
 }
 
 /*!
@@ -192,20 +198,19 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
     // If there are no elements in the list
     if (sl_list_length(list) == 0)
     {
-        printf("\nError");
+        printf("\nElement not found.");
         return NULL;
     }
 
-    // Place holder node used to hold the nodes as the list is traversed
+    // Place holder node used to reference the current node as the list is traversed
     singly_linked_list_node *search_node = list->head;
     // Pointer used to keep a reference to the previous node in the traversal
     singly_linked_list_node *previous_node = list->head;
-    // Integer to hold value of removed node
+    // Integer to hold the value of the removed node
     void *removed_element;
 
     do
     {
-        // Logic for if the node to remove is found
         if (search_node->value == removal_value)
         {
             // If the node is the head element, the head element is re-assigned
@@ -223,13 +228,13 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
                     (list->head)->next = search_node->next;
                 }
             }
+            // If the search node is the tail element
             else if (search_node == list->tail)
             {
-                // Search node is assigned to the following node
                 removed_element = search_node->value;
                 // Re-assign the pointer to the tail element
                 list->tail = previous_node;
-                // Re-assigns the tail node's next pointer to NULL
+                // Re-assigns the new tail node's next pointer to NULL
                 previous_node->next = NULL;
             }
             // If the node to remove is any other element in the list
@@ -237,7 +242,7 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
             {
                 // Search node is assigned to the following node
                 removed_element = search_node->value;
-                // Re-assigns the previous node's pointer to point to the node after the node to remove
+                // Re-assigns the previous node's next pointer to point to the node after the node to remove
                 previous_node->next = search_node->next;
             }
 
@@ -248,7 +253,7 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
 
             list->list_size--;
 
-            // If there are no elements in the list, free the memory held by the head and tail pointers
+            // If there are no elements left in the list, free the memory held by the head and tail pointers
             if (list->list_size == 0)
             {
                 free(list->head);
@@ -266,6 +271,7 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
 
             return removed_element;
         }
+        // If the node to remove is not the current element, and there are still elements in the list
         else if (search_node->value != removal_value && sl_list_length(list) != 0)
         {
             // If the current node is not the head node, the pointer to the previous element is re-assigned
@@ -285,11 +291,11 @@ void *remove_sl_node(singly_linked_list *list, void *removal_value)
 /*!
  * @brief Frees the memory held by a singly linked list struct
  * @param list Pointer to a singly linked list struct
- * @return A boolean indicating whether or not any dynamically allocated memory has been freed
+ * @return None
  */
 void free_singly_linked_list(singly_linked_list *list)
 {
-    // Freeing only valid if there are elements in the list
+    // Freeing is only valid if there are elements in the list
     if (list->list_size != 0)
     {
         // Node pointer used to keep track of current node in list

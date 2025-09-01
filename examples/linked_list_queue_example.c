@@ -1,6 +1,6 @@
 /**
  ********************************************************************************
- * @file    linked_list_queue_test.c
+ * @file    linked_list_queue_example.c
  * @author  Kai Gehry
  * @date    2025-03-26
  *

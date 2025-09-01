@@ -1,6 +1,6 @@
 /**
  ********************************************************************************
- * @file    dropout_stack_test.c
+ * @file    dropout_stack_example.c
  * @author  Kai Gehry
  * @date    2025-04-06
  *

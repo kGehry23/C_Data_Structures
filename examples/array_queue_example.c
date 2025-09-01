@@ -1,6 +1,6 @@
 /**
  ********************************************************************************
- * @file    array_stack_test.c
+ * @file    array_stack_example.c
  * @author  Kai Gehry
  * @date    2025-06-07
  *

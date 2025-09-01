@@ -1,7 +1,7 @@
 
 /**
  ********************************************************************************
- * @file    directed_graph_test.c
+ * @file    directed_graph_example.c
  * @author  Kai Gehry
  * @date    2025-06-08
  *
