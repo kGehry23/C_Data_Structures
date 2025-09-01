@@ -179,6 +179,12 @@ void insert_sl_node(singly_linked_list *list, int insert_value, void *insert_aft
             search_node = search_node->next;
         }
     } while (search_node != NULL);
+
+    // Will only print if the node to insert after is invalid
+    if (search_node == NULL)
+    {
+        printf("\nNode to insert after not found.");
+    }
 }
 
 /*!
