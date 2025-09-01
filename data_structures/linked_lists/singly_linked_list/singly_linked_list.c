@@ -78,7 +78,7 @@ void add_sl_node_to_head(singly_linked_list *list, void *insert_value)
     // Linked list node pointer which represents the new node to be added
     singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
 
-    // Defines the head of the linked list
+    // Defines the head of the linked list, if no nodes are on the stack
     if (list->list_size == 0)
     {
         // Sets the value and next pointer of the head node
@@ -117,22 +117,22 @@ void add_sl_node_to_tail(singly_linked_list *list, void *insert_value)
     // Linked list node pointer which represents the new node to be added
     singly_linked_list_node *new_node = (singly_linked_list_node *)malloc(sizeof(singly_linked_list_node));
 
-    if (list->list_size != 0)
+    // Defines the head of the linked list, , if no nodes are on the stack
+    if (list->list_size == 0)
+    {
+        list->head = new_node;
+        (list->head)->value = insert_value;
+        (list->head)->next = NULL;
+
+        list->tail = new_node;
+    }
+    else
     {
         // Sets the value of the new node
         new_node->value = insert_value;
         // Points to the node which will now be at the end of the list
         new_node->next = NULL;
         (list->tail)->next = new_node;
-
-        list->tail = new_node;
-    }
-    // Defines the head of the linked list
-    if (list->list_size == 0)
-    {
-        list->head = new_node;
-        (list->head)->value = insert_value;
-        (list->head)->next = NULL;
 
         list->tail = new_node;
     }
