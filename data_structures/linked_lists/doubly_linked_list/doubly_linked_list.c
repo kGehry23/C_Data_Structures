@@ -122,18 +122,6 @@ void add_dl_node_to_tail(doubly_linked_list *list, void *insert_value)
 	// Linked list node pointer which represents the new node to be added
 	doubly_linked_list_node *new_node = (doubly_linked_list_node *)malloc(sizeof(doubly_linked_list_node));
 
-	if (list->list_size != 0)
-	{
-		// Sets the value of the new node
-		new_node->value = insert_value;
-		// Points to the node which will now be at the end of the list
-		new_node->next = NULL;
-		(list->tail)->next = new_node;
-
-		// Sets the previous node to the original tail element
-		new_node->previous = list->tail;
-		list->tail = new_node;
-	}
 	// Defines the head of the linked list
 	if (list->list_size == 0)
 	{
@@ -142,6 +130,18 @@ void add_dl_node_to_tail(doubly_linked_list *list, void *insert_value)
 		(list->head)->next = NULL;
 		(list->head)->previous = NULL;
 
+		list->tail = new_node;
+	}
+	else
+	{
+		// Sets the value of the new node
+		new_node->value = insert_value;
+		// Tail pointer now points to the node which will be at the end of the list
+		new_node->next = NULL;
+		(list->tail)->next = new_node;
+
+		// Sets the previous node to the original tail element
+		new_node->previous = list->tail;
 		list->tail = new_node;
 	}
 
@@ -158,12 +158,12 @@ void add_dl_node_to_tail(doubly_linked_list *list, void *insert_value)
 void insert_dl_node(doubly_linked_list *list, int insert_value, void *insert_after_value)
 {
 
-	// Pointer used to hold a reference to the tail node in the list traversal
+	// Pointer used to hold a reference to the current node in the list traversal
 	doubly_linked_list_node *search_node = list->head;
 
 	do
 	{
-		// Checks if the tail node has the value equal to the element to insert after
+		// Checks if the node has the value equal to the element to insert after
 		if (search_node->value == insert_after_value)
 		{
 			// Pointer for the node to be inserted
@@ -195,6 +195,12 @@ void insert_dl_node(doubly_linked_list *list, int insert_value, void *insert_aft
 			search_node = search_node->next;
 		}
 	} while (search_node != NULL);
+
+	// Will only print if the node to insert after is invalid
+	if (search_node == NULL)
+	{
+		printf("\nNode to insert after not found.");
+	}
 }
 
 /*!
