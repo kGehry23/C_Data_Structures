@@ -2,7 +2,7 @@
  ********************************************************************************
  * @file    doubly_linked_list.c
  * @author  Kai Gehry
- * @date    2025-0-05
+ * @date    2025-04-05
  *
  * @brief   Defines the operations on a doubly linked list.
  ********************************************************************************
@@ -12,12 +12,6 @@
  * INCLUDES
  ************************************/
 #include "doubly_linked_list.h"
-
-/************************************
- * COMPILER DIRECTIVES
- ************************************/
-// Added for void* to required type conversions
-#pragma GCC diagnostic ignored "-Wint-conversion"
 
 /************************************
  * FUNCTION DEFINITIONS
