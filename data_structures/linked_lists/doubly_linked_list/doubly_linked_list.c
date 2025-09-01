@@ -215,7 +215,7 @@ void *remove_dl_node(doubly_linked_list *list, void *removal_value)
 	doubly_linked_list_node *search_node = list->head;
 	// Pointer used to keep a reference to the previous node in the traversal
 	doubly_linked_list_node *previous_node = list->head;
-	// Integer to hold value of removed node
+	// Integer to hold the value of the removed node
 	void *removed_element;
 
 	do
@@ -230,6 +230,7 @@ void *remove_dl_node(doubly_linked_list *list, void *removal_value)
 				{
 					// search node is assigned to the following node
 					search_node = search_node->next;
+
 					// The value and pointer of the head node are re-assigned
 					(list->head)->value = search_node->value;
 					(list->head)->next = search_node->next;
@@ -239,8 +240,8 @@ void *remove_dl_node(doubly_linked_list *list, void *removal_value)
 			{
 				// Re-assign the pointer to the tail element
 				list->tail = previous_node;
-				// Re-assigns the previous node's next pointer
-				previous_node->next = NULL;
+				// Re-assigns the new tail node's next pointer
+				(list->tail)->next = NULL;
 			}
 			// If the node to remove is any other element in the list
 			else
@@ -274,6 +275,7 @@ void *remove_dl_node(doubly_linked_list *list, void *removal_value)
 			return removed_element;
 		}
 
+		// If the current node node is not the element to remove and there are still elements in the list
 		else if (search_node->value != removal_value && dl_list_length(list) != 0)
 		{
 			// If the current node is not the head node, the pointer to the previous element is re-assigned
