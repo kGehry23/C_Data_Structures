@@ -62,8 +62,8 @@ int main(void)
     add_dl_node_to_tail(&dl_list, 2);
     add_dl_node_to_tail(&dl_list, 3);
     add_dl_node_to_tail(&dl_list, 5);
-    add_dl_node_to_tail(&dl_list, 6);
-    add_dl_node_to_tail(&dl_list, 7);
+    add_dl_node_to_head(&dl_list, 6);
+    add_dl_node_to_head(&dl_list, 7);
 
     // Inserts a node into an inner position in the linked list
     insert_dl_node(&dl_list, 8, 3);

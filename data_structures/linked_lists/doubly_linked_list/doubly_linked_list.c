@@ -2,7 +2,7 @@
  ********************************************************************************
  * @file    doubly_linked_list.c
  * @author  Kai Gehry
- * @date    2025-0-05
+ * @date    2025-04-05
  *
  * @brief   Defines the operations on a doubly linked list.
  ********************************************************************************
@@ -14,17 +14,11 @@
 #include "doubly_linked_list.h"
 
 /************************************
- * COMPILER DIRECTIVES
- ************************************/
-// Added for void* to required type conversions
-#pragma GCC diagnostic ignored "-Wint-conversion"
-
-/************************************
  * FUNCTION DEFINITIONS
  ************************************/
 
 /*!
- * @brief   Initializes a doubly linked list type by setting its list_size variable to 0.
+ * @brief   Initializes a doubly linked list type.
  * @param list  Pointer to the doubly linked list being initalized.
  * @return  None
  */
@@ -99,17 +93,12 @@ void add_dl_node_to_head(doubly_linked_list *list, void *insert_value)
 	}
 	else
 	{
-		doubly_linked_list_node *new_head = (doubly_linked_list_node *)malloc(sizeof(doubly_linked_list_node));
-
 		new_node->value = (list->head)->value;
 		new_node->next = (list->head)->next;
+		new_node->previous = (list->head);
 
-		new_head->value = insert_value;
-		new_head->next = new_node;
-		new_head->previous = NULL;
-		new_node->previous = new_head;
-
-		(list->head) = new_head;
+		(list->head)->value = insert_value;
+		(list->head)->next = new_node;
 
 		// Tail pointer is appropriately reassigned if nodes are only
 		// added to the head of the list
@@ -133,18 +122,6 @@ void add_dl_node_to_tail(doubly_linked_list *list, void *insert_value)
 	// Linked list node pointer which represents the new node to be added
 	doubly_linked_list_node *new_node = (doubly_linked_list_node *)malloc(sizeof(doubly_linked_list_node));
 
-	if (list->list_size != 0)
-	{
-		// Sets the value of the new node
-		new_node->value = insert_value;
-		// Points to the node which will now be at the end of the list
-		new_node->next = NULL;
-		(list->tail)->next = new_node;
-
-		// Sets the previous node to the original tail element
-		new_node->previous = list->tail;
-		list->tail = new_node;
-	}
 	// Defines the head of the linked list
 	if (list->list_size == 0)
 	{
@@ -153,6 +130,18 @@ void add_dl_node_to_tail(doubly_linked_list *list, void *insert_value)
 		(list->head)->next = NULL;
 		(list->head)->previous = NULL;
 
+		list->tail = new_node;
+	}
+	else
+	{
+		// Sets the value of the new node
+		new_node->value = insert_value;
+		// Tail pointer now points to the node which will be at the end of the list
+		new_node->next = NULL;
+		(list->tail)->next = new_node;
+
+		// Sets the previous node to the original tail element
+		new_node->previous = list->tail;
 		list->tail = new_node;
 	}
 
@@ -169,12 +158,12 @@ void add_dl_node_to_tail(doubly_linked_list *list, void *insert_value)
 void insert_dl_node(doubly_linked_list *list, int insert_value, void *insert_after_value)
 {
 
-	// Pointer used to hold a reference to the tail node in the list traversal
+	// Pointer used to hold a reference to the current node in the list traversal
 	doubly_linked_list_node *search_node = list->head;
 
 	do
 	{
-		// Checks if the tail node has the value equal to the element to insert after
+		// Checks if the node has the value equal to the element to insert after
 		if (search_node->value == insert_after_value)
 		{
 			// Pointer for the node to be inserted
@@ -206,6 +195,12 @@ void insert_dl_node(doubly_linked_list *list, int insert_value, void *insert_aft
 			search_node = search_node->next;
 		}
 	} while (search_node != NULL);
+
+	// Will only print if the node to insert after is invalid
+	if (search_node == NULL)
+	{
+		printf("\nNode to insert after not found.");
+	}
 }
 
 /*!
@@ -220,7 +215,7 @@ void *remove_dl_node(doubly_linked_list *list, void *removal_value)
 	doubly_linked_list_node *search_node = list->head;
 	// Pointer used to keep a reference to the previous node in the traversal
 	doubly_linked_list_node *previous_node = list->head;
-	// Integer to hold value of removed node
+	// Integer to hold the value of the removed node
 	void *removed_element;
 
 	do
@@ -235,6 +230,7 @@ void *remove_dl_node(doubly_linked_list *list, void *removal_value)
 				{
 					// search node is assigned to the following node
 					search_node = search_node->next;
+
 					// The value and pointer of the head node are re-assigned
 					(list->head)->value = search_node->value;
 					(list->head)->next = search_node->next;
@@ -244,8 +240,8 @@ void *remove_dl_node(doubly_linked_list *list, void *removal_value)
 			{
 				// Re-assign the pointer to the tail element
 				list->tail = previous_node;
-				// Re-assigns the previous node's next pointer
-				previous_node->next = NULL;
+				// Re-assigns the new tail node's next pointer
+				(list->tail)->next = NULL;
 			}
 			// If the node to remove is any other element in the list
 			else
@@ -279,6 +275,7 @@ void *remove_dl_node(doubly_linked_list *list, void *removal_value)
 			return removed_element;
 		}
 
+		// If the current node node is not the element to remove and there are still elements in the list
 		else if (search_node->value != removal_value && dl_list_length(list) != 0)
 		{
 			// If the current node is not the head node, the pointer to the previous element is re-assigned
@@ -305,7 +302,7 @@ void free_doubly_linked_list(doubly_linked_list *list)
 	if (list->list_size != 0)
 	{
 		// Node pointer used to keep track of current node in list
-		doubly_linked_list_node *node = node = list->head;
+		doubly_linked_list_node *node = list->head;
 		// Array of node pointers
 		doubly_linked_list_node *array[list->list_size];
 
@@ -329,12 +326,6 @@ void free_doubly_linked_list(doubly_linked_list *list)
 			// Avoid dangling pointer
 			array[j] = NULL;
 		}
-
-		free(list->head);
-		list->head = NULL;
-
-		free(list->tail);
-		list->tail = NULL;
 	}
 }
 

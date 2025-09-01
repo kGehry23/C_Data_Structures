@@ -9,6 +9,8 @@ The data_structures folder includes implementations of:
     4. Hash Table -> With chaining used to resolve collisions
     5. Graphs -> Undirected Graph (Adjacency Matrix Implementation), Directed Graph (Adjacency Matrix Implementation)
 
+Future versions will include tree and bitmap implementations. The concept of a Hashed Array Tree (HAT) will be used to implement an N-Ary tree.
+
 ## Compiling and Running a File Using the Library
 
 To compile and run a .c file that uses any of these data structures, the file to compile, as well as the .c file which contains the function definitions of the prototypes can be compiled with gcc as follows:
