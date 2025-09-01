@@ -18,7 +18,7 @@
  ************************************/
 
 /*!
- * @brief   Initializes a doubly linked list type by setting its list_size variable to 0.
+ * @brief   Initializes a doubly linked list type.
  * @param list  Pointer to the doubly linked list being initalized.
  * @return  None
  */
