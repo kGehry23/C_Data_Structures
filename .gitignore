@@ -1,3 +1,2 @@
 *.exe
 /.vscode
-/examples/delete_files.sh
