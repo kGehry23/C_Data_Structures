@@ -451,7 +451,7 @@ bool di_is_connected(directed_graph *di_graph)
 
     for (int i = 0; i < di_graph->num_vertices; i++)
     {
-        current_count = d_graph_breadth_first(di_graph, i, 0);
+        current_count = di_graph_breadth_first(di_graph, i, 0);
 
         if (current_count == di_graph->num_vertices)
         {
@@ -481,16 +481,16 @@ bool di_contains_cycle(directed_graph *di_graph)
     // Current vertex id
     int current_id = 0;
     // Boolean which indicates if all adjacent vertices to a vertex have been visited
-    bool adjacent_not_visited = 0;
+    bool adjacent_not_visited = false;
 
     // Reset the visited booleans for all vertices to false
     for (int i = 0; i < di_graph->num_vertices; i++)
     {
-        if (di_graph->vertices[i]->vertex_name == NULL)
+        if ((di_graph->vertices)[i] == NULL)
         {
             continue;
         }
-        (di_graph->vertices)[i]->visited = 0;
+        (di_graph->vertices)[i]->visited = false;
     }
 
     // Element corresponding to start id is added to the stack
@@ -499,16 +499,19 @@ bool di_contains_cycle(directed_graph *di_graph)
     result_list[result_list_size] = (di_graph->vertices[current_id])->identifier;
     result_list_size++;
     // Vertex marked as visited
-    (di_graph->vertices[current_id])->visited = 1;
+    (di_graph->vertices[current_id])->visited = true;
 
     // While there are elements in the traversal stack, continue the traversal
-    while (traversal_stack.num_elements != 0)
+    while (stack_is_empty(&traversal_stack) == false)
     {
         // Check the vertices attached to the current vertex and mark as not visited if they have not been reached
-        for (int j = 0; j < di_graph->num_vertices && adjacent_not_visited == 0; j++)
+        for (int j = 0; j < di_graph->num_vertices && adjacent_not_visited == false; j++)
         {
-            // If adjacent add vertex to stack and to result list
-            if ((di_graph->adjacency_matrix)[current_id][j] == 1 && (di_graph->vertices[j])->visited == 0)
+
+            printf("\nState for vertex %d: %d", j, (di_graph->vertices[j])->visited);
+
+            // If adjacent has not been visited add vertex to stack and to result list
+            if (((di_graph->adjacency_matrix)[current_id][j] == true || (di_graph->adjacency_matrix)[j][current_id] == true) && (di_graph->vertices[j])->visited == false)
             {
                 // Push adjacent vertex onto traversal stack
                 push(&traversal_stack, (di_graph->vertices[j])->identifier);
@@ -516,16 +519,16 @@ bool di_contains_cycle(directed_graph *di_graph)
                 result_list[result_list_size] = (di_graph->vertices[j])->identifier;
                 result_list_size++;
                 // Mark the vertex as visited
-                (di_graph->vertices[j])->visited = 1;
+                (di_graph->vertices[j])->visited = true;
 
                 // Indicate that all adjacent vertices to the vertex have not been reached
                 // as of this iteration
-                adjacent_not_visited = 1;
+                adjacent_not_visited = true;
             }
         }
 
         // If there are elements in the result list and all adjacent vertices have been visited
-        if (result_list_size > 0 && adjacent_not_visited == 0)
+        if (result_list_size > 0 && adjacent_not_visited == false)
         {
             // Pops an element off of the traversal stack
             pop(&traversal_stack);
@@ -534,27 +537,29 @@ bool di_contains_cycle(directed_graph *di_graph)
         // Update the current vertex id. Peek at the appropriate element's index to continue the traversal
         current_id = peek(&traversal_stack);
 
-        if (adjacent_not_visited == 0)
+        if (adjacent_not_visited == false)
         {
             // If an adjacent node to the current node has already been visited, a cycle exists
             break;
         }
 
         // Reset the adjacent node visited boolean for the next vertex
-        adjacent_not_visited = 0;
+        adjacent_not_visited = false;
     }
+
+    // printf("\nNum elems in traversal stack: %d", traversal_stack.num_elements)
 
     // Free the dynamically allocated memory for the stack
     free_array_stack(&traversal_stack);
 
     // If a cycle exists
-    if (traversal_stack.num_elements != 0 && adjacent_not_visited == 0)
+    if (traversal_stack.num_elements != 0 && adjacent_not_visited == false)
     {
-        return 1;
+        return true;
     }
     // If a cycle does not exist
     else
     {
-        return 0;
+        return false;
     }
 }
