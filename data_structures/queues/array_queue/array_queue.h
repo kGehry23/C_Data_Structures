@@ -76,7 +76,7 @@ int queue_size(array_queue *queue);
 /*!
  * @brief Returns if the queue is empty or not.
  * @param queue Pointer to a queue.
- * @return A boolean value representing if the queue is empty or not empty.
+ * @return A boolean value representing if the queue is empty or not.
  */
 bool queue_is_empty(array_queue *queue);
 
