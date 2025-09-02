@@ -22,7 +22,7 @@
  * @param stack Pointer to a dropout stack stack.
  * @param dropout_limit Limit for the number of items to keep in the
  *                      stack. Items at the bottom of the stack are
- *                      dropped off as when the limit is exceeded.
+ *                      dropped off when the limit is exceeded.
  * @return None
  */
 void initialize_do_stack(dropout_stack *stack, int dropout_limit)
@@ -41,21 +41,22 @@ void push(dropout_stack *stack, void *value)
 {
     add_sl_node_to_head(&(stack->list), value);
 
-    if (stack->list.list_size > stack->stack_limit)
+    // Drops off the bottom element if the stack limit is reached
+    if (size(stack) > stack->stack_limit)
     {
         remove_sl_node(&(stack->list), (stack->list.tail)->value);
     }
 }
 
 /*!
- * @brief Displays the contents of the dropout stack.
+ * @brief Returns and removes the element at the top of the stack.
  * @param stack Pointer to a dropout stack.
  * @return The value held by the node at the top of the stack.
  */
 void *pop(dropout_stack *stack)
 {
     // Avoid access of NULL pointer to head pointer
-    if (stack->list.list_size == 0)
+    if (size(stack) == 0)
     {
         return NULL;
     }
@@ -72,6 +73,11 @@ void *pop(dropout_stack *stack)
  */
 void *peek(dropout_stack *stack)
 {
+    if (size(stack) == 0)
+    {
+        return NULL;
+    }
+
     return return_sl_head(&(stack->list));
 }
 
@@ -88,7 +94,7 @@ int size(dropout_stack *stack)
 /*!
  * @brief Returns if the dropout stack is empty or not.
  * @param queue Pointer to a dropout stack.
- * @return A boolean value representing if the stack is empty (1) or not empty (0)
+ * @return A boolean value representing if the stack is empty or not
  */
 bool is_empty(dropout_stack *stack)
 {
