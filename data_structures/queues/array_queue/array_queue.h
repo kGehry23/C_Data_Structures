@@ -35,7 +35,7 @@ typedef struct
     int end_index;
     // Number of elements currently in the queue
     int num_elements;
-    // Pointer to void* type which will point to the underlying array
+    // Pointer to an array of void* types which will hold the queue elements
     void **array;
 
 } array_queue;
@@ -76,14 +76,14 @@ int queue_size(array_queue *queue);
 /*!
  * @brief Returns if the queue is empty or not.
  * @param queue Pointer to a queue.
- * @return A boolean value representing if the queue is empty (1) or not empty (0).
+ * @return A boolean value representing if the queue is empty or not empty.
  */
 bool queue_is_empty(array_queue *queue);
 
 /*!
  * @brief Initializes the queue.
  * @param queue Pointer to a queue
- * @param num_elements Number of allowable elements in the queue
+ * @param num_elements Max number of elements in the queue
  * @return None
  */
 void initialize_array_queue(array_queue *queue, int queue_size);
