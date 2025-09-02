@@ -73,7 +73,7 @@ int size(linked_list_queue *queue);
 /*!
  * @brief Returns if the queue is empty or not.
  * @param queue Pointer to a linked list queue.
- * @return A boolean value representing if the queue is empty (1) or not empty (0).
+ * @return A boolean value representing if the queue is empty or not
  */
 bool is_empty(linked_list_queue *queue);
 
