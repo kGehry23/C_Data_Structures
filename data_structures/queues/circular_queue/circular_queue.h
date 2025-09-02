@@ -19,12 +19,6 @@
 #include <stdbool.h>
 
 /************************************
- * COMPILER DIRECTIVES
- ************************************/
-// Added for void* to required type conversions
-#pragma GCC diagnostic ignored "-Wint-conversion"
-
-/************************************
  * TYPEDEFS
  ************************************/
 
