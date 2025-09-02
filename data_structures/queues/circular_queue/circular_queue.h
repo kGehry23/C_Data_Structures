@@ -35,7 +35,7 @@ typedef struct
     int end_index;
     // Number of elements currently in the queue
     int num_elements;
-    // Pointer to void* type which will point to the underlying array
+    // Pointer to an array of void* types which will hold the queue elements
     void **array;
 
 } circular_queue;
@@ -76,7 +76,7 @@ int size(circular_queue *circ_queue);
 /*!
  * @brief Returns if the circular queue is empty or not.
  * @param circ_queue Pointer to a circular queue.
- * @return A boolean value representing if the circular queue is empty (1) or not empty (0).
+ * @return A boolean value representing if the circular queue is empty or not.
  */
 bool is_empty(circular_queue *circ_queue);
 
