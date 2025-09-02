@@ -19,12 +19,6 @@
 #include "../../linked_lists/singly_linked_list/singly_linked_list.h"
 
 /************************************
- * COMPILER DIRECTIVES
- ************************************/
-// Added for void* to required type conversions
-#pragma GCC diagnostic ignored "-Wint-conversion"
-
-/************************************
  * TYPEDEFS
  ************************************/
 
@@ -56,7 +50,7 @@ void initialize_stack(linked_list_stack *stack);
 void push(linked_list_stack *stack, void *value);
 
 /*!
- * @brief Displays the contents of the stack.
+ * @brief Removes an returns the element at the top of the stack.
  * @param stack Pointer to a linked list stack.
  * @return The value held by the node at the top of the stack.
  */
@@ -79,7 +73,7 @@ int size(linked_list_stack *stack);
 /*!
  * @brief Returns if the stack is empty or not.
  * @param queue Pointer to a linked list stack.
- * @return A boolean value representing if the stack is empty (1) or not empty (0)
+ * @return A boolean value representing if the stack is empty or not.
  */
 bool is_empty(linked_list_stack *stack);
 
