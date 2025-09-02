@@ -4,7 +4,7 @@
  * @author  Kai Gehry
  * @date    2025-06-24
  *
- * @brief     Defines the structure and operations defined on a dropout stack
+ * @brief   Defines the structure and operations defined on a dropout stack
  ********************************************************************************
  */
 
@@ -17,12 +17,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "../../linked_lists/singly_linked_list/singly_linked_list.h"
-
-/************************************
- * COMPILER DIRECTIVES
- ************************************/
-// Added for void* to required type conversions
-#pragma GCC diagnostic ignored "-Wint-conversion"
 
 /************************************
  * TYPEDEFS
@@ -47,7 +41,7 @@ typedef struct
  * @param stack Pointer to a dropout stack stack.
  * @param dropout_limit Limit for the number of items to keep in the
  *                      stack. Items at the bottom of the stack are
- *                      dropped off as when the limit is exceeded.
+ *                      dropped off when the limit is exceeded.
  * @return None
  */
 void initialize_do_stack(dropout_stack *stack, int dropout_limit);
@@ -65,14 +59,14 @@ void push(dropout_stack *stack, void *value);
  * @param stack Pointer to a dropout stack.
  * @return The value held by the node at the top of the stack.
  */
-int pop(dropout_stack *stack);
+void *pop(dropout_stack *stack);
 
 /*!
  * @brief Returns the element at the top of the stack.
  * @param stack Pointer to a dropout stack.
- * @return The value held by the node at the head of the stack.
+ * @return The value held by the node at the top of the stack.
  */
-int peek(dropout_stack *stack);
+void *peek(dropout_stack *stack);
 
 /*!
  * @brief Returns the size (number of elements) in the stack.
@@ -84,7 +78,7 @@ int size(dropout_stack *stack);
 /*!
  * @brief Returns if the dropout stack is empty or not.
  * @param queue Pointer to a dropout stack.
- * @return A boolean value representing if the stack is empty (1) or not empty (0)
+ * @return A boolean value representing if the stack is empty or not
  */
 bool is_empty(dropout_stack *stack);
 
