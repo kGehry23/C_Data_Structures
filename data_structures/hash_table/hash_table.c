@@ -216,12 +216,22 @@ float percent_occupied(hash_table *table)
 }
 
 /*!
+ * @brief Resizes the hash table when the load factor is exceeded.
+ * @param table Pointer to a hash table
+ * @return None
+ */
+static void resize(hash_table *table)
+{
+    // TO DO
+}
+
+/*!
  * @brief Allows for selecting the hash function to use
  * @param table Pointer to a hash table
  * @param function_select Integer specifying which hash function to use
  * @return None
  */
-void hash_function_select(hash_table *table, int function_select)
+static void hash_function_select(hash_table *table, int function_select)
 {
     switch (function_select)
     {
@@ -240,7 +250,7 @@ void hash_function_select(hash_table *table, int function_select)
  * @param function_select Integer specifying which hash function to use
  * @return None
  */
-void initialize_hash_table(hash_table *table, int size, int function_select)
+void initialize_hash_table(hash_table *table, int size, float load_factor, int function_select)
 {
     // Defines the size of the hash table
     table->table_size = size;
