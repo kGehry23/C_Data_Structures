@@ -26,7 +26,7 @@
 void enqueue(array_queue *queue, void *element)
 {
 
-    // If there are available positions to add to and the end element's index is not equal to the end index
+    // If there are available positions to add to and the end element's index is not equal to the max size of the queue - 1.
     if (queue->num_elements < queue->size && queue->end_index <= queue->size - 1)
     {
 
@@ -90,9 +90,7 @@ void *dequeue(array_queue *queue)
         // void pointer to store the value of the dequeued element
         void *removed_element = (queue->array)[queue->front_index];
 
-        // Frees the memory held by the dequeued element
-        free((queue->array)[queue->front_index]);
-        // Avoids dangling pointer
+        // Nulls the front element once dequeued
         (queue->array)[queue->front_index] = NULL;
 
         // Updates the front index
@@ -145,7 +143,7 @@ int queue_size(array_queue *queue)
 /*!
  * @brief Returns if the queue is empty or not.
  * @param queue Pointer to a queue.
- * @return A boolean value representing if the queue is empty (1) or not empty (0).
+ * @return A boolean value representing if the queue is empty or not.
  */
 bool queue_is_empty(array_queue *queue)
 {
@@ -162,12 +160,12 @@ void initialize_array_queue(array_queue *queue, int queue_size)
 {
     // Defines the number of allowable elements in the array
     queue->size = queue_size;
-    // Set the initial top and bottom indices to 0
+    // Set the initial front and end indices to 0
     queue->front_index = 0;
     queue->end_index = 0;
     queue->num_elements = 0;
 
-    //  Create an array of the specified size
+    // Allocate memory for an array of the specified size
     queue->array = malloc(queue_size * sizeof(void *));
 }
 
@@ -184,7 +182,7 @@ void free_array_queue(array_queue *queue)
     {
         free(&(queue->array[i]));
     }
-    // Avoid dangling pointer
+    // Avoid dangling pointer to the array
     queue->array = NULL;
 }
 
