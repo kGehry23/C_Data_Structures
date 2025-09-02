@@ -65,7 +65,7 @@ int main(void)
     printf("\nNumber of vertices: %d", graph_size(&d_graph));
 
     // Frees the memory held by the directed graph
-    free_d_graph(&d_graph);
+    free_di_graph(&d_graph);
 
     return 0;
 }
