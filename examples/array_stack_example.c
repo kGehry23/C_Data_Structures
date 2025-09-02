@@ -13,6 +13,7 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
+#include <string.h>
 #include "../data_structures/stacks/array_stack/array_stack.h"
 
 /*!
@@ -39,7 +40,7 @@ int main(void)
     initialize_array_stack(&stack, 5);
 
     // Checks if the stack is empty
-    printf("\nEmpty: %d", stack_is_empty(&stack));
+    printf("\nEmpty: %s\n", stack_is_empty(&stack) ? "true" : "false");
 
     // Pushes elements onto the stack
     push(&stack, 1);
@@ -52,7 +53,7 @@ int main(void)
     push(&stack, 6);
 
     // Checks if the stack is empty
-    printf("\nEmpty: %d\n", stack_is_empty(&stack));
+    printf("\nEmpty: %s\n", stack_is_empty(&stack) ? "true" : "false");
 
     // Returns the number of elements in the stack
     printf("\nNumber of elements in stack: %d", stack_size(&stack));

@@ -19,12 +19,6 @@
 #include <stdbool.h>
 
 /************************************
- * COMPILER DIRECTIVES
- ************************************/
-// Added for void* to required type conversions
-#pragma GCC diagnostic ignored "-Wint-conversion"
-
-/************************************
  * TYPEDEFS
  ************************************/
 
@@ -41,7 +35,7 @@ typedef struct
     int stack_pointer;
     // Number of elements currently in the stack
     int num_elements;
-    //  Pointer to a void* type which will point to the underlying array
+    // Pointer to an array of void* types which will hold the stack elements
     void **array;
 
 } array_stack;
@@ -82,7 +76,7 @@ int stack_size(array_stack *stack);
 /*!
  * @brief Returns if the stack is empty or not.
  * @param queue Pointer to a stack.
- * @return A boolean value representing if the stack is empty (1) or not empty (0)
+ * @return A boolean value representing if the stack is empty or not.
  */
 bool stack_is_empty(array_stack *stack);
 
@@ -95,8 +89,7 @@ bool stack_is_empty(array_stack *stack);
 void initialize_array_stack(array_stack *stack, int stack_size);
 
 /*!
- * @brief Prints the contents of the array based stack to the terminal. Can be
- *        uncommented if the type of the element to be stored remains constant.
+ * @brief Prints the contents of the array based stack to the terminal.
  * @param stack Pointer to a stack
  * @return None
  */

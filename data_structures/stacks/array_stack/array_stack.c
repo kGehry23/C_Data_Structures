@@ -54,34 +54,38 @@ void push(array_stack *stack, void *element)
  */
 void *pop(array_stack *stack)
 {
-    // Get the element at the top of the stack
-    void *top = (stack->array)[stack->top_index];
-    // Sets the removed element to NULL
-    (stack->array)[stack->top_index] = NULL;
 
-    if (stack->num_elements > 1 && stack->num_elements < stack->size)
+    if (stack_size(stack) > 0)
     {
-        stack->stack_pointer = stack->stack_pointer - 1;
-        stack->top_index = stack->top_index - 1;
-    }
-    // If only one element on the stack
-    else if (stack->num_elements == 1)
-    {
-        stack->stack_pointer = stack->stack_pointer - 1;
-    }
-    // If the number of elements in the stack is equal to the stack size
-    else if (stack->num_elements == stack->size)
-    {
-        stack->top_index = stack->top_index - 1;
+        // Get the element at the top of the stack
+        void *top = (stack->array)[stack->top_index];
+        // Sets the removed element to NULL
+        (stack->array)[stack->top_index] = NULL;
+
+        if (stack->num_elements > 1 && stack->num_elements < stack->size)
+        {
+            stack->stack_pointer = stack->stack_pointer - 1;
+            stack->top_index = stack->top_index - 1;
+        }
+        // If only one element on the stack
+        else if (stack->num_elements == 1)
+        {
+            stack->stack_pointer = stack->stack_pointer - 1;
+        }
+        // If the number of elements in the stack is equal to the stack size
+        else if (stack->num_elements == stack->size)
+        {
+            stack->top_index = stack->top_index - 1;
+        }
+
+        stack->num_elements--;
+        return top;
     }
     else
     {
         printf("\nStack empty");
+        return NULL;
     }
-
-    stack->num_elements--;
-
-    return top;
 }
 
 /*!
@@ -91,6 +95,11 @@ void *pop(array_stack *stack)
  */
 void *peek(array_stack *stack)
 {
+    if (stack_size(stack) == 0)
+    {
+        return NULL;
+    }
+
     return (stack->array)[stack->top_index];
 }
 
@@ -107,7 +116,7 @@ int stack_size(array_stack *stack)
 /*!
  * @brief Returns if the stack is empty or not.
  * @param queue Pointer to a stack.
- * @return A boolean value representing if the stack is empty (1) or not empty (0)
+ * @return A boolean value representing if the stack is empty or not
  */
 bool stack_is_empty(array_stack *stack)
 {
@@ -129,8 +138,8 @@ void initialize_array_stack(array_stack *stack, int stack_size)
     stack->stack_pointer = 0;
     // Initialize the number of elements to 0
     stack->num_elements = 0;
-    //  Create an array of the specified size
-    stack->array = (void *)malloc(stack_size * sizeof(void *));
+    // Create an array of the specified size
+    stack->array = malloc(stack_size * sizeof(void *));
 
     // Set all elements in the stack to NULL
     for (int i = 0; i < stack->size; i++)
@@ -140,7 +149,7 @@ void initialize_array_stack(array_stack *stack, int stack_size)
 }
 
 /*!
- * @brief Frees the memory dynamically allocated for the stack
+ * @brief Frees the dynamically allocated memory for the stack
  * @param stack Pointer to a stack
  * @return None
  */
@@ -165,10 +174,10 @@ void free_array_stack(array_stack *stack)
  * @param stack Pointer to a stack
  * @return None
  */
-void display_stack(array_stack *stack)
-{
-    for (int i = (stack->size - 1); i >= 0; i--)
-    {
-        printf("\n%d", (stack->array)[i]);
-    }
-}
+// void display_stack(array_stack *stack)
+// {
+//     for (int i = (stack->size - 1); i >= 0; i--)
+//     {
+//         printf("\n%d", (stack->array)[i]);
+//     }
+// }
