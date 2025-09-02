@@ -13,6 +13,7 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
+#include <string.h>
 #include "../data_structures/stacks/linked_list_stack/linked_list_stack.h"
 
 /*!
@@ -53,7 +54,6 @@ void display_stack(linked_list_stack *stack)
  */
 int main(void)
 {
-
     // Creates a new stack
     linked_list_stack stack;
 
@@ -61,7 +61,7 @@ int main(void)
     initialize_stack(&stack);
 
     // Checks if the stack is empty
-    printf("\nEmpty: %d\n", is_empty(&stack));
+    printf("\nEmpty: %s\n", is_empty(&stack) ? "true" : "false");
 
     // Adds an element to the stack and returns the top element without removing it.
     push(&stack, 1);
@@ -79,7 +79,8 @@ int main(void)
     printf("\nTop of stack: %d", peek(&stack));
 
     printf("\nSize of stack: %d", size(&stack));
-    printf("\nEmpty: %d", is_empty(&stack));
+    // Checks if the stack is empty
+    printf("\nEmpty: %s\n", is_empty(&stack) ? "true" : "false");
 
     display_stack(&stack);
 

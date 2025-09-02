@@ -39,14 +39,14 @@ void push(linked_list_stack *stack, void *value)
 }
 
 /*!
- * @brief Displays the contents of the stack.
+ * @brief Removes and returns the element at the top of the stack.
  * @param stack Pointer to a linked list stack.
  * @return The value held by the node at the top of the stack.
  */
 void *pop(linked_list_stack *stack)
 {
     // Avoid access of NULL pointer to head pointer
-    if (stack->list.list_size == 0)
+    if (size(stack) == 0)
     {
         return NULL;
     }
@@ -59,10 +59,15 @@ void *pop(linked_list_stack *stack)
 /*!
  * @brief Returns the element at the top of the stack.
  * @param stack Pointer to a linked list stack.
- * @return The value held by the node at the head of the stack.
+ * @return The value held by the node at the top of the stack.
  */
 void *peek(linked_list_stack *stack)
 {
+    if (size(stack) == 0)
+    {
+        return NULL;
+    }
+
     return return_sl_head(&(stack->list));
 }
 
@@ -79,7 +84,7 @@ int size(linked_list_stack *stack)
 /*!
  * @brief Returns if the stack is empty or not.
  * @param queue Pointer to a linked list stack.
- * @return A boolean value representing if the stack is empty (1) or not empty (0)
+ * @return A boolean value representing if the stack is empty or not.
  */
 bool is_empty(linked_list_stack *stack)
 {
