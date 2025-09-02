@@ -101,6 +101,11 @@ void *front(linked_deque *deque)
  */
 void *back(linked_deque *deque)
 {
+    if (size(deque) == 0)
+    {
+        return NULL;
+    }
+
     return return_dl_tail(&(deque->list));
 }
 
@@ -117,7 +122,7 @@ int size(linked_deque *deque)
 /*!
  * @brief Returns if the deque is empty or not.
  * @param deque Pointer to a deque.
- * @return A boolean value representing if the deque is empty (1) or not empty (0).
+ * @return A boolean value representing if the deque is empty or not.
  */
 bool is_empty(linked_deque *deque)
 {
