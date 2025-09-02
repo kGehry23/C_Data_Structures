@@ -19,12 +19,6 @@
 #include <stdbool.h>
 
 /************************************
- * COMPILER DIRECTIVES
- ************************************/
-// Added for void* to required type conversions
-#pragma GCC diagnostic ignored "-Wint-conversion"
-
-/************************************
  * TYPEDEFS
  ************************************/
 
@@ -41,7 +35,7 @@ typedef struct
     int stack_pointer;
     // Number of elements currently in the stack
     int num_elements;
-    //  Pointer to a void* type which will point to the underlying array
+    // Pointer to an array of void* types which will hold the stack elements
     void **array;
 
 } array_stack;
