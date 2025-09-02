@@ -69,6 +69,7 @@ typedef struct
 /*!
  * @brief Adds a vertex to the directed graph
  * @param ud_graph Pointer to a directed graph
+ * @param name String identifier for the vertex
  * @param identifier Value to identify the vertex by
  * @param vertex_value Value stored by the vertex
  * @return None

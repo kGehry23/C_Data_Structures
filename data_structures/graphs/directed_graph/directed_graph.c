@@ -20,6 +20,7 @@
 /*!
  * @brief Adds a vertex to the directed graph
  * @param di_graph Pointer to an directed graph
+ * @param name String identifier for the vertex
  * @param identifier Value to identify the vertex by
  * @param vertex_value Value stored by the vertex
  * @return None
@@ -37,7 +38,7 @@ void add_vertex(directed_graph *di_graph, char *name, int identifier, void *vert
         new_vertex->identifier = identifier;
         new_vertex->value = vertex_value;
         new_vertex->adj_index = identifier;
-        new_vertex->visited = 0;
+        new_vertex->visited = false;
 
         // Add vertex to the graph
         di_graph->vertices[identifier] = new_vertex;
@@ -75,7 +76,7 @@ void *remove_vertex(directed_graph *di_graph, int identifier)
                 (di_graph->adjacency_matrix)[i][identifier] = false;
                 di_graph->num_edges--;
             }
-            else if (edge_exists(di_graph, identifier, i) == true)
+            if (edge_exists(di_graph, identifier, i) == true)
             {
                 (di_graph->adjacency_matrix)[identifier][i] = false;
                 di_graph->num_edges--;
@@ -87,7 +88,7 @@ void *remove_vertex(directed_graph *di_graph, int identifier)
 
         return removed_vertex_value;
     }
-
+    // If the vertex does not exist in the graph
     else
     {
         return NULL;
@@ -102,20 +103,25 @@ void *remove_vertex(directed_graph *di_graph, int identifier)
  */
 void *return_vertex_value(directed_graph *di_graph, int identifier)
 {
+    if (di_graph->vertices[identifier] = NULL)
+    {
+        return NULL;
+    }
+
     return (di_graph->vertices[identifier])->value;
 }
 
 /*!
  * @brief Checks if there is an edge between two vertices
- * @param di_graph Pointer to a directed graph
- * @param vertex_id_1 Identifier of the first vertex
- * @param vertex_id_2 Identifier of the second vertex
+ * @param di_graph Pointer to an directed graph
+ * @param from_id Identifier of vertex the edge comes from
+ * @param to_id Identifier of the vertex the edge goes to
  * @return A boolean value indicating if an edge exists between the specified vertices
  */
-bool edge_exists(directed_graph *di_graph, int vertex_id_1, int vertex_id_2)
+bool edge_exists(directed_graph *di_graph, int from_id, int to_id)
 {
     // Checks if the specified vertices have an edge between them
-    return ((di_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] == 1);
+    return ((di_graph->adjacency_matrix)[from_id][to_id] == true);
 }
 
 /*!
@@ -128,10 +134,10 @@ bool edge_exists(directed_graph *di_graph, int vertex_id_1, int vertex_id_2)
 void add_edge(directed_graph *di_graph, int from_vertex_id, int to_vertex_id)
 {
     // Only adds the edge if an edge does not already exist
-    if (edge_exists(di_graph, from_vertex_id, to_vertex_id) == 0)
+    if (edge_exists(di_graph, from_vertex_id, to_vertex_id) == false)
     {
-        // Updates the relevant indices in the adjacency matrix to TRUE (1)
-        (di_graph->adjacency_matrix)[from_vertex_id][to_vertex_id] = 1;
+        // Updates the relevant indices in the adjacency matrix to true
+        (di_graph->adjacency_matrix)[from_vertex_id][to_vertex_id] = true;
 
         // Increment the counter for the number of edges
         di_graph->num_edges = di_graph->num_edges + 1;
@@ -148,10 +154,10 @@ void add_edge(directed_graph *di_graph, int from_vertex_id, int to_vertex_id)
 void remove_edge(directed_graph *di_graph, int from_vertex_id, int to_vertex_id)
 {
     // Removes the edge if it exists
-    if (edge_exists(di_graph, from_vertex_id, to_vertex_id) == 1)
+    if (edge_exists(di_graph, from_vertex_id, to_vertex_id) == true)
     {
-        // Updates the relevant indices in the adjacency matrix to FALSE (0)
-        (di_graph->adjacency_matrix)[from_vertex_id][to_vertex_id] = 0;
+        // Updates the relevant indices in the adjacency matrix to false
+        (di_graph->adjacency_matrix)[from_vertex_id][to_vertex_id] = false;
 
         // Decrement the counter for the number of edges
         di_graph->num_edges = di_graph->num_edges - 1;
@@ -234,12 +240,12 @@ void free_di_graph(directed_graph *di_graph)
 }
 
 /*!
- * @brief Prints the result of the depth first traversal to the terminal
+ * @brief Preforms a depth first traversal of the graph.
  *
  *        Adapted from Java Foundations, 5th Ed.
  *
- * @param di_graph Pointer to an directed graph
- * @param start Pointer to the node to begin the traversal at
+ * @param di_graph Pointer to a directed graph
+ * @param start_id Id of the vertex to start at
  * @param print_flag A boolean indicating whether or not to print the result to the terminal
  * @return An integer representing the number of vertices in the depth first traversal
  */
@@ -339,7 +345,7 @@ int di_graph_depth_first(directed_graph *di_graph, int start_id, bool print_flag
 }
 
 /*!
- * @brief Prints the result of the breadth first traversal to the terminal
+ * @brief Performs a breadth first traversal of the graph
  * @param di_graph Pointer to a directed graph
  * @param start_id Id of the vertex to start at
  * @param print_flag A boolean indicating whether or not to print the result to the terminal
