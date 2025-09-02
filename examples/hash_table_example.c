@@ -23,7 +23,7 @@ int main(void)
     hash_table table;
 
     // Initialize the hash table
-    initialize_hash_table(&table, 5, 0);
+    initialize_hash_table(&table, 5, 0.5, 0);
 
     // Add key value pairs
     put(&table, 756473, 4);

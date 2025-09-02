@@ -56,11 +56,9 @@ void put(hash_table *table, void *hash_key, void *hash_value)
     else
     {
         // Allocate memory for a hash_node pointer and assign to the first element in the hash table
-        hash_node *node = (hash_node *)malloc(sizeof(hash_node));
-        node = &((table->array)[index]);
-
-        // Allocate memory for a previous node hash_node pointer
-        hash_node *previous_node = (hash_node *)malloc(sizeof(hash_node));
+        hash_node *node = &((table->array)[index]);
+        // Pointer to keep track of the previous node
+        hash_node *previous_node;
 
         // Indicates a collision has occurred
         collision = true;
@@ -99,7 +97,7 @@ void put(hash_table *table, void *hash_key, void *hash_value)
 /*!
  * @brief Returns the element associated with a key
  * @param table Pointer to a hash table
- * @param hash_key Key to create an index from
+ * @param hash_key Key associated with the element
  * @return The value associated with the specified key
  */
 void *get(hash_table *table, void *hash_key)
@@ -121,8 +119,7 @@ void *get(hash_table *table, void *hash_key)
     else
     {
         // Allocate memory for traversal node
-        hash_node *node = (hash_node *)malloc(sizeof(hash_node));
-        node = &((table->array)[index]);
+        hash_node *node = &((table->array)[index]);
 
         // While the key does not match the one specified, continue traversing the nodes at a given index
         while (node->key != hash_key)
@@ -143,7 +140,7 @@ void *get(hash_table *table, void *hash_key)
 /*!
  * @brief Removes a key value pair from the hash table
  * @param table Pointer to a hash table
- * @param hash_key Key to create an index from
+ * @param hash_key Key associated with the element
  * @return None
  */
 void remove_hash(hash_table *table, void *hash_key)
@@ -152,14 +149,13 @@ void remove_hash(hash_table *table, void *hash_key)
     int index = (table->hash_function)(table, hash_key);
 
     // Allocate memory for traversal node
-    hash_node *node = (hash_node *)malloc(sizeof(hash_node));
-    node = &((table->array)[index]);
+    hash_node *node = &((table->array)[index]);
 
     // Allocate memory for a previous node hash_node pointer
-    hash_node *previous_node = (hash_node *)malloc(sizeof(hash_node));
+    hash_node *previous_node;
 
     // While the key does not match the one specified, continue traversing the nodes at a given index
-    while (node->key != hash_key)
+    while (node != NULL && node->key != hash_key)
     {
         previous_node = node;
         node = node->next;
@@ -181,12 +177,10 @@ void remove_hash(hash_table *table, void *hash_key)
     // other node in the chain
     else if (node->previous == NULL && node->next != NULL)
     {
-
         node->key = (node->next)->key;
         node->value = (node->next)->value;
 
-        hash_node *next_node = (hash_node *)malloc(sizeof(hash_node));
-        next_node = (node->next)->next;
+        hash_node *next_node = (node->next)->next;
 
         // Release memory held by next node of node to remove.
         // Does not release memory allocated for hash table position.
@@ -222,7 +216,7 @@ float percent_occupied(hash_table *table)
  */
 static void resize(hash_table *table)
 {
-    // TO DO
+    // TODO
 }
 
 /*!
@@ -281,20 +275,35 @@ void initialize_hash_table(hash_table *table, int size, float load_factor, int f
  */
 void free_hash_table(hash_table *table)
 {
-    for (int i = 0; i < table->num_elements; i++)
-    {
-        // Frees the memory held by the next reference to the current node if one exists
-        free(((table->array)[i]).next);
-        // Avoid dangling pointer
-        ((table->array)[i]).next = NULL;
+    // for (int i = 0; i < table->num_elements; i++)
+    // {
 
-        // Frees the memory held by the previous reference to the current node if one exists
-        free(((table->array)[i]).previous);
-        // Avoid dangling pointer
-        ((table->array)[i]).previous = NULL;
+    int i = 0;
+
+    while (i < table->table_size)
+    {
+
+        if (((table->array)[i]).next != NULL)
+        {
+            // Frees the memory held by the next reference to the current node if one exists
+            free(((table->array)[i]).next);
+            // Avoid dangling pointer
+            ((table->array)[i]).next = NULL;
+        }
+
+        if (((table->array)[i]).previous != NULL)
+        {
+            // Frees the memory held by the previous reference to the current node if one exists
+            free(((table->array)[i]).previous);
+            // Avoid dangling pointer
+            ((table->array)[i]).previous = NULL;
+        }
 
         // Frees the node itself
         free(&(table->array[i]));
+
+        // Increment the index variable
+        i++;
     }
 
     // Free the memory dynamically allocated for the hash table array
