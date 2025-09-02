@@ -1,6 +1,6 @@
 /**
  ********************************************************************************
- * @file    circular_queue.h
+ * @file    circular_queue.c
  * @author  Kai Gehry
  * @date    2025-06-02
  *
@@ -60,8 +60,6 @@ void *dequeue(circular_queue *circ_queue)
         // void pointer to store the value of the dequeued element
         void *removed_element = (circ_queue->array)[circ_queue->front_index];
 
-        // Frees the memory held by the dequeued element
-        free((circ_queue->array)[circ_queue->front_index]);
         //  Assigns the value at the position of the removed element to null
         (circ_queue->array)[circ_queue->front_index] = NULL;
 
@@ -109,7 +107,7 @@ int size(circular_queue *circ_queue)
 /*!
  * @brief Returns if the circular queue is empty or not.
  * @param circ_queue Pointer to a circular queue.
- * @return A boolean value representing if the circular queue is empty (1) or not empty (0).
+ * @return A boolean value representing if the circular queue is empty or not.
  */
 bool is_empty(circular_queue *circ_queue)
 {
@@ -131,8 +129,8 @@ void initialize_circular_queue(circular_queue *circ_queue, int queue_size)
     circ_queue->end_index = 0;
     circ_queue->num_elements = 0;
 
-    //  Create an array of the specified size to hold the queue elements
-    circ_queue->array = (void *)malloc(queue_size * sizeof(void *));
+    // Create an array of the specified size to hold the queue elements
+    circ_queue->array = malloc(queue_size * sizeof(void *));
 }
 
 /*!
@@ -140,11 +138,17 @@ void initialize_circular_queue(circular_queue *circ_queue, int queue_size)
  * @param list Pointer to a circular queue.
  * @return None
  */
-void free_circular_queue(circular_queue *queue)
+void free_circular_queue(circular_queue *circ_queue)
 {
-    free(queue->array);
-    // Avoid dangling pointer
-    queue->array = NULL;
+
+    // Frees the memory held by each element of the array holding the queue items
+    for (int i = circ_queue->num_elements - 1; i >= 0; i--)
+    {
+        free(&(circ_queue->array[i]));
+    }
+
+    // Avoid dangling pointer to the array
+    circ_queue->array = NULL;
 }
 
 /*!
