@@ -28,25 +28,33 @@ int main(void)
     // Add key value pairs
     put(&table, 756473, 4);
     put(&table, 756472, 3);
-    put(&table, 756478, 1);
+    // put(&table, 756478, 1);
+    printf("\nValue for key 756473: %d", get(&table, 756473));
+    printf("\nValue for key 756472: %d", get(&table, 756472));
+    // printf("\nValue for key 756478: %d", get(&table, 756478));
     printf("\nPercent Occupied: %f", percent_occupied(&table));
+    printf("\nNum elems: %d", table.num_elements);
     put(&table, 657435, 7);
+    put(&table, 756479, 5);
 
     // Return the values associated with specified keys
-    printf("\nValue for key 756473: %d", get(&table, 756473));
+    // printf("\nValue for key 756473: %d", get(&table, 756473));
     // printf("\nValue for key 756471: %d", get(&table, 756471));
-    printf("\nValue for key 756478: %d", get(&table, 756478));
-    printf("\nValue for key 657435: %d", get(&table, 657435));
+    printf("\nValue for key 756472: %d", get(&table, 756472));
+    printf("\nValue for key 756473: %d", get(&table, 756473));
+    printf("\nValue for key 756479: %d", get(&table, 756479));
+
+    // printf("\nValue for key 756478: %d", get(&table, 756478));
 
     // Remove hashed elements
-    remove_hash(&table, 756473);
+    // remove_hash(&table, 756473);
     // remove_hash(&table, 756471);
 
-    // Check resulting return values once an element has been removed
-    printf("\n\nValue for key 756473: %s", get(&table, 756473));
-    // printf("\nValue for key 756471: %d", get(&table, 756471));
-    printf("\nValue for key 756478: %d", get(&table, 756478));
-    printf("\nValue for key 657435: %d", get(&table, 657435));
+    // // Check resulting return values once an element has been removed
+    // // printf("\n\nValue for key 756473: %s", get(&table, 756473));
+    // // printf("\nValue for key 756471: %d", get(&table, 756471));
+    // printf("\nValue for key 756478: %d", get(&table, 756478));
+    // printf("\nValue for key 657435: %d", get(&table, 657435));
 
     // Return the number of elements at different indices in the table
     printf("\n\nSize: %d", table.num_elements);

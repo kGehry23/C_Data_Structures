@@ -17,7 +17,7 @@
  ************************************/
 #include <stdio.h>
 #include <stdlib.h>
-#include <strings.h>
+#include <string.h>
 #include <stdbool.h>
 
 /************************************
@@ -124,7 +124,7 @@ void initialize_hash_table(hash_table *table, int size, float load_factor, int f
  * @param table Pointer to a hash table
  * @return None
  */
-static void resize(hash_table *table);
+void resize(hash_table *table);
 
 /*!
  * @brief Frees the memory held by the hash table.
