@@ -29,6 +29,7 @@ int main(void)
     put(&table, 756473, 4);
     put(&table, 756472, 3);
     put(&table, 756478, 1);
+    printf("\nPercent Occupied: %f", percent_occupied(&table));
     put(&table, 657435, 7);
 
     // Return the values associated with specified keys

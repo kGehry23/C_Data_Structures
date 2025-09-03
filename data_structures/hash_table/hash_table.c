@@ -39,6 +39,11 @@ int division(hash_table *table, void *hash_key)
  */
 void put(hash_table *table, void *hash_key, void *hash_value)
 {
+    if (percent_occupied(table) >= table->load_factor * 100)
+    {
+        resize(table);
+    }
+
     // Calculate the index to store the element at
     int index = (table->hash_function)(table, hash_key);
     // Boolean used to track if a collision has occurred.
@@ -214,10 +219,108 @@ float percent_occupied(hash_table *table)
  * @param table Pointer to a hash table
  * @return None
  */
-static void resize(hash_table *table)
+void resize(hash_table *table)
 {
-    // TODO
+
+    // Double the size of the current hash table
+
+    hash_node *old_array = (hash_node *)malloc(table->table_size * sizeof(hash_node));
+
+    // Issue may be here
+    for (int i = 0; i < table->table_size; i++)
+    {
+        old_array[i] = table->array[i];
+    }
+
+    hash_node *new_array = (hash_node *)realloc(table->array, (table->table_size * 2));
+    table->array = new_array;
+
+    for (int i = 0; i < table->table_size; i++)
+    {
+        hash_node *node = &(old_array[i]);
+
+        if (node->value == NULL)
+        {
+            continue;
+        }
+        if (node->value != NULL)
+        {
+            while (node->next != NULL)
+            {
+
+                if (node->key != NULL)
+                {
+                    put(table, node->key, node->value);
+                }
+
+                node = node->next;
+            }
+
+            for (int j = 0; j < table->table_size; j++)
+            {
+                free(&(old_array[j]));
+            }
+        }
+    }
 }
+
+// void put_rehash(hash_table *table, hash_node *array, void *hash_key, void *hash_value)
+// {
+
+//     // Calculate the index to store the element at
+//     int index = (table->hash_function)(table, hash_key);
+//     // Boolean used to track if a collision has occurred.
+//     bool collision = false;
+
+//     // Entered if only one element is hashed to a given location
+//     if (array[index].key == NULL)
+//     {
+//         // Assign the value to be stored by the node in the table entry
+//         (array[index]).value = hash_value;
+//         // Assign the associated hash key to the node
+//         (array[index]).key = hash_key;
+//     }
+
+//     else
+//     {
+//         // Allocate memory for a hash_node pointer and assign to the first element in the hash table
+//         hash_node *node = &(array[index]);
+//         // Pointer to keep track of the previous node
+//         hash_node *previous_node;
+
+//         // Indicates a collision has occurred
+//         collision = true;
+
+//         // Traverse the hash table entry until the next reference is NULL.
+//         // Artifact of collisions
+//         while (node->next != NULL)
+//         {
+//             previous_node = node;
+//             node = node->next;
+//         }
+
+//         // Allocate memory for the next node at a given table location
+//         hash_node *next_node = (hash_node *)malloc(sizeof(hash_node));
+
+//         // Assign this node's next node to NULL
+//         next_node->next = NULL;
+//         // Assign the previous node pointer to the predecessor of the current node
+//         next_node->previous = previous_node;
+//         // Assign the value to be stored by the node in the table entry
+//         next_node->value = hash_value;
+//         // Assign the associated hash key to the node
+//         next_node->key = hash_key;
+
+//         // Assigns the next node
+//         node->next = next_node;
+//     }
+
+//     // If a collision did not occur, the counter for the number of elements is incremented
+//     if (collision == false)
+//     {
+//         table->num_elements++;
+//     }
+// }
 
 /*!
  * @brief Allows for selecting the hash function to use
