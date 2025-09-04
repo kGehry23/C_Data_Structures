@@ -44,7 +44,7 @@ typedef struct
     doubly_linked_list_node *head;
     // Pointer to the element at the tail of the doubly linked list
     doubly_linked_list_node *tail;
-    // Size of the doubly linked list
+    // Number of elements in the doubly linked list
     int list_size;
 } doubly_linked_list;
 
