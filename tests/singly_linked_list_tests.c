@@ -504,7 +504,7 @@ int main(void)
     size_test();
 
     // Prints only if all tests pass
-    printf("All tests passed.");
+    printf("\nSingly linked list tests passed.\n\n");
 
     return 0;
 }

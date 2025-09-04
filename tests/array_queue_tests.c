@@ -352,7 +352,7 @@ int main(void)
     add_beyond_capacity_test(&f1, &f2, &f3, &f4, &f5);
     add_beyond_capacity_test(&d1, &d2, &d3, &d4, &d5);
 
-    printf("\nAll tests passed.");
+    printf("\nArray queue tests passed.");
 
     return 0;
 }

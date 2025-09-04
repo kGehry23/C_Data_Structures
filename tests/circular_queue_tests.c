@@ -298,8 +298,6 @@ int main(void)
     float f1 = 1.0f;
     enqueue_one_test(&f1);
 
-    printf("\nAll tests passed.");
-
     enqueue_multiple_test(1, 2, 3, 4);
     enqueue_multiple_test('A', 'B', 'C', 'D');
     enqueue_multiple_test("Test1", "Test2", "Test3", "Test4");
@@ -341,6 +339,8 @@ int main(void)
     add_beyond_capacity_test("Test1", "Test2", "Test3", "Test4", "Test5");
     add_beyond_capacity_test(&d1, &d2, &d3, &d4, &d5);
     add_beyond_capacity_test(&f1, &f2, &f3, &f4, &f5);
+
+    printf("\nCircular queue tests passed.\n\n");
 
     return 0;
 }
