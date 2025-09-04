@@ -23,12 +23,6 @@
 #include "../../stacks/array_stack/array_stack.h"
 
 /************************************
- * COMPILER DIRECTIVES
- ************************************/
-// Added for void* to required type conversions
-#pragma GCC diagnostic ignored "-Wint-conversion"
-
-/************************************
  * TYPEDEFS
  ************************************/
 
@@ -75,6 +69,7 @@ typedef struct
 /*!
  * @brief Adds a vertex to the undirected graph
  * @param ud_graph Pointer to an undirected graph
+ * @param name String identifier for the vertex
  * @param identifier Value to identify the vertex by
  * @param vertex_value Value stored by the vertex
  * @return None
@@ -127,6 +122,7 @@ bool edge_exists(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2);
 
 /*!
  * @brief Returns the number of vertices in the graph
+ * @param ud_graph Pointer to an undirected graph
  * @return An integer representing the number of vertices in the graph
  */
 int graph_size(undirected_graph *ud_graph);
@@ -148,15 +144,18 @@ void free_ud_graph(undirected_graph *ud_graph);
 
 /*!
  * @brief Prints the result of the depth first traversal to the terminal
+ *
+ *        Adapted from Java Foundations, 5th Ed.
+ *
  * @param d_graph Pointer to an undirected graph
  * @param start Pointer to the node to begin the traversal at
  * @param print_flag A boolean indicating whether or not to print the result to the terminal
  * @return An integer representing the number of vertices in the depth first traversal
  */
-int ud_graph_depth_first(undirected_graph *ud_graph, int start, bool print_flag);
+int ud_graph_depth_first(undirected_graph *ud_graph, int start_id, bool print_flag);
 
 /*!
- * @brief Prints the result of the breadth first traversal to the terminal
+ * @brief Performs a breadth first traversal of the graph.
  * @param ud_graph Pointer to an undirected graph
  * @param start_id Id of the vertex to start at
  * @param print_flag A boolean indicating whether or not to print the result to the terminal

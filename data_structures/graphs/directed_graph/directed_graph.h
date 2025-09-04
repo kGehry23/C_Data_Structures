@@ -142,7 +142,7 @@ void initialize_directed_graph(directed_graph *di_graph, int size_upper_bound);
 void free_di_graph(directed_graph *di_graph);
 
 /*!
- * @brief Preforms a depth first traversal of the graph.
+ * @brief Performs a depth first traversal of the graph.
  *
  *        Adapted from Java Foundations, 5th Ed.
  *

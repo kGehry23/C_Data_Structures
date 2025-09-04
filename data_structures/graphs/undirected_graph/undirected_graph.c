@@ -334,7 +334,7 @@ int ud_graph_depth_first(undirected_graph *ud_graph, int start_id, bool print_fl
 }
 
 /*!
- * @brief Prints the result of the breadth first traversal to the terminal
+ * @brief Performs a breadth first traversal of the graph.
  * @param ud_graph Pointer to an undirected graph
  * @param start_id Id of the vertex to start at
  * @param print_flag A boolean indicating whether or not to print the result to the terminal
