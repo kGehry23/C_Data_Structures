@@ -12,6 +12,7 @@
  * DEFINES
  ************************************/
 #define NUM_ELEMS 10
+#define LOAD_FACTOR 0.5
 
 /************************************
  * INCLUDES
@@ -31,7 +32,7 @@ void init_test()
 {
     hash_table table;
 
-    initialize_hash_table(&table, NUM_ELEMS, 0);
+    initialize_hash_table(&table, NUM_ELEMS, LOAD_FACTOR, 0);
 
     assert(table.table_size == NUM_ELEMS);
 
@@ -53,7 +54,7 @@ void free_empty_test()
 {
     hash_table table;
 
-    initialize_hash_table(&table, NUM_ELEMS, 0);
+    initialize_hash_table(&table, NUM_ELEMS, LOAD_FACTOR, 0);
 
     free_hash_table(&table);
 
@@ -68,7 +69,7 @@ void put_single_element_test()
 {
     hash_table table;
 
-    initialize_hash_table(&table, NUM_ELEMS, 0);
+    initialize_hash_table(&table, NUM_ELEMS, LOAD_FACTOR, 0);
 
     // Maps the string "Test" to the integer 1
     put(&table, "Test", 1);
@@ -87,7 +88,7 @@ void put_multiple_elements_test()
 {
     hash_table table;
 
-    initialize_hash_table(&table, NUM_ELEMS, 0);
+    initialize_hash_table(&table, NUM_ELEMS, LOAD_FACTOR, 0);
 
     put(&table, "Test1", 1);
     put(&table, "Test2", 2);
@@ -110,7 +111,7 @@ void remove_on_empty_test()
 {
     hash_table table;
 
-    initialize_hash_table(&table, NUM_ELEMS, 0);
+    initialize_hash_table(&table, NUM_ELEMS, LOAD_FACTOR, 0);
 
     // Will need to modify this to make this work properly. Will currently loop forever
     remove_hash(&table, "Test");
@@ -126,7 +127,7 @@ void remove_hash_test()
 {
     hash_table table;
 
-    initialize_hash_table(&table, NUM_ELEMS, 0);
+    initialize_hash_table(&table, NUM_ELEMS, LOAD_FACTOR, 0);
 
     put(&table, "Test", 1);
     assert(table.num_elements == 1);
@@ -147,7 +148,7 @@ void remove_multiple_hashes_test()
 {
     hash_table table;
 
-    initialize_hash_table(&table, NUM_ELEMS, 0);
+    initialize_hash_table(&table, NUM_ELEMS, LOAD_FACTOR, 0);
 
     put(&table, "Test1", 1);
     put(&table, "Test2", 2);
@@ -178,7 +179,7 @@ void hash_to_same_location_test()
 {
     hash_table table;
 
-    initialize_hash_table(&table, NUM_ELEMS, 0);
+    initialize_hash_table(&table, NUM_ELEMS, LOAD_FACTOR, 0);
 
     // Both elements hash to the same hash table index (2) with a table size of
     // 10 using the division method
@@ -201,7 +202,7 @@ void hash_to_same_location_remove_test()
 {
     hash_table table;
 
-    initialize_hash_table(&table, NUM_ELEMS, 0);
+    initialize_hash_table(&table, NUM_ELEMS, LOAD_FACTOR, 0);
 
     // Both elements hash to the same hash table index (2) with a table size of
     // 10 using the division method
@@ -231,7 +232,7 @@ void hash_to_same_location_remove_one_test()
 {
     hash_table table;
 
-    initialize_hash_table(&table, NUM_ELEMS, 0);
+    initialize_hash_table(&table, NUM_ELEMS, LOAD_FACTOR, 0);
 
     // Both elements hash to the same hash table index (2) with a table size of
     // 10 using the division method
@@ -260,7 +261,7 @@ void percent_occupied_test()
 {
     hash_table table;
 
-    initialize_hash_table(&table, NUM_ELEMS, 0);
+    initialize_hash_table(&table, NUM_ELEMS, LOAD_FACTOR, 0);
 
     put(&table, "Test1", 1);
     put(&table, "Test2", 2);

@@ -354,4 +354,7 @@ void free_hash_table(hash_table *table)
         // Frees the node itself
         free(&(table->array[i]));
     }
+
+    // Avoids dangling pointer to the array
+    table->array = NULL;
 }
