@@ -17,14 +17,8 @@
  ************************************/
 #include <stdio.h>
 #include <stdlib.h>
-#include <strings.h>
+#include <string.h>
 #include <stdbool.h>
-
-/************************************
- * COMPILER DIRECTIVES
- ************************************/
-// Added for void* to required type conversions
-#pragma GCC diagnostic ignored "-Wint-conversion"
 
 /************************************
  * TYPEDEFS
@@ -35,7 +29,7 @@
  */
 typedef struct hash_node
 {
-    /// Key associated with the hash node
+    // Key associated with the hash node
     void *key;
     // Value held by the node
     void *value;
@@ -54,9 +48,11 @@ typedef struct hash_table
     int table_size;
     // Number of elements stored in the hash table
     int num_elements;
+    // Load factor to specify when to resize the hash table
+    float load_factor;
     // Pointer to a hash function
     int (*hash_function)(struct hash_table *, void *);
-    // Pointer to the array holding the table elements
+    // Pointer to an array of hash nodes (hash table elements)
     hash_node *array;
 
 } hash_table;
@@ -85,7 +81,7 @@ void put(hash_table *table, void *hash_key, void *hash_value);
 /*!
  * @brief Returns the element associated with a key
  * @param table Pointer to a hash table
- * @param hash_key Key to create an index from
+ * @param hash_key Key associated with the element
  * @return The value associated with the specified key
  */
 void *get(hash_table *table, void *hash_key);
@@ -111,7 +107,7 @@ float percent_occupied(hash_table *table);
  * @param function_select Integer specifying which hash function to use
  * @return None
  */
-void hash_function_select(hash_table *table, int function_select);
+static void hash_function_select(hash_table *table, int function_select);
 
 /*!
  * @brief Initializes the hash table
@@ -121,7 +117,23 @@ void hash_function_select(hash_table *table, int function_select);
  * @param function_select Integer specifying which hash function to use
  * @return None
  */
-void initialize_hash_table(hash_table *table, int size, int function_select);
+void initialize_hash_table(hash_table *table, int size, float load_factor, int function_select);
+
+/*!
+ * @brief Resizes the hash table when the load factor is exceeded
+ * @param table Pointer to a hash table
+ * @return None
+ */
+void resize(hash_table *table);
+
+/*!
+ * @brief Adds an element to the hash table
+ * @param table Pointer to a hash table
+ * @param hash_key Key to create an index from
+ * @param hash_value Value to place into the hash table
+ * @return None
+ */
+void put(hash_table *table, void *hash_key, void *hash_value);
 
 /*!
  * @brief Frees the memory held by the hash table.
