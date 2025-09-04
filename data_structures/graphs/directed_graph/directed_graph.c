@@ -507,9 +507,6 @@ bool di_contains_cycle(directed_graph *di_graph)
         // Check the vertices attached to the current vertex and mark as not visited if they have not been reached
         for (int j = 0; j < di_graph->num_vertices && adjacent_not_visited == false; j++)
         {
-
-            printf("\nState for vertex %d: %d", j, (di_graph->vertices[j])->visited);
-
             // If adjacent has not been visited add vertex to stack and to result list
             if (((di_graph->adjacency_matrix)[current_id][j] == true || (di_graph->adjacency_matrix)[j][current_id] == true) && (di_graph->vertices[j])->visited == false)
             {
