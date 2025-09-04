@@ -1,4 +1,5 @@
 # C_Data_Structures
+<<<<<<< HEAD
 
 Implementation of the basic data structures written in C. All implementations include support for any data type.
 The data_structures folder includes implementations of:
@@ -86,3 +87,6 @@ The "..." before -o indicates that the preceding statement may need to be used m
 For example, if using the dropout_stack.h header file directly within the project, the following compilation statement would be used as it relies on a singly linked list in its implementation:
 
     gcc dropout_stack_test.c ../data_structures/stacks/dropout_stack/dropout_stack.c ../data_structures/linked_lists/singly_linked_list/singly_linked_list.c -o dropout_stack_test
+=======
+Implementation of the basic data structures written in C.
+>>>>>>> main
