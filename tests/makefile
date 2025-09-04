@@ -1,6 +1,16 @@
-#Make file for compilation of test files
+# /**
+#  ********************************************************************************
+#  * @file    tests/makefile
+#  * @author  Kai Gehry
+#  * @date    2025-09-04
+#  *
+#  * @brief   Make file for compilation of test files.
+#  ********************************************************************************
+#  */
 
+#Compiler specification
 CC=gcc
+#Preprocessor macros
 CFLAGS=-I.
 
 #Specifies which files to compile
