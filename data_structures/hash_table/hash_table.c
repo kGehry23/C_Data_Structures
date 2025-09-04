@@ -21,7 +21,7 @@
  */
 int division(hash_table *table, void *hash_key)
 {
-    int index;
+    int index = 0;
     // Casts the hash key to a long type
     long cast_hash_key = (long *)hash_key;
     // Calculates the index
@@ -42,8 +42,6 @@ void put(hash_table *table, void *hash_key, void *hash_value)
 
     // Calculate the index to store the element at
     int index = (table->hash_function)(table, hash_key);
-
-    printf("Hashed index: %d", index);
     // Boolean used to track if a collision has occurred.
     bool collision = false;
 
@@ -110,7 +108,6 @@ void put(hash_table *table, void *hash_key, void *hash_value)
  */
 void *get(hash_table *table, void *hash_key)
 {
-    printf("\nTable->array: %p", table->array);
     // Calculate index
     int index = (table->hash_function)(table, hash_key);
 
@@ -122,7 +119,6 @@ void *get(hash_table *table, void *hash_key)
     // Entered if key is not found and only one element is hashed to a given position
     else if (((table->array)[index]).next == NULL && ((table->array)[index]).key != hash_key)
     {
-        printf("\nEntered");
         return NULL;
     }
     // Entered if more than one node is assigned to a given position
@@ -226,14 +222,6 @@ float percent_occupied(hash_table *table)
  */
 void resize(hash_table *table)
 {
-
-    // hash_node *old_array = (hash_node *)malloc(table->table_size * sizeof(hash_node));
-
-    // for (int k = 0; k < table->table_size; k++)
-    // {
-    //     old_array[k] = table->array[k];
-    // }
-
     hash_node *new_array = (hash_node *)malloc((table->table_size * 2) * sizeof(hash_node));
 
     for (int i = 0; i < (table->table_size * 2); i++)
@@ -246,38 +234,35 @@ void resize(hash_table *table)
         (new_array[i]).previous = NULL;
     }
 
-    table->num_elements = 0;
+    // Save the original size of the hash table
+    int orig_size = table->table_size;
 
-    for (int i = 0; i < table->table_size; i++)
+    // Reset the counter for the number of elements to 0
+    table->num_elements = 0;
+    // Update the size of the table
+    table->table_size = table->table_size * 2;
+
+    for (int i = 0; i < orig_size; i++)
     {
         hash_node *node = &(table->array[i]);
 
-        if (node->value == NULL)
+        do
         {
-            continue;
-        }
-
-        else if (node->value != NULL)
-        {
-            do
+            if (node->key != NULL)
             {
-                if (node->key != NULL)
-                {
-                    put_rehash(table, new_array, node->key, node->value);
-                }
+                put_rehash(table, new_array, node->key, node->value);
+            }
 
-                node = node->next;
-            } while (node != NULL);
-        }
+            node = node->next;
+        } while (node != NULL);
+    }
 
-        for (int j = 0; j < table->table_size; j++)
-        {
-            free(&(table->array[j]));
-        }
+    for (int j = 0; j < orig_size; j++)
+    {
+        free(&(table->array[j]));
     }
 
     table->array = new_array;
-    table->table_size = table->table_size * 2;
 
     printf("\nResized. Hash table size is now %d", table->table_size);
 }
@@ -287,7 +272,6 @@ void put_rehash(hash_table *table, hash_node *array, void *hash_key, void *hash_
 
     // Calculate the index to store the element at
     int index = (table->hash_function)(table, hash_key);
-    printf("\nRehashed index: %d", index);
     // Boolean used to track if a collision has occurred.
     bool collision = false;
 
@@ -399,8 +383,6 @@ void initialize_hash_table(hash_table *table, int size, float load_factor, int f
  */
 void free_hash_table(hash_table *table)
 {
-    // for (int i = 0; i < table->num_elements; i++)
-    // {
 
     int i = 0;
 

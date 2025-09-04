@@ -127,6 +127,15 @@ void initialize_hash_table(hash_table *table, int size, float load_factor, int f
 void resize(hash_table *table);
 
 /*!
+ * @brief Adds an element to the hash table
+ * @param table Pointer to a hash table
+ * @param hash_key Key to create an index from
+ * @param hash_value Value to place into the hash table
+ * @return None
+ */
+void put(hash_table *table, void *hash_key, void *hash_value);
+
+/*!
  * @brief Frees the memory held by the hash table.
  * @param table Pointer to a hash table
  * @return None

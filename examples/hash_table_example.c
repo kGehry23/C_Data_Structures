@@ -34,7 +34,8 @@ int main(void)
     // printf("\nValue for key 756478: %d", get(&table, 756478));
     printf("\nPercent Occupied: %f", percent_occupied(&table));
     printf("\nNum elems: %d", table.num_elements);
-    put(&table, 657435, 7);
+    // put(&table, 657435, 12);
+    put(&table, 712345, 12);
     put(&table, 756479, 5);
 
     // Return the values associated with specified keys
@@ -42,6 +43,7 @@ int main(void)
     // printf("\nValue for key 756471: %d", get(&table, 756471));
     printf("\nValue for key 756472: %d", get(&table, 756472));
     printf("\nValue for key 756473: %d", get(&table, 756473));
+    printf("\nValue for key 712345: %d", get(&table, 712345));
     printf("\nValue for key 756479: %d", get(&table, 756479));
 
     // printf("\nValue for key 756478: %d", get(&table, 756478));
