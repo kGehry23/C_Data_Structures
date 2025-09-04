@@ -1,0 +1,4 @@
+*.exe
+/.vscode
+/data_structures/hash_table/put_rehash.c
+
