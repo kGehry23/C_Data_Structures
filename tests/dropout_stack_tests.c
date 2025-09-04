@@ -367,6 +367,6 @@ int main(void)
     add_remove_multiple_test(&d1, &d2, &d3, &d4);
     add_remove_multiple_test(&f1, &f2, &f3, &f4);
 
-    printf("\nAll tests passed.");
+    printf("\nDropout stack tests passed.\n\n");
     return 0;
 }

@@ -447,7 +447,7 @@ int main(void)
     // check_not_contains_cycle();
     // check_contains_cycle();
 
-    printf("\nAll tests passed.");
+    printf("\nDirected graph tests passed.\n\n");
 
     return 0;
 }

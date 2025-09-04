@@ -291,7 +291,7 @@ int main(void)
 
     percent_occupied_test();
 
-    printf("\nAll tests passed.");
+    printf("\nHash table tests passed.\n\n");
 
     return 0;
 }

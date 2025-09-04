@@ -445,7 +445,7 @@ int main(void)
 
     // Tests for breadth and depth first traversals
 
-    printf("\nAll tests passed.");
+    printf("\nUndirected graph tests passed.\n\n");
 
     return 0;
 }

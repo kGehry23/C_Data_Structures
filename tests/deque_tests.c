@@ -184,9 +184,9 @@ void enqueue_multiple_test(void *val1, void *val2, void *val3, void *val4)
     enqueue_head(&deque, val3);
     enqueue_tail(&deque, val4);
 
-    // assert(size(&deque) == 4);
-    // assert(front(&deque) == val3);
-    // assert(back(&deque) == val4);
+    assert(size(&deque) == 4);
+    assert(front(&deque) == val3);
+    assert(back(&deque) == val4);
 
     free_deque(&deque);
 }
@@ -221,7 +221,7 @@ int main(void)
     enqueue_multiple_test(1, 2, 3, 4);
     enqueue_multiple_test('A', 'B', 'C', 'D');
 
-    printf("\nAll tests passed");
+    printf("\nDequeue tests passed.\n\n");
 
     return 0;
 }

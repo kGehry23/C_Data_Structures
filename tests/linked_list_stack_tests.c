@@ -300,7 +300,7 @@ int main(void)
     remove_all_test(&d1, &d2, &d3, &d4);
     remove_all_test(&f1, &f2, &f3, &f4);
 
-    printf("\nAll tests passed.");
+    printf("\nLinked list stack tests passed.\n\n");
 
     return 0;
 }
