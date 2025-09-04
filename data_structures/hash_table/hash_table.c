@@ -333,12 +333,8 @@ void initialize_hash_table(hash_table *table, int size, float load_factor, int f
  */
 void free_hash_table(hash_table *table)
 {
-
-    int i = 0;
-
-    while (i < table->table_size)
+    for (int i = 0; i < table->table_size; i++)
     {
-
         if (((table->array)[i]).next != NULL)
         {
             // Frees the memory held by the next reference to the current node if one exists
@@ -357,8 +353,5 @@ void free_hash_table(hash_table *table)
 
         // Frees the node itself
         free(&(table->array[i]));
-
-        // Increment the index variable
-        i++;
     }
 }
