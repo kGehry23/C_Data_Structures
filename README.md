@@ -11,6 +11,56 @@ The data_structures folder includes implementations of:
 
 Future versions will include tree and bitmap implementations. The concept of a Hashed Array Tree (HAT) will be used to implement an N-Ary tree.
 
+## General Overview
+
+The goal of this project for myself was to gain a stronger understanding of the C programming language as a whole. Having taken only an intro course on C in the first year of my engineering degree and having not used it much since, I was wanting to strengthen my abilities as I am hoping to work as a firmware engineer, an area of electrical and computer engineering where C is most prevalent.
+
+I do not claim to have implemented everything in the best possible way, however, I am satisfied with the overall results and functionality presently available.
+
+On completion of the first version of this library I have gained a strong understanding of:
+
+- Pointers/Pointer arithmetic
+- Memory Management
+- Structs and typedefs
+- Header file structure and standards
+- Header guards
+- Compiler directives
+- Makefiles
+- Unit testing in C (without a framework)
+
+<br>
+
+### Example and Test File Compilation
+
+There are two separate Makefiles included in this project used for compiling all examples, and the other for compiling all tests.
+
+To compile all example files, first navigate to the examples directory in the terminal and run
+
+    make
+
+On successful compilation, any example can be run using
+
+    ./example_name
+
+The same can be done for the included tests, by navigating to the tests directory and running the make command when in that directory.
+
+To run all tests, run the included bash script on windows using
+
+    ./run_tests.sh
+
+or on macOs or Linux with bash,
+
+    chmod +x run_tests.sh
+    ./run_tests.sh
+
+<br>
+
+### Relevant Comments
+
+Upon compilation with either Makefile, the compiler will issue warning in relation to type conversions. Due to the fact that the library accepts any type to be stored in the implemented data structures, all types are specified as void pointers. When an element to insert is not cast to its pointer type explicitly, the compiler will issue a warning. The examples and tests simply pass raw values rather than pointers as elements to store which overall makes the API more user friendly.
+
+<br>
+
 ## Compiling and Running a File Using the Library
 
 To compile and run a .c file that uses any of these data structures, the file to compile, as well as the .c file which contains the function definitions of the prototypes can be compiled with gcc as follows:
