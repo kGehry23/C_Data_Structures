@@ -20,6 +20,7 @@
 /*!
  * @brief Adds a vertex to the undirected graph
  * @param ud_graph Pointer to an undirected graph
+ * @param name String identifier for the vertex
  * @param identifier Value to identify the vertex by
  * @param vertex_value Value stored by the vertex
  * @return None
@@ -37,7 +38,7 @@ void add_vertex(undirected_graph *ud_graph, char *name, int identifier, void *ve
         new_vertex->identifier = identifier;
         new_vertex->value = vertex_value;
         new_vertex->adj_index = identifier;
-        new_vertex->visited = 0;
+        new_vertex->visited = false;
 
         // Add vertex to the graph
         ud_graph->vertices[identifier] = new_vertex;
@@ -70,10 +71,10 @@ void *remove_vertex(undirected_graph *ud_graph, int identifier)
         // Sets all the edges that may exist attached to the node to remove to FALSE in the adjacency matrix
         for (int i = 0; i < ud_graph->adjacency_size; i++)
         {
-            if ((ud_graph->adjacency_matrix)[i][identifier] == 1)
+            if ((ud_graph->adjacency_matrix)[i][identifier] == true)
             {
-                (ud_graph->adjacency_matrix)[i][identifier] = 0;
-                (ud_graph->adjacency_matrix)[identifier][i] = 0;
+                (ud_graph->adjacency_matrix)[i][identifier] = false;
+                (ud_graph->adjacency_matrix)[identifier][i] = false;
                 ud_graph->num_edges--;
             }
         }
@@ -107,11 +108,11 @@ void add_edge(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
 {
 
     // Only adds the edge if an edge does not already exist
-    if (edge_exists(ud_graph, vertex_id_1, vertex_id_2) == 0)
+    if (edge_exists(ud_graph, vertex_id_1, vertex_id_2) == false)
     {
-        // Updates the relevant indices in the adjacency matrix to TRUE (1)
-        (ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] = 1;
-        (ud_graph->adjacency_matrix)[vertex_id_2][vertex_id_1] = 1;
+        // Updates the relevant indices in the adjacency matrix to true
+        (ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] = true;
+        (ud_graph->adjacency_matrix)[vertex_id_2][vertex_id_1] = true;
 
         // Increment the counter for the number of edges
         ud_graph->num_edges = ud_graph->num_edges + 1;
@@ -129,11 +130,11 @@ void remove_edge(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
 {
 
     // Removes the edge if it exists
-    if (edge_exists(ud_graph, vertex_id_1, vertex_id_2) == 1)
+    if (edge_exists(ud_graph, vertex_id_1, vertex_id_2) == true)
     {
-        // Updates the relevant indices in the adjacency matrix to FALSE (0)
-        (ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] = 0;
-        (ud_graph->adjacency_matrix)[vertex_id_2][vertex_id_1] = 0;
+        // Updates the relevant indices in the adjacency matrix to false
+        (ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] = false;
+        (ud_graph->adjacency_matrix)[vertex_id_2][vertex_id_1] = false;
 
         // Decrement the counter for the number of edges
         ud_graph->num_edges = ud_graph->num_edges - 1;
@@ -150,7 +151,7 @@ void remove_edge(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
 bool edge_exists(undirected_graph *ud_graph, int vertex_id_1, int vertex_id_2)
 {
     // Checks if the specified vertices have an edge between them
-    return ((ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] == 1);
+    return ((ud_graph->adjacency_matrix)[vertex_id_1][vertex_id_2] == true);
 }
 
 /*!
@@ -194,12 +195,12 @@ void initialize_undirected_graph(undirected_graph *ud_graph, int size_upper_boun
         (ud_graph->adjacency_matrix)[j] = (bool *)malloc(size_upper_bound * sizeof(bool));
     }
 
-    // Initialize all elements in the adjacency matrix to 0
+    // Initialize all elements in the adjacency matrix to false
     for (int k = 0; k < size_upper_bound; k++)
     {
         for (int l = 0; l < size_upper_bound; l++)
         {
-            (ud_graph->adjacency_matrix)[k][l] = 0;
+            (ud_graph->adjacency_matrix)[k][l] = false;
         }
     }
 }
@@ -252,12 +253,12 @@ int ud_graph_depth_first(undirected_graph *ud_graph, int start_id, bool print_fl
     // Current vertex id
     int current_id = start_id;
     // Boolean which indicates if all adjacent vertices to a vertex have been visited
-    bool adjacent_not_visited = 0;
+    bool adjacent_not_visited = false;
 
     // Reset the visited booleans for all vertices to false
     for (int i = 0; i < ud_graph->num_vertices; i++)
     {
-        (ud_graph->vertices)[i]->visited = 0;
+        (ud_graph->vertices)[i]->visited = false;
     }
 
     // Element corresponding to start id is added to the stack
@@ -266,16 +267,16 @@ int ud_graph_depth_first(undirected_graph *ud_graph, int start_id, bool print_fl
     result_list[result_list_size] = (ud_graph->vertices[current_id])->identifier;
     result_list_size++;
     // Vertex marked as visited
-    (ud_graph->vertices[current_id])->visited = 1;
+    (ud_graph->vertices[current_id])->visited = false;
 
     // While there are elements in the traversal stack, continue the traversal
     while (traversal_stack.num_elements != 0)
     {
         // Check the vertices attached to the current vertex and mark as not visited if they have not been reached
-        for (int j = 0; j < ud_graph->num_vertices && adjacent_not_visited == 0; j++)
+        for (int j = 0; j < ud_graph->num_vertices && adjacent_not_visited == false; j++)
         {
             // If adjacent add vertex to stack and to result list
-            if ((ud_graph->adjacency_matrix)[current_id][j] == 1 && (ud_graph->vertices[j])->visited == 0)
+            if ((ud_graph->adjacency_matrix)[current_id][j] == true && (ud_graph->vertices[j])->visited == false)
             {
                 // Push adjacent vertex onto traversal stack
                 push(&traversal_stack, (ud_graph->vertices[j])->identifier);
@@ -283,16 +284,16 @@ int ud_graph_depth_first(undirected_graph *ud_graph, int start_id, bool print_fl
                 result_list[result_list_size] = (ud_graph->vertices[j])->identifier;
                 result_list_size++;
                 // Mark the vertex as visited
-                (ud_graph->vertices[j])->visited = 1;
+                (ud_graph->vertices[j])->visited = true;
 
                 // Indicate that all adjacent vertices to the vertex have not been reached
                 // as of this iteration
-                adjacent_not_visited = 1;
+                adjacent_not_visited = true;
             }
         }
 
         // If there are elements in the result list and all adjacent vertices have been visited
-        if (result_list_size > 0 && adjacent_not_visited == 0)
+        if (result_list_size > 0 && adjacent_not_visited == false)
         {
             // Pops an element off of the traversal stack
             pop(&traversal_stack);
@@ -302,13 +303,13 @@ int ud_graph_depth_first(undirected_graph *ud_graph, int start_id, bool print_fl
         current_id = peek(&traversal_stack);
 
         // Reset the adjacent node visited boolean for the next vertex
-        adjacent_not_visited = 0;
+        adjacent_not_visited = false;
     }
 
     // Prints the result of the breadth first search to the terminal
     for (int k = 0; k < result_list_size; k++)
     {
-        if (print_flag == 1)
+        if (print_flag == true)
         {
             if (k == 0)
             {
@@ -334,7 +335,7 @@ int ud_graph_depth_first(undirected_graph *ud_graph, int start_id, bool print_fl
 }
 
 /*!
- * @brief Prints the result of the breadth first traversal to the terminal
+ * @brief Performs a breadth first traversal of the graph.
  * @param ud_graph Pointer to an undirected graph
  * @param start_id Id of the vertex to start at
  * @param print_flag A boolean indicating whether or not to print the result to the terminal
@@ -357,7 +358,7 @@ int ud_graph_breadth_first(undirected_graph *ud_graph, int start_id, bool print_
     // Reset the visited booleans for all vertices to false
     for (int i = 0; i < ud_graph->num_vertices; i++)
     {
-        (ud_graph->vertices)[i]->visited = 0;
+        (ud_graph->vertices)[i]->visited = false;
     }
 
     // While there are elements in the traversal queue, continue the traversal
@@ -369,11 +370,11 @@ int ud_graph_breadth_first(undirected_graph *ud_graph, int start_id, bool print_
 
             // If a vertex is attached to the current vertex and the vertex has not been visited, those vertices
             // are enqueued onto the traversal queue
-            if ((ud_graph->adjacency_matrix)[current_id][j] == 1 && (ud_graph->vertices[j])->visited == 0)
+            if ((ud_graph->adjacency_matrix)[current_id][j] == true && (ud_graph->vertices[j])->visited == false)
             {
                 enqueue(&traversal_queue, (ud_graph->vertices[j])->identifier);
                 // Any enqueued vertices are marked as visited
-                (ud_graph->vertices[j])->visited = 1;
+                (ud_graph->vertices[j])->visited = true;
             }
         }
 
@@ -382,7 +383,7 @@ int ud_graph_breadth_first(undirected_graph *ud_graph, int start_id, bool print_
         {
             result_list[result_list_size] = (ud_graph->vertices[current_id])->identifier;
             // Set the visited boolean to 1
-            (ud_graph->vertices[current_id])->visited = 1;
+            (ud_graph->vertices[current_id])->visited = true;
         }
         if (result_list_size > 0)
         {
@@ -440,7 +441,7 @@ bool ud_is_connected(undirected_graph *ud_graph)
 
     for (int i = 0; i < ud_graph->num_vertices; i++)
     {
-        current_count = ud_graph_breadth_first(ud_graph, i, 0);
+        current_count = ud_graph_breadth_first(ud_graph, i, false);
 
         if (current_count == ud_graph->num_vertices)
         {
@@ -470,12 +471,12 @@ bool ud_contains_cycle(undirected_graph *ud_graph)
     // Current vertex id
     int current_id = 0;
     // Boolean which indicates if all adjacent vertices to a vertex have been visited
-    bool adjacent_not_visited = 0;
+    bool adjacent_not_visited = false;
 
     // Reset the visited booleans for all vertices to false
     for (int i = 0; i < ud_graph->num_vertices; i++)
     {
-        (ud_graph->vertices)[i]->visited = 0;
+        (ud_graph->vertices)[i]->visited = false;
     }
 
     // Element corresponding to start id is added to the stack
@@ -484,16 +485,16 @@ bool ud_contains_cycle(undirected_graph *ud_graph)
     result_list[result_list_size] = (ud_graph->vertices[current_id])->identifier;
     result_list_size++;
     // Vertex marked as visited
-    (ud_graph->vertices[current_id])->visited = 1;
+    (ud_graph->vertices[current_id])->visited = true;
 
     // While there are elements in the traversal stack, continue the traversal
     while (traversal_stack.num_elements != 0)
     {
         // Check the vertices attached to the current vertex and mark as not visited if they have not been reached
-        for (int j = 0; j < ud_graph->num_vertices && adjacent_not_visited == 0; j++)
+        for (int j = 0; j < ud_graph->num_vertices && adjacent_not_visited == false; j++)
         {
             // If adjacent add vertex to stack and to result list
-            if ((ud_graph->adjacency_matrix)[current_id][j] == 1 && (ud_graph->vertices[j])->visited == 0)
+            if ((ud_graph->adjacency_matrix)[current_id][j] == true && (ud_graph->vertices[j])->visited == false)
             {
                 // Push adjacent vertex onto traversal stack
                 push(&traversal_stack, (ud_graph->vertices[j])->identifier);
@@ -501,16 +502,16 @@ bool ud_contains_cycle(undirected_graph *ud_graph)
                 result_list[result_list_size] = (ud_graph->vertices[j])->identifier;
                 result_list_size++;
                 // Mark the vertex as visited
-                (ud_graph->vertices[j])->visited = 1;
+                (ud_graph->vertices[j])->visited = true;
 
                 // Indicate that all adjacent vertices to the vertex have not been reached
                 // as of this iteration
-                adjacent_not_visited = 1;
+                adjacent_not_visited = true;
             }
         }
 
         // If there are elements in the result list and all adjacent vertices have been visited
-        if (result_list_size > 0 && adjacent_not_visited == 0)
+        if (result_list_size > 0 && adjacent_not_visited == false)
         {
             // Pops an element off of the traversal stack
             pop(&traversal_stack);
@@ -519,27 +520,27 @@ bool ud_contains_cycle(undirected_graph *ud_graph)
         // Update the current vertex id. Peek at the appropriate element's index to continue the traversal
         current_id = peek(&traversal_stack);
 
-        if (adjacent_not_visited == 0)
+        if (adjacent_not_visited == false)
         {
             // If an adjacent node to the current node has already been visited, a cycle exists
             break;
         }
 
         // Reset the adjacent node visited boolean for the next vertex
-        adjacent_not_visited = 0;
+        adjacent_not_visited = false;
     }
 
     // Free the dynamically allocated memory for the stack
     free_array_stack(&traversal_stack);
 
     // If a cycle exists
-    if (traversal_stack.num_elements != 0 && adjacent_not_visited == 0)
+    if (traversal_stack.num_elements != 0 && adjacent_not_visited == false)
     {
-        return 1;
+        return true;
     }
     // If a cycle does not exist
     else
     {
-        return 0;
+        return false;
     }
 }

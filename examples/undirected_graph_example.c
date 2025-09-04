@@ -13,7 +13,7 @@
  * INCLUDES
  ************************************/
 #include <stdio.h>
-#include <strings.h>
+#include <string.h>
 #include "../data_structures/graphs/undirected_graph/undirected_graph.h"
 
 /************************************
